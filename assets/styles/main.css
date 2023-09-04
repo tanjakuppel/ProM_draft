@@ -581,7 +581,7 @@ a {
 
 .main-menu__items_filter .hero-nav__titles {
 	color: #fff;
-	font-family: 'Cabin';
+	font-family: 'Cabin', sans-serif;
 }
 
 .main-menu__items_filter .hero__icon {
