@@ -1,0 +1,4083 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PivotTable.js</title>
+
+        <!-- external libs from cdnjs -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/pivot.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/pivot.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/d3_renderers.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/c3_renderers.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/export_renderers.min.js"></script>
+
+        <style>
+            body {font-family: Verdana;}
+            .node {
+              border: solid 1px white;
+              font: 10px sans-serif;
+              line-height: 12px;
+              overflow: hidden;
+              position: absolute;
+              text-indent: 2px;
+            }
+            .c3-line, .c3-focused {stroke-width: 3px !important;}
+            .c3-bar {stroke: white !important; stroke-width: 1;}
+            .c3 text { font-size: 12px; color: grey;}
+            .tick line {stroke: white;}
+            .c3-axis path {stroke: grey;}
+            .c3-circle { opacity: 1 !important; }
+            .c3-xgrid-focus {visibility: hidden !important;}
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            $(function(){
+                if(window.location != window.parent.location)
+                    $("<a>", {target:"_blank", href:""})
+                        .text("[pop out]").prependTo($("body"));
+
+                $("#output").pivotUI(
+                    $.csv.toArrays($("#output").text()),
+                    $.extend({
+                        renderers: $.extend(
+                            $.pivotUtilities.renderers,
+                            $.pivotUtilities.c3_renderers,
+                            $.pivotUtilities.d3_renderers,
+                            $.pivotUtilities.export_renderers
+                            ),
+                        hiddenAttributes: [""]
+                    }, {})
+                ).show();
+             });
+        </script>
+        <div id="output" style="display: none;">,dating,kingdom,period
+0,"NK, Dyn 18",Not defined,1539-1292 BC
+1,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+2,"NK, Dyn 19",Not defined,1292-1191 BC
+3,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+4,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+5,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+6,"NK, Dyn 19-20",Not defined,1292-1077 BC
+7,"NK, Dyn 20",Siptah,1197-1193 BC
+8,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+9,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+10,"NK, Dyn 19-20",Not defined,1292-1077 BC
+11,"NK, Dyn 19",Not defined,1292-1191 BC
+12,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+13,"NK, Dyn 18-19",Not defined,1539-1191 BC
+14,"NK, Dyn 19",Ramesses II,1279-1213 BC
+15,"NK, Dyn 19",Ramesses II,1279-1213 BC
+16,"NK, Dyn 19",Ramesses II,1279-1213 BC
+17,"NK, Dyn 19",Ramesses II,1279-1213 BC
+18,"NK, Dyn 19",Ramesses II,1279-1213 BC
+19,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+20,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+21,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+22,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+23,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+24,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+25,"NK, Dyn 19",Sety I,1290-1279 BC
+26,"NK, Dyn 19-20",Not defined,1292-1077 BC
+27,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+28,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+29,"NK, Dyn 19",Not defined,1292-1191 BC
+30,"NK, Dyn 18",Horemheb,1319-1292 BC
+31,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+32,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+33,NK,Not defined,1539-1077 BC
+34,"NK, Dyn 18",Horemheb,1319-1292 BC
+35,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+36,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+37,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+38,"NK, Dyn 19",Ramesses II,1279-1213 BC
+39,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+40,"NK, Dyn 19",Not defined,1292-1191 BC
+41,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+42,"NK, Dyn 19",Not defined,1292-1191 BC
+43,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+44,"NK, Dyn 19",Not defined,1292-1191 BC
+45,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+46,"NK, Dyn 19",Ramesses II,1279-1213 BC
+47,"NK, Dyn 18",Horemheb,1319-1292 BC
+48,"NK, Dyn 19",Sety I,1290-1279 BC
+49,"NK, Dyn 19",Not defined,1292-1191 BC
+50,"NK, Dyn 19",Ramesses II,1279-1213 BC
+51,"NK, Dyn 18",Thutmose III,1479-1425 BC
+52,"NK, Dyn 19-20",Not defined,1292-1077 BC
+53,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+54,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+55,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+56,"NK, Dyn 19-20",Not defined,1292-1077 BC
+57,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+58,"NK, Dyn 19",Ramesses II,1279-1213 BC
+59,"NK, Dyn 19",Ramesses II,1279-1213 BC
+60,NK,Not defined,1539-1077 BC
+61,"NK, Dyn 18",Eje,1323-1320 BC
+62,"NK, Dyn 19",Ramesses II,1279-1213 BC
+63,"NK, Dyn 19",Not defined,1292-1191 BC
+64,"NK, Dyn 19",Not defined,1292-1191 BC
+65,"NK, Dyn 19-20",Not defined,1292-1077 BC
+66,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+67,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+68,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+69,"NK, Dyn 19-20",Not defined,1292-1077 BC
+70,"NK, Dyn 19",Ramesses II,1279-1213 BC
+71,"NK, Dyn 19",Ramesses II,1279-1213 BC
+72,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+73,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+74,"NK, Dyn 19-20",Not defined,1292-1077 BC
+75,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+76,"NK, Dyn 20",Sethnakht,1190-1188 BC
+77,Not defined,Not defined,Not defined
+78,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+79,"NK, Dyn 19-20",Not defined,1292-1077 BC
+80,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+81,"NK, Dyn 19",Ramesses II,1279-1213 BC
+82,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+83,NK,Not defined,1539-1077 BC
+84,"NK, Dyn 19-20",Not defined,1292-1077 BC
+85,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+86,"NK, Dyn 20",Not defined,1190-1077 BC
+87,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+88,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+89,"NK, Dyn 19",Ramesses II,1279-1213 BC
+90,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+91,"NK, Dyn 19-20",Not defined,1292-1077 BC
+92,"NK, Dyn 18",Horemheb,1319-1292 BC
+93,"NK, Dyn 19-20",Not defined,1292-1077 BC
+94,"NK, Dyn 19",Sety I,1290-1279 BC
+95,"NK, Dyn 19",Not defined,1292-1191 BC
+96,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+97,"NK, Dyn 19",Ramesses II,1279-1213 BC
+98,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+99,NK,Not defined,1539-1077 BC
+100,NK,Not defined,1539-1077 BC
+101,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+102,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+103,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+104,"NK, Dyn 19-20",Not defined,1292-1077 BC
+105,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+106,"NK, Dyn 20",Not defined,1190-1077 BC
+107,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+108,"NK, Dyn 19",Siptah,1197-1193 BC
+109,"NK, Dyn 19-20",Not defined,1292-1077 BC
+110,"NK, Dyn 19",Not defined,1292-1191 BC
+111,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+112,"NK, Dyn 19",Siptah,1197-1193 BC
+113,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+114,"NK, Dyn 19",Not defined,1292-1191 BC
+115,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+116,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+117,"NK, Dyn 18",Not defined,1539-1292 BC
+118,NK,Not defined,1539-1077 BC
+119,"NK, Dyn 19-20",Not defined,1292-1077 BC
+120,"NK, Dyn 19-20",Not defined,1292-1077 BC
+121,"NK, Dyn 19",Not defined,1292-1191 BC
+122,"NK, Dyn 19",Not defined,1292-1191 BC
+123,"NK, Dyn 19",Ramesses II,1279-1213 BC
+124,NK,Not defined,1539-1077 BC
+125,"NK, Dyn 19",Not defined,1292-1191 BC
+126,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+127,"NK, Dyn 19",Not defined,1292-1191 BC
+128,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+129,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+130,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+131,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+132,"NK, Dyn 18-19",Not defined,1539-1191 BC
+133,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+134,"NK, Dyn 19",Ramesses II,1279-1213 BC
+135,"NK, Dyn 19",Ramesses II,1279-1213 BC
+136,"NK, Dyn 19",Ramesses II,1279-1213 BC
+137,"NK, Dyn 19",Ramesses II,1279-1213 BC
+138,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+139,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+140,"NK, Dyn 19",Not defined,1292-1191 BC
+141,NK,Not defined,1539-1077 BC
+142,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+143,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+144,"NK, Dyn 18",Not defined,1539-1292 BC
+145,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+146,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+147,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+148,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+149,NK,Not defined,1539-1077 BC
+150,"NK, Dyn 19",Not defined,1292-1191 BC
+151,"NK, Dyn 19",Ramesses II,1279-1213 BC
+152,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+153,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+154,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+155,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+156,"NK, Dyn 18",Horemheb,1319-1292 BC
+157,"NK, Dyn 19",Not defined,1292-1191 BC
+158,"NK, Dyn 18",Thutmose IV,1400-1390 BC
+159,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+160,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+161,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+162,"NK, Dyn 20",Ramesses III,1187-1157 BC
+163,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+164,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+165,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+166,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+167,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+168,"NK, Dyn 18",Not defined,1539-1292 BC
+169,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+170,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+171,"NK, Dyn 18",Thutmose III,1479-1425 BC
+172,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+173,"NK, Dyn 18",Horemheb,1319-1292 BC
+174,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+175,"NK, Dyn 18",Not defined,1539-1292 BC
+176,"NK, Dyn 19-20",Not defined,1292-1077 BC
+177,NK,Not defined,1539-1077 BC
+178,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+179,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+180,NK,Not defined,1539-1077 BC
+181,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+182,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+183,"NK, Dyn 19",Not defined,1292-1191 BC
+184,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+185,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+186,NK,Not defined,1539-1077 BC
+187,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+188,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+189,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+190,"NK, Dyn 19-20",Not defined,1292-1077 BC
+191,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+192,NK,Not defined,1539-1077 BC
+193,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+194,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+195,"NK, Dyn 19",Ramesses II,1279-1213 BC
+196,"NK, Dyn 19",Not defined,1292-1191 BC
+197,"NK, Dyn 19",Not defined,1292-1191 BC
+198,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+199,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+200,"NK, Dyn 19",Not defined,1292-1191 BC
+201,"NK, Dyn 19",Ramesses II,1279-1213 BC
+202,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+203,"NK, Dyn 19-20",Not defined,1292-1077 BC
+204,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+205,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+206,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+207,"NK, Dyn 19-20",Not defined,1292-1077 BC
+208,"NK, Dyn 19-20",Not defined,1292-1077 BC
+209,NK,Not defined,1539-1077 BC
+210,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+211,"NK, Dyn 19",Not defined,1292-1191 BC
+212,"NK, Dyn 19",Not defined,1292-1191 BC
+213,"NK, Dyn 19",Not defined,1292-1191 BC
+214,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+215,"NK, Dyn 19-20",Not defined,1292-1077 BC
+216,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+217,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+218,"NK, Dyn 19",Not defined,1292-1191 BC
+219,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+220,"NK, Dyn 20",Ramesses IV-Ramesses VI,1156-1139 BC
+221,"NK, Dyn 19-20",Not defined,1292-1077 BC
+222,"NK, Dyn 18",Not defined,1539-1292 BC
+223,"NK, Dyn 18",Not defined,1539-1292 BC
+224,"NK, Dyn 19",Ramesses II,1279-1213 BC
+225,"NK, Dyn 19",Not defined,1292-1191 BC
+226,NK,Not defined,1539-1077 BC
+227,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+228,"NK, Dyn 19",Ramesses II,1279-1213 BC
+229,"NK, Dyn 19",Ramesses II,1279-1213 BC
+230,"NK, Dyn 19-20",Not defined,1292-1077 BC
+231,"NK, Dyn 19",Not defined,1292-1191 BC
+232,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+233,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+234,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+235,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+236,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+237,"NK, Dyn 19",Not defined,1292-1191 BC
+238,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+239,"NK, Dyn 18-19",Not defined,1539-1191 BC
+240,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+241,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+242,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+243,"NK, Dyn 18",Eje,1323-1320 BC
+244,"NK, Dyn 19",Not defined,1292-1191 BC
+245,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+246,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+247,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+248,"NK, Dyn 18",Horemheb,1319-1292 BC
+249,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+250,"NK, Dyn 19",Not defined,1292-1191 BC
+251,"NK, Dyn 19-20",Not defined,1292-1077 BC
+252,"NK, Dyn 19-20",Not defined,1292-1077 BC
+253,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+254,"NK, Dyn 18",Thutmose III,1479-1425 BC
+255,NK,Not defined,1539-1077 BC
+256,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+257,"NK, Dyn 19",Ramesses II,1279-1213 BC
+258,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+259,"NK, Dyn 19-20",Not defined,1292-1077 BC
+260,NK,Not defined,1539-1077 BC
+261,"NK, Dyn 19",Ramesses II,1279-1213 BC
+262,"NK, Dyn 19-20",Not defined,1292-1077 BC
+263,"NK, Dyn 19-20",Not defined,1292-1077 BC
+264,"NK, Dyn 20",Ramesses III-Ramesses IV,1187-1150 BC
+265,"NK, Dyn 19",Ramesses II,1279-1213 BC
+266,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+267,NK,Not defined,1539-1077 BC
+268,"NK, Dyn 19-20",Not defined,1292-1077 BC
+269,"NK, Dyn 19",Ramesses II,1279-1213 BC
+270,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+271,"NK, Dyn 19",Ramesses II,1279-1213 BC
+272,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+273,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+274,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+275,NK,Not defined,1539-1077 BC
+276,"NK, Dyn 18-19",Not defined,1539-1191 BC
+277,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+278,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+279,"NK, Dyn 18",Horemheb,1319-1292 BC
+280,NK,Not defined,1539-1077 BC
+281,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+282,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+283,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+284,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+285,"NK, Dyn 19-20",Not defined,1292-1077 BC
+286,"NK, Dyn 18",Not defined,1539-1292 BC
+287,"NK, Dyn 18",Preamarna,1479-1353 BC
+288,"NK, Dyn 19",Ramesses II,1279-1213 BC
+289,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+290,"NK, Dyn 19",Ramesses II,1279-1213 BC
+291,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+292,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+293,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+294,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+295,"NK, Dyn 19-20",Not defined,1292-1077 BC
+296,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+297,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+298,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+299,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+300,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+301,"NK, Dyn 18",Horemheb,1319-1292 BC
+302,"NK, Dyn 19",Sety II,1202-1198 BC
+303,"NK, Dyn 20",Ramesses III,1187-1157 BC
+304,"NK, Dyn 20",Ramesses III,1187-1157 BC
+305,"NK, Dyn 19",Siptah,1197-1193 BC
+306,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+307,"NK, Dyn 19-20",Not defined,1292-1077 BC
+308,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+309,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+310,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+311,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+312,"NK, Dyn 19",Ramesses II,1279-1213 BC
+313,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+314,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+315,"NK, Dyn 18",Not defined,1539-1292 BC
+316,"NK, Dyn 19",Ramesses II,1279-1213 BC
+317,"NK, Dyn 19",Sety I,1290-1279 BC
+318,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+319,"NK, Dyn 19",Not defined,1292-1191 BC
+320,"NK, Dyn 19",Ramesses II,1279-1213 BC
+321,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+322,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+323,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+324,"NK, Dyn 19",Ramesses II,1279-1213 BC
+325,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+326,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+327,"NK, Dyn 19",Not defined,1292-1191 BC
+328,"NK, Dyn 19-20",Not defined,1292-1077 BC
+329,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+330,"NK, Dyn 19",Not defined,1292-1191 BC
+331,"NK, Dyn 19",Ramesses II,1279-1213 BC
+332,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+333,NK,Not defined,1539-1077 BC
+334,"NK, Dyn 19",Ramesses II,1279-1213 BC
+335,"NK, Dyn 19-20",Not defined,1292-1077 BC
+336,NK,Not defined,1539-1077 BC
+337,"NK, Dyn 19",Ramesses II,1279-1213 BC
+338,"NK, Dyn 19-20",Not defined,1292-1077 BC
+339,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+340,"NK, Dyn 18-19",Not defined,1539-1191 BC
+341,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+342,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+343,"NK, Dyn 18-19",Not defined,1539-1191 BC
+344,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+345,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+346,"NK, Dyn 19",Ramesses II,1279-1213 BC
+347,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+348,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+349,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+350,"NK, Dyn 19",Not defined,1292-1191 BC
+351,"NK, Dyn 18",Not defined,1539-1292 BC
+352,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+353,"NK, Dyn 19",Ramesses II,1279-1213 BC
+354,"NK, Dyn 20",Ramesses III,1187-1157 BC
+355,"NK, Dyn 19-20",Not defined,1292-1077 BC
+356,"NK, Dyn 18",Horemheb,1319-1292 BC
+357,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+358,"NK, Dyn 18",Thutmose III,1479-1425 BC
+359,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+360,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+361,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+362,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+363,"NK, Dyn 19",Sety I,1290-1279 BC
+364,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+365,"NK, Dyn 18-19",Not defined,1539-1191 BC
+366,"NK, Dyn 19",Not defined,1292-1191 BC
+367,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+368,"NK, Dyn 19",Ramesses II,1279-1213 BC
+369,"NK, Dyn 20",Ramesses III,1187-1157 BC
+370,"NK, Dyn 19",Not defined,1292-1191 BC
+371,"NK, Dyn 19",Ramesses II,1279-1213 BC
+372,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+373,NK,Not defined,1539-1077 BC
+374,"NK, Dyn 18",Eje,1323-1320 BC
+375,"NK, Dyn 19",Not defined,1292-1191 BC
+376,"NK, Dyn 20",Sethnakht,1190-1188 BC
+377,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+378,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+379,"NK, Dyn 19",Not defined,1292-1191 BC
+380,"NK, Dyn 19",Ramesses II,1279-1213 BC
+381,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+382,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+383,"NK, Dyn 19",Not defined,1292-1191 BC
+384,"NK, Dyn 19-20",Not defined,1292-1077 BC
+385,"NK, Dyn 19",Ramesses II,1279-1213 BC
+386,"NK, Dyn 18",Eje-Horemheb,1323-1292 BC
+387,"NK, Dyn 19",Not defined,1292-1191 BC
+388,"NK, Dyn 19",Ramesses II,1279-1213 BC
+389,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+390,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+391,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+392,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+393,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+394,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+395,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+396,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+397,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+398,NK,Not defined,1539-1077 BC
+399,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+400,"NK, Dyn 20",Ramesses III,1187-1157 BC
+401,NK,Not defined,1539-1077 BC
+402,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+403,"NK, Dyn 19",Ramesses II,1279-1213 BC
+404,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+405,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+406,"NK, Dyn 19",Not defined,1292-1191 BC
+407,"NK, Dyn 18",Ahmes-Thutmose I,1539-1483 BC
+408,NK,Not defined,1539-1077 BC
+409,"NK, Dyn 20",Ramesses V,1149-1146 BC
+410,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+411,NK,Not defined,1539-1077 BC
+412,"NK, Dyn 18",Not defined,1539-1292 BC
+413,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+414,"NK, Dyn 18",Preamarna,1479-1353 BC
+415,"NK, Dyn 19",Not defined,1292-1191 BC
+416,"NK, Dyn 19",Ramesses II,1279-1213 BC
+417,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+418,"NK, Dyn 20",Not defined,1190-1077 BC
+419,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+420,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+421,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+422,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+423,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+424,"NK, Dyn 20",Not defined,1190-1077 BC
+425,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+426,"NK, Dyn 19-20",Not defined,1292-1077 BC
+427,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+428,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+429,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+430,"NK, Dyn 18",Not defined,1539-1292 BC
+431,NK,Not defined,1539-1077 BC
+432,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+433,"NK, Dyn 19",Not defined,1292-1191 BC
+434,"NK, Dyn 19-20",Not defined,1292-1077 BC
+435,"NK, Dyn 19-20",Not defined,1292-1077 BC
+436,"NK, Dyn 19-20",Not defined,1292-1077 BC
+437,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+438,"NK, Dyn 18",Not defined,1539-1292 BC
+439,"NK, Dyn 18",Not defined,1539-1292 BC
+440,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+441,"NK, Dyn 19-20",Not defined,1292-1077 BC
+442,"NK, Dyn 19-20",Not defined,1292-1077 BC
+443,"NK, Dyn 19",Not defined,1292-1191 BC
+444,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+445,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+446,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+447,"NK, Dyn 19",Not defined,1292-1191 BC
+448,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+449,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+450,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+451,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+452,"NK, Dyn 19",Not defined,1292-1191 BC
+453,"NK, Dyn 20",Not defined,1190-1077 BC
+454,"NK, Dyn 20",Not defined,1190-1077 BC
+455,"NK, Dyn 18",Not defined,1539-1292 BC
+456,"NK, Dyn 19",Not defined,1292-1191 BC
+457,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+458,NK,Not defined,1539-1077 BC
+459,"NK, Dyn 19",Not defined,1292-1191 BC
+460,"NK, Dyn 18",Not defined,1539-1292 BC
+461,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+462,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+463,"NK, Dyn 19-20",Not defined,1292-1077 BC
+464,NK,Not defined,1539-1077 BC
+465,NK,Not defined,1539-1077 BC
+466,NK,Not defined,1539-1077 BC
+467,"NK, Dyn 19",Not defined,1292-1191 BC
+468,NK,Not defined,1539-1077 BC
+469,"NK, Dyn 18-19",Horemheb-Ramesses II,1319-1213 BC
+470,NK,Not defined,1539-1077 BC
+471,"NK, Dyn 20",Sethnakht,1190-1188 BC
+472,"NK, Dyn 19-20",Not defined,1292-1077 BC
+473,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+474,"NK, Dyn 18",Not defined,1539-1292 BC
+475,"NK, Dyn 19",Not defined,1292-1191 BC
+476,"NK, Dyn 19",Ramesses II,1279-1213 BC
+477,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+478,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+479,NK,Not defined,1539-1077 BC
+480,NK,Not defined,1539-1077 BC
+481,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+482,"NK, Dyn 19",Not defined,1292-1191 BC
+483,"NK, Dyn 19-20",Not defined,1292-1077 BC
+484,"NK, Dyn 19-20",Not defined,1292-1077 BC
+485,"NK, Dyn 19-20",Not defined,1292-1077 BC
+486,"NK, Dyn 19",Ramesses II,1279-1213 BC
+487,"NK, Dyn 19",Not defined,1292-1191 BC
+488,"NK, Dyn 19-20",Not defined,1292-1077 BC
+489,"NK, Dyn 19-20",Not defined,1292-1077 BC
+490,"NK, Dyn 19-20",Not defined,1292-1077 BC
+491,"NK, Dyn 19-20",Not defined,1292-1077 BC
+492,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+493,"NK, Dyn 19-20",Not defined,1292-1077 BC
+494,"NK, Dyn 19",Not defined,1292-1191 BC
+495,"NK, Dyn 19",Ramesses II,1279-1213 BC
+496,"NK, Dyn 19",Ramesses II,1279-1213 BC
+497,NK,Not defined,1539-1077 BC
+498,"NK, Dyn 19",Ramesses II,1279-1213 BC
+499,"NK, Dyn 20",Not defined,1190-1077 BC
+500,"NK, Dyn 19-20",Not defined,1292-1077 BC
+501,"NK, Dyn 18",Not defined,1539-1292 BC
+502,"NK, Dyn 19",Not defined,1292-1191 BC
+503,"NK, Dyn 19",Not defined,1292-1191 BC
+504,"NK, Dyn 18",Not defined,1539-1292 BC
+505,"NK, Dyn 19",Ramesses II,1279-1213 BC
+506,"NK, Dyn 19",Not defined,1292-1191 BC
+507,"NK, Dyn 19",Ramesses II,1279-1213 BC
+508,"NK, Dyn 19",Ramesses II,1279-1213 BC
+509,"NK, Dyn 19",Ramesses II,1279-1213 BC
+510,"NK, Dyn 19",Ramesses II,1279-1213 BC
+511,"NK, Dyn 19",Ramesses II,1279-1213 BC
+512,"NK, Dyn 19",Ramesses II,1279-1213 BC
+513,"NK, Dyn 18",Not defined,1539-1292 BC
+514,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+515,"NK, Dyn 20",Not defined,1190-1077 BC
+516,"NK, Dyn 19",Not defined,1292-1191 BC
+517,"NK, Dyn 18",Not defined,1539-1292 BC
+518,NK,Not defined,1539-1077 BC
+519,NK,Not defined,1539-1077 BC
+520,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+521,"NK, Dyn 18",Not defined,1539-1292 BC
+522,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+523,"NK, Dyn 18",Thutmose III,1479-1425 BC
+524,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+525,"NK, Dyn 18",Not defined,1539-1292 BC
+526,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+527,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+528,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+529,"NK, Dyn 18",Not defined,1539-1292 BC
+530,"NK, Dyn 19",Not defined,1292-1191 BC
+531,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+532,"NK, Dyn 18",Ahmes-Thutmose I,1539-1483 BC
+533,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+534,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+535,"NK, Dyn 19",Ramesses II,1279-1213 BC
+536,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+537,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+538,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+539,"NK, Dyn 19",Not defined,1292-1191 BC
+540,"NK, Dyn 19",Ramesses II,1279-1213 BC
+541,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+542,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+543,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+544,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+545,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+546,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+547,"NK, Dyn 19",Not defined,1292-1191 BC
+548,"NK, Dyn 19",Ramesses II,1279-1213 BC
+549,"NK, Dyn 19",Not defined,1292-1191 BC
+550,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+551,"NK, Dyn 19",Not defined,1292-1191 BC
+552,"NK, Dyn 19",Ramesses II,1279-1213 BC
+553,"NK, Dyn 19",Not defined,1292-1191 BC
+554,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+555,"NK, Dyn 18",Horemheb,1319-1292 BC
+556,"NK, Dyn 19",Not defined,1292-1191 BC
+557,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+558,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+559,"NK, Dyn 20",Ramesses III,1187-1157 BC
+560,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+561,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+562,"NK, Dyn 19",Ramesses II,1279-1213 BC
+563,"NK, Dyn 20",Sethnakht,1190-1188 BC
+564,"NK, Dyn 19",Sety I,1290-1279 BC
+565,"NK, Dyn 19",Ramesses II,1279-1213 BC
+566,"NK, Dyn 19",Not defined,1292-1191 BC
+567,"NK, Dyn 19-20",Not defined,1292-1077 BC
+568,"NK, Dyn 19",Ramesses II,1279-1213 BC
+569,"NK, Dyn 19",Ramesses II,1279-1213 BC
+570,"NK, Dyn 19",Ramesses II,1279-1213 BC
+571,"NK, Dyn 19",Ramesses II,1279-1213 BC
+572,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+573,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+574,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+575,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+576,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+577,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+578,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+579,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+580,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+581,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+582,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+583,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+584,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+585,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+586,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+587,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+588,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+589,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+590,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+591,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+592,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+593,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+594,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+595,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+596,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+597,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+598,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+599,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+600,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+601,"NK, Dyn 19",Ramesses II,1279-1213 BC
+602,"NK, Dyn 19-20",Not defined,1292-1077 BC
+603,"NK, Dyn 19-20",Not defined,1292-1077 BC
+604,"NK, Dyn 19",Ramesses II,1279-1213 BC
+605,"NK, Dyn 19",Not defined,1292-1191 BC
+606,"NK, Dyn 19",Not defined,1292-1191 BC
+607,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+608,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+609,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+610,"NK, Dyn 19",Ramesses II,1279-1213 BC
+611,"NK, Dyn 19",Ramesses II,1279-1213 BC
+612,"NK, Dyn 18-19",Not defined,1539-1191 BC
+613,"NK, Dyn 19",Not defined,1292-1191 BC
+614,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+615,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+616,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+617,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+618,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+619,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+620,"NK, Dyn 19",Not defined,1292-1191 BC
+621,"NK, Dyn 19",Not defined,1292-1191 BC
+622,"NK, Dyn 19",Not defined,1292-1191 BC
+623,"NK, Dyn 19",Ramesses II,1279-1213 BC
+624,"NK, Dyn 19",Not defined,1292-1191 BC
+625,"NK, Dyn 19",Not defined,1292-1191 BC
+626,"NK, Dyn 18",Not defined,1539-1292 BC
+627,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+628,"NK, Dyn 19",Not defined,1292-1191 BC
+629,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+630,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+631,"NK, Dyn 19-20",Not defined,1292-1077 BC
+632,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+633,"NK, Dyn 19-20",Not defined,1292-1077 BC
+634,NK,Not defined,1539-1077 BC
+635,"NK, Dyn 19",Ramesses II,1279-1213 BC
+636,"NK, Dyn 19",Ramesses II,1279-1213 BC
+637,"NK, Dyn 19",Ramesses II,1279-1213 BC
+638,"NK, Dyn 19",Ramesses II,1279-1213 BC
+639,"NK, Dyn 19",Ramesses II,1279-1213 BC
+640,"NK, Dyn 19",Ramesses II,1279-1213 BC
+641,"NK, Dyn 19",Ramesses II,1279-1213 BC
+642,"NK, Dyn 19",Ramesses II,1279-1213 BC
+643,"NK, Dyn 19",Ramesses II,1279-1213 BC
+644,"NK, Dyn 18",Horemheb,1319-1292 BC
+645,"NK, Dyn 18",Horemheb,1319-1292 BC
+646,"NK, Dyn 18",Horemheb,1319-1292 BC
+647,"NK, Dyn 18",Horemheb,1319-1292 BC
+648,"NK, Dyn 18",Horemheb,1319-1292 BC
+649,"NK, Dyn 18",Horemheb,1319-1292 BC
+650,"NK, Dyn 18",Horemheb,1319-1292 BC
+651,"NK, Dyn 18",Horemheb,1319-1292 BC
+652,"NK, Dyn 18",Horemheb,1319-1292 BC
+653,"NK, Dyn 18",Horemheb,1319-1292 BC
+654,"NK, Dyn 18",Horemheb,1319-1292 BC
+655,"NK, Dyn 18",Horemheb,1319-1292 BC
+656,"NK, Dyn 18",Horemheb,1319-1292 BC
+657,"NK, Dyn 18",Horemheb,1319-1292 BC
+658,"NK, Dyn 18",Horemheb,1319-1292 BC
+659,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+660,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+661,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+662,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+663,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+664,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+665,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+666,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+667,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+668,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+669,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+670,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+671,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+672,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+673,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+674,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+675,"NK, Dyn 19",Ramesses II,1279-1213 BC
+676,"NK, Dyn 19",Ramesses II,1279-1213 BC
+677,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+678,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+679,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+680,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+681,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+682,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+683,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+684,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+685,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+686,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+687,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+688,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+689,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+690,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+691,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+692,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+693,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+694,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+695,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+696,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+697,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+698,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+699,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+700,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+701,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+702,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+703,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+704,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+705,"NK, Dyn 18",Thutmose III,1479-1425 BC
+706,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+707,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+708,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+709,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+710,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+711,"NK, Dyn 18-19",Not defined,1539-1191 BC
+712,"NK, Dyn 18-19",Not defined,1539-1191 BC
+713,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+714,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+715,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+716,"NK, Dyn 18",Not defined,1539-1292 BC
+717,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+718,"NK, Dyn 19",Ramesses II,1279-1213 BC
+719,"NK, Dyn 19",Ramesses II,1279-1213 BC
+720,"NK, Dyn 19",Ramesses II,1279-1213 BC
+721,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+722,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+723,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+724,"NK, Dyn 19",Not defined,1292-1191 BC
+725,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+726,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+727,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+728,"NK, Dyn 19",Ramesses II-Tausret,1213-1191 BC
+729,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+730,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+731,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+732,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+733,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+734,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+735,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+736,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+737,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+738,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+739,"NK, Dyn 19-20",Not defined,1292-1077 BC
+740,"NK, Dyn 19-20",Not defined,1292-1077 BC
+741,"NK, Dyn 19-20",Not defined,1292-1077 BC
+742,"NK, Dyn 19-20",Not defined,1292-1077 BC
+743,"NK, Dyn 19-20",Not defined,1292-1077 BC
+744,"NK, Dyn 19-20",Not defined,1292-1077 BC
+745,"NK, Dyn 19-20",Not defined,1292-1077 BC
+746,"NK, Dyn 19-20",Not defined,1292-1077 BC
+747,"NK, Dyn 19",Not defined,1292-1191 BC
+748,"NK, Dyn 19",Not defined,1292-1191 BC
+749,"NK, Dyn 19",Not defined,1292-1191 BC
+750,"NK, Dyn 19",Not defined,1292-1191 BC
+751,"NK, Dyn 19",Not defined,1292-1191 BC
+752,"NK, Dyn 19",Not defined,1292-1191 BC
+753,"NK, Dyn 19",Not defined,1292-1191 BC
+754,"NK, Dyn 19",Not defined,1292-1191 BC
+755,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+756,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+757,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+758,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+759,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+760,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+761,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+762,"NK, Dyn 19",Not defined,1292-1191 BC
+763,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+764,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+765,"NK, Dyn 19-20",Not defined,1292-1077 BC
+766,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+767,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+768,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+769,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+770,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+771,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+772,"NK, Dyn 18",Not defined,1539-1292 BC
+773,"NK, Dyn 18",Not defined,1539-1292 BC
+774,"NK, Dyn 18",Not defined,1539-1292 BC
+775,"NK, Dyn 18",Not defined,1539-1292 BC
+776,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+777,"NK, Dyn 18",Not defined,1539-1292 BC
+778,"NK, Dyn 18",Not defined,1539-1292 BC
+779,"NK, Dyn 18",Not defined,1539-1292 BC
+780,"NK, Dyn 18",Not defined,1539-1292 BC
+781,"NK, Dyn 18",Not defined,1539-1292 BC
+782,"NK, Dyn 18",Not defined,1539-1292 BC
+783,"NK, Dyn 18",Not defined,1539-1292 BC
+784,"NK, Dyn 18",Not defined,1539-1292 BC
+785,"NK, Dyn 18",Not defined,1539-1292 BC
+786,"NK, Dyn 18",Not defined,1539-1292 BC
+787,"NK, Dyn 18",Not defined,1539-1292 BC
+788,"NK, Dyn 18",Not defined,1539-1292 BC
+789,"NK, Dyn 18",Not defined,1539-1292 BC
+790,"NK, Dyn 18",Not defined,1539-1292 BC
+791,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+792,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+793,"NK, Dyn 19",Not defined,1292-1191 BC
+794,"NK, Dyn 19",Not defined,1292-1191 BC
+795,"NK, Dyn 18",Horemheb,1319-1292 BC
+796,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+797,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+798,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+799,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+800,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+801,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+802,"NK, Dyn 18",Thutmose III,1479-1425 BC
+803,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+804,"NK, Dyn 18",Horemheb,1319-1292 BC
+805,"NK, Dyn 18",Horemheb,1319-1292 BC
+806,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+807,"NK, Dyn 18",Horemheb,1319-1292 BC
+808,"NK, Dyn 18",Horemheb,1319-1292 BC
+809,"NK, Dyn 18",Horemheb,1319-1292 BC
+810,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+811,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+812,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+813,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+814,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+815,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+816,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+817,"NK, Dyn 19",Ramesses II,1279-1213 BC
+818,"NK, Dyn 19",Ramesses II,1279-1213 BC
+819,"NK, Dyn 19",Ramesses II,1279-1213 BC
+820,"NK, Dyn 19",Ramesses II,1279-1213 BC
+821,"NK, Dyn 19",Ramesses II,1279-1213 BC
+822,"NK, Dyn 19",Ramesses II,1279-1213 BC
+823,"NK, Dyn 19",Not defined,1292-1191 BC
+824,"NK, Dyn 19",Not defined,1292-1191 BC
+825,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+826,NK,Not defined,1539-1077 BC
+827,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+828,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+829,"NK, Dyn 20",Ramesses IV-Ramesses VI,1156-1139 BC
+830,"NK, Dyn 19",Ramesses II,1279-1213 BC
+831,"NK, Dyn 19",Ramesses II,1279-1213 BC
+832,"NK, Dyn 19",Ramesses II,1279-1213 BC
+833,"NK, Dyn 19",Ramesses II,1279-1213 BC
+834,"NK, Dyn 19",Not defined,1292-1191 BC
+835,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+836,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+837,"NK, Dyn 19",Ramesses II,1279-1213 BC
+838,"NK, Dyn 19",Ramesses II,1279-1213 BC
+839,"NK, Dyn 19",Ramesses II,1279-1213 BC
+840,"NK, Dyn 19",Ramesses II,1279-1213 BC
+841,"NK, Dyn 19",Ramesses II,1279-1213 BC
+842,"NK, Dyn 19",Ramesses II,1279-1213 BC
+843,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+844,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+845,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+846,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+847,"NK, Dyn 19",Ramesses II,1279-1213 BC
+848,"NK, Dyn 19-20",Not defined,1292-1077 BC
+849,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+850,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+851,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+852,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+853,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+854,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+855,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+856,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+857,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+858,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+859,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+860,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+861,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+862,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+863,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+864,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+865,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+866,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+867,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+868,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+869,"NK, Dyn 18-19",Not defined,1539-1191 BC
+870,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+871,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+872,"NK, Dyn 19",Ramesses II,1279-1213 BC
+873,"NK, Dyn 19",Ramesses II,1279-1213 BC
+874,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+875,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+876,"NK, Dyn 19",Ramesses II,1279-1213 BC
+877,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+878,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+879,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+880,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+881,"NK, Dyn 19",Ramesses II,1279-1213 BC
+882,"NK, Dyn 19",Ramesses II,1279-1213 BC
+883,"NK, Dyn 19",Ramesses II,1279-1213 BC
+884,"NK, Dyn 19",Ramesses II,1279-1213 BC
+885,"NK, Dyn 19",Ramesses II,1279-1213 BC
+886,"NK, Dyn 19",Ramesses II,1279-1213 BC
+887,"NK, Dyn 19",Ramesses II,1279-1213 BC
+888,"NK, Dyn 19",Ramesses II,1279-1213 BC
+889,"NK, Dyn 20",Ramesses III,1187-1157 BC
+890,"NK, Dyn 20",Ramesses III,1187-1157 BC
+891,"NK, Dyn 20",Ramesses III,1187-1157 BC
+892,"NK, Dyn 20",Ramesses IV,1156-1150 BC
+893,"NK, Dyn 20",Ramesses III,1187-1157 BC
+894,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+895,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+896,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+897,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+898,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+899,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+900,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+901,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+902,"NK, Dyn 18",Not defined,1539-1292 BC
+903,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+904,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+905,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+906,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+907,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+908,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+909,"NK, Dyn 19-20",Not defined,1292-1077 BC
+910,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+911,"NK, Dyn 19",Siptah,1197-1193 BC
+912,"NK, Dyn 19",Siptah,1197-1193 BC
+913,"NK, Dyn 19",Siptah,1197-1193 BC
+914,"NK, Dyn 19",Siptah,1197-1193 BC
+915,"NK, Dyn 19",Siptah,1197-1193 BC
+916,"NK, Dyn 19",Siptah,1197-1193 BC
+917,"NK, Dyn 19",Siptah,1197-1193 BC
+918,"NK, Dyn 19",Siptah,1197-1193 BC
+919,"NK, Dyn 19",Siptah,1197-1193 BC
+920,"NK, Dyn 19",Siptah,1197-1193 BC
+921,"NK, Dyn 19",Siptah,1197-1193 BC
+922,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+923,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+924,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+925,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+926,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+927,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+928,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+929,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+930,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+931,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+932,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+933,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+934,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+935,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+936,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+937,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+938,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+939,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+940,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+941,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+942,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+943,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+944,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+945,"NK, Dyn 18",Not defined,1539-1292 BC
+946,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+947,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+948,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+949,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+950,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+951,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+952,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+953,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+954,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+955,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+956,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+957,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+958,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+959,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+960,"NK, Dyn 19",Ramesses II,1279-1213 BC
+961,"NK, Dyn 19",Ramesses II,1279-1213 BC
+962,"NK, Dyn 19",Ramesses II,1279-1213 BC
+963,"NK, Dyn 19",Ramesses II,1279-1213 BC
+964,"NK, Dyn 19",Ramesses II,1279-1213 BC
+965,"NK, Dyn 19",Ramesses II,1279-1213 BC
+966,"NK, Dyn 19",Ramesses II,1279-1213 BC
+967,"NK, Dyn 19",Ramesses II,1279-1213 BC
+968,"NK, Dyn 19",Ramesses II,1279-1213 BC
+969,"NK, Dyn 19",Ramesses II,1279-1213 BC
+970,"NK, Dyn 19",Ramesses II,1279-1213 BC
+971,"NK, Dyn 19",Ramesses II,1279-1213 BC
+972,"NK, Dyn 19",Ramesses II,1279-1213 BC
+973,"NK, Dyn 19",Ramesses II,1279-1213 BC
+974,"NK, Dyn 19",Ramesses II,1279-1213 BC
+975,"NK, Dyn 19",Ramesses II,1279-1213 BC
+976,"NK, Dyn 19",Ramesses II,1279-1213 BC
+977,"NK, Dyn 19",Ramesses II,1279-1213 BC
+978,"NK, Dyn 19",Ramesses II,1279-1213 BC
+979,"NK, Dyn 19",Ramesses II,1279-1213 BC
+980,"NK, Dyn 19",Ramesses II,1279-1213 BC
+981,"NK, Dyn 19",Ramesses II,1279-1213 BC
+982,"NK, Dyn 19",Ramesses II,1279-1213 BC
+983,"NK, Dyn 19",Ramesses II,1279-1213 BC
+984,"NK, Dyn 19",Ramesses II,1279-1213 BC
+985,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+986,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+987,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+988,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+989,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+990,"NK, Dyn 19-20",Not defined,1292-1077 BC
+991,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+992,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+993,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+994,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+995,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+996,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+997,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+998,"NK, Dyn 18",Thutmose III,1479-1425 BC
+999,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1000,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1001,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1002,"NK, Dyn 19",Sety I,1290-1279 BC
+1003,"NK, Dyn 19",Sety I,1290-1279 BC
+1004,"NK, Dyn 19",Sety I,1290-1279 BC
+1005,"NK, Dyn 19",Sety I,1290-1279 BC
+1006,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1007,"NK, Dyn 19",Not defined,1292-1191 BC
+1008,"NK, Dyn 19",Not defined,1292-1191 BC
+1009,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1010,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1011,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1012,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1013,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1014,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1015,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1016,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1017,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1018,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1019,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1020,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1021,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1022,"NK, Dyn 20",Ramesses III,1187-1157 BC
+1023,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1024,NK,Not defined,1539-1077 BC
+1025,"NK, Dyn 19",Not defined,1292-1191 BC
+1026,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1027,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1028,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1029,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1030,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1031,"NK, Dyn 19",Not defined,1292-1191 BC
+1032,"NK, Dyn 19",Not defined,1292-1191 BC
+1033,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+1034,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+1035,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+1036,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+1037,"NK, Dyn 18",Not defined,1539-1292 BC
+1038,"NK, Dyn 18-19",Horemheb-Ramesses II,1319-1213 BC
+1039,"NK, Dyn 18-19",Horemheb-Ramesses II,1319-1213 BC
+1040,NK,Not defined,1539-1077 BC
+1041,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1042,"NK, Dyn 19",Not defined,1292-1191 BC
+1043,"NK, Dyn 19",Not defined,1292-1191 BC
+1044,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1045,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1046,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1047,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1048,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1049,"NK, Dyn 18",Not defined,1539-1292 BC
+1050,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1051,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1052,"NK, Dyn 18",Not defined,1539-1292 BC
+1053,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1054,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1055,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1056,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1057,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+1058,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1059,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1060,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1061,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1062,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1063,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1064,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1065,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1066,"NK, Dyn 20",Not defined,1190-1077 BC
+1067,"NK, Dyn 18",Not defined,1539-1292 BC
+1068,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1069,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1070,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1071,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1072,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1073,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1074,"NK, Dyn 19",Not defined,1292-1191 BC
+1075,NK,Not defined,1539-1077 BC
+1076,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1077,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1078,NK,Not defined,1539-1077 BC
+1079,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1080,NK,Not defined,1539-1077 BC
+1081,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+1082,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1083,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1084,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1085,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1086,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1087,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1088,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1089,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1090,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1091,NK,Not defined,1539-1077 BC
+1092,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1093,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1094,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1095,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+1096,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1097,"NK, Dyn 19",Not defined,1292-1191 BC
+1098,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1099,NK,Not defined,1539-1077 BC
+1100,"NK, Dyn 19",Not defined,1292-1191 BC
+1101,NK,Not defined,1539-1077 BC
+1102,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1103,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1104,"NK, Dyn 19",Not defined,1292-1191 BC
+1105,"NK, Dyn 18",Thutmose IV,1400-1390 BC
+1106,NK,Not defined,1539-1077 BC
+1107,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1108,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+1109,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1110,"NK, Dyn 19",Not defined,1292-1191 BC
+1111,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1112,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1113,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1114,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1115,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1116,"NK, Dyn 18",Not defined,1539-1292 BC
+1117,"NK, Dyn 20",Ramesses IV-Ramesses VI,1156-1139 BC
+1118,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1119,"NK, Dyn 19",Not defined,1292-1191 BC
+1120,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1121,"NK, Dyn 19",Not defined,1292-1191 BC
+1122,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1123,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1124,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1125,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+1126,"NK, Dyn 19",Not defined,1292-1191 BC
+1127,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1128,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1129,"NK, Dyn 19",Not defined,1292-1191 BC
+1130,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1131,"NK, Dyn 19",Not defined,1292-1191 BC
+1132,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1133,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1134,"NK, Dyn 18",Not defined,1539-1292 BC
+1135,"NK, Dyn 19",Not defined,1292-1191 BC
+1136,"NK, Dyn 18",Thutmose III,1479-1425 BC
+1137,"NK, Dyn 18",Thutmose III,1479-1425 BC
+1138,"NK, Dyn 18",Thutmose III,1479-1425 BC
+1139,"NK, Dyn 19",Not defined,1292-1191 BC
+1140,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1141,"NK, Dyn 18",Not defined,1539-1292 BC
+1142,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1143,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1144,"NK, Dyn 19",Not defined,1292-1191 BC
+1145,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1146,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1147,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1148,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1149,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1150,"NK, Dyn 19",Not defined,1292-1191 BC
+1151,"NK, Dyn 18",Not defined,1539-1292 BC
+1152,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1153,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1154,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1155,"NK, Dyn 19",Not defined,1292-1191 BC
+1156,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1157,"NK, Dyn 20",Not defined,1190-1077 BC
+1158,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1159,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1160,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1161,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1162,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1163,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1164,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1165,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+1166,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+1167,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+1168,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+1169,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+1170,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+1171,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+1172,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1173,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1174,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1175,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1176,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1177,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1178,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1179,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1180,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1181,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1182,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1183,"NK, Dyn 18",Postamarna,1336-1292 BC
+1184,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1185,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1186,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1187,"NK, Dyn 18",Not defined,1539-1292 BC
+1188,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1189,"NK, Dyn 20",Ramesses V,1149-1146 BC
+1190,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1191,"NK, Dyn 20",Ramesses V,1149-1146 BC
+1192,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1193,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1194,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1195,"NK, Dyn 19",Sety I,1290-1279 BC
+1196,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1197,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1198,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1199,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1200,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1201,"NK, Dyn 19",Not defined,1292-1191 BC
+1202,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1203,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1204,"NK, Dyn 18",Postamarna,1336-1292 BC
+1205,"NK, Dyn 18",Postamarna,1336-1292 BC
+1206,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1207,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1208,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1209,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1210,"NK, Dyn 19",Sety I,1290-1279 BC
+1211,"NK, Dyn 19",Sety I,1290-1279 BC
+1212,"NK, Dyn 19",Sety I,1290-1279 BC
+1213,"NK, Dyn 19",Not defined,1292-1191 BC
+1214,"NK, Dyn 18",Not defined,1539-1292 BC
+1215,"NK, Dyn 18",Not defined,1539-1292 BC
+1216,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1217,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1218,"NK, Dyn 18",Not defined,1539-1292 BC
+1219,"NK, Dyn 18",Not defined,1539-1292 BC
+1220,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1221,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1222,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1223,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1224,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1225,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1226,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1227,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1228,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1229,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1230,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1231,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1232,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1233,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1234,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1235,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1236,NK,Not defined,1539-1077 BC
+1237,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1238,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1239,"NK, Dyn 18",Postamarna,1336-1292 BC
+1240,"NK, Dyn 18",Not defined,1539-1292 BC
+1241,"NK, Dyn 18",Horemheb,1319-1292 BC
+1242,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1243,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1244,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1245,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1246,"NK, Dyn 19",Not defined,1292-1191 BC
+1247,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1248,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1249,"NK, Dyn 19",Not defined,1292-1191 BC
+1250,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1251,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1252,"NK, Dyn 18",Eje-Horemheb,1323-1292 BC
+1253,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1254,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1255,"NK, Dyn 18",Thutmose III,1479-1425 BC
+1256,"NK, Dyn 18",Thutmose III,1479-1425 BC
+1257,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1258,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1259,"NK, Dyn 18",Not defined,1539-1292 BC
+1260,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1261,NK,Not defined,1539-1077 BC
+1262,"NK, Dyn 18",Not defined,1539-1292 BC
+1263,NK,Not defined,1539-1077 BC
+1264,NK,Not defined,1539-1077 BC
+1265,"NK, Dyn 19",Sety I,1290-1279 BC
+1266,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1267,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1268,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1269,NK,Not defined,1539-1077 BC
+1270,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1271,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1272,"NK, Dyn 18",Preamarna,1479-1353 BC
+1273,"NK, Dyn 19",Not defined,1292-1191 BC
+1274,"NK, Dyn 18",Postamarna,1336-1292 BC
+1275,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1276,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1277,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1278,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1279,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1280,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1281,"NK, Dyn 19",Not defined,1292-1191 BC
+1282,"NK, Dyn 19",Not defined,1292-1191 BC
+1283,"NK, Dyn 19",Not defined,1292-1191 BC
+1284,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1285,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1286,"NK, Dyn 19",Not defined,1292-1191 BC
+1287,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1288,"NK, Dyn 18",Not defined,1539-1292 BC
+1289,"NK, Dyn 18",Not defined,1539-1292 BC
+1290,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1291,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1292,"NK, Dyn 18",Not defined,1539-1292 BC
+1293,"NK, Dyn 19",Not defined,1292-1191 BC
+1294,"NK, Dyn 18",Not defined,1539-1292 BC
+1295,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1296,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1297,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1298,"NK, Dyn 19",Sety I,1290-1279 BC
+1299,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1300,"NK, Dyn 19",Not defined,1292-1191 BC
+1301,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1302,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1303,"NK, Dyn 20",Not defined,1190-1077 BC
+1304,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1305,"NK, Dyn 18-19",Not defined,1539-1191 BC
+1306,"NK, Dyn 19",Not defined,1292-1191 BC
+1307,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1308,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1309,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1310,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1311,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1312,"NK, Dyn 19",Not defined,1292-1191 BC
+1313,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+1314,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1315,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1316,"NK, Dyn 19",Not defined,1292-1191 BC
+1317,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1318,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1319,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1320,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1321,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1322,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1323,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1324,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+1325,"NK, Dyn 18",Not defined,1539-1292 BC
+1326,"NK, Dyn 19",Not defined,1292-1191 BC
+1327,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1328,"NK, Dyn 18",Thutmose I,1493-1483 BC
+1329,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1330,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1331,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1332,"NK, Dyn 18",Not defined,1539-1292 BC
+1333,"NK, Dyn 18",Thutmose I,1493-1483 BC
+1334,"NK, Dyn 18",Not defined,1539-1292 BC
+1335,NK,Not defined,1539-1077 BC
+1336,"NK, Dyn 18",Not defined,1539-1292 BC
+1337,"NK, Dyn 18",Not defined,1539-1292 BC
+1338,NK,Not defined,1539-1077 BC
+1339,"NK, Dyn 18",Not defined,1539-1292 BC
+1340,"NK, Dyn 18",Not defined,1539-1292 BC
+1341,"NK, Dyn 18",Not defined,1539-1292 BC
+1342,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1343,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1344,"NK, Dyn 18",Postamarna,1336-1292 BC
+1345,"NK, Dyn 19",Merenptah,1213-1203 BC
+1346,NK,Not defined,1539-1077 BC
+1347,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1348,"NK, Dyn 18",Not defined,1539-1292 BC
+1349,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1350,"NK, Dyn 19",Not defined,1292-1191 BC
+1351,"NK, Dyn 18",Not defined,1539-1292 BC
+1352,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1353,"NK, Dyn 19",Not defined,1292-1191 BC
+1354,"NK, Dyn 19",Merenptah,1213-1203 BC
+1355,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1356,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1357,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1358,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+1359,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1360,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1361,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1362,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+1363,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1364,NK,Not defined,1539-1077 BC
+1365,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1366,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1367,NK,Not defined,1539-1077 BC
+1368,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1369,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+1370,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1371,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1372,NK,Not defined,1539-1077 BC
+1373,NK,Not defined,1539-1077 BC
+1374,NK,Not defined,1539-1077 BC
+1375,NK,Not defined,1539-1077 BC
+1376,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1377,NK,Not defined,1539-1077 BC
+1378,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1379,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1380,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1381,NK,Not defined,1539-1077 BC
+1382,NK,Not defined,1539-1077 BC
+1383,NK,Not defined,1539-1077 BC
+1384,Not defined,Not defined,Not defined
+1385,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+1386,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+1387,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+1388,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1389,"NK, Dyn 18",Not defined,1539-1292 BC
+1390,NK,Not defined,1539-1077 BC
+1391,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1392,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1393,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1394,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1395,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1396,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1397,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1398,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1399,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1400,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1401,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1402,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1403,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1404,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1405,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1406,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1407,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1408,"NK, Dyn 18",Not defined,1539-1292 BC
+1409,"NK, Dyn 18",Not defined,1539-1292 BC
+1410,"NK, Dyn 19",Not defined,1292-1191 BC
+1411,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1412,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1413,"NK, Dyn 18",Not defined,1539-1292 BC
+1414,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1415,"NK, Dyn 19",Not defined,1292-1191 BC
+1416,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1417,"NK, Dyn 18",Not defined,1539-1292 BC
+1418,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1419,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1420,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1421,"NK, Dyn 18-19",Not defined,1539-1191 BC
+1422,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1423,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1424,"NK, Dyn 19",Not defined,1292-1191 BC
+1425,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1426,"NK, Dyn 19",Not defined,1292-1191 BC
+1427,"NK, Dyn 19",Not defined,1292-1191 BC
+1428,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1429,NK,Not defined,1539-1077 BC
+1430,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1431,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1432,"NK, Dyn 18",Horemheb,1319-1292 BC
+1433,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1434,"NK, Dyn 18",Not defined,1539-1292 BC
+1435,"NK, Dyn 18",Not defined,1539-1292 BC
+1436,"NK, Dyn 18",Not defined,1539-1292 BC
+1437,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1438,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1439,NK,Not defined,1539-1077 BC
+1440,"NK, Dyn 18",Thutmose III,1479-1425 BC
+1441,NK,Not defined,1539-1077 BC
+1442,NK,Not defined,1539-1077 BC
+1443,NK,Not defined,1539-1077 BC
+1444,"NK, Dyn 20",Siptah,1197-1193 BC
+1445,NK,Not defined,1539-1077 BC
+1446,"NK, Dyn 19",Not defined,1292-1191 BC
+1447,NK,Not defined,1539-1077 BC
+1448,"NK, Dyn 19",Not defined,1292-1191 BC
+1449,"NK, Dyn 18",Postamarna,1336-1292 BC
+1450,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1451,"NK, Dyn 19",Not defined,1292-1191 BC
+1452,"NK, Dyn 19",Merenptah,1213-1203 BC
+1453,NK,Not defined,1539-1077 BC
+1454,NK,Not defined,1539-1077 BC
+1455,NK,Not defined,1539-1077 BC
+1456,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1457,"NK, Dyn 18",Not defined,1539-1292 BC
+1458,NK,Not defined,1539-1077 BC
+1459,NK,Not defined,1539-1077 BC
+1460,"NK, Dyn 20",Not defined,1190-1077 BC
+1461,NK,Not defined,1539-1077 BC
+1462,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1463,NK,Not defined,1539-1077 BC
+1464,NK,Not defined,1539-1077 BC
+1465,NK,Not defined,1539-1077 BC
+1466,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1467,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1468,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1469,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1470,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1471,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1472,NK,Not defined,1539-1077 BC
+1473,NK,Not defined,1539-1077 BC
+1474,NK,Not defined,1539-1077 BC
+1475,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1476,"NK, Dyn 18",Thutmose IV,1400-1390 BC
+1477,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1478,"NK, Dyn 18",Not defined,1539-1292 BC
+1479,"NK, Dyn 18",Not defined,1539-1292 BC
+1480,"NK, Dyn 18",Thutmose III,1479-1425 BC
+1481,"NK, Dyn 19",Not defined,1292-1191 BC
+1482,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1483,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1484,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1485,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1486,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1487,"NK, Dyn 19",Not defined,1292-1191 BC
+1488,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+1489,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+1490,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+1491,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1492,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1493,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1494,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1495,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1496,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1497,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1498,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1499,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1500,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1501,"NK, Dyn 19",Sety I,1290-1279 BC
+1502,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1503,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1504,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1505,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1506,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1507,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1508,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1509,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1510,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1511,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1512,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1513,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1514,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1515,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1516,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1517,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1518,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1519,"NK, Dyn 19",Not defined,1292-1191 BC
+1520,NK,Not defined,1539-1077 BC
+1521,NK,Not defined,1539-1077 BC
+1522,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1523,Not defined,Not defined,Not defined
+1524,"NK, Dyn 19",Not defined,1292-1191 BC
+1525,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1526,"NK, Dyn 19",Not defined,1292-1191 BC
+1527,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1528,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1529,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1530,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1531,"NK, Dyn 18",Postamarna,1336-1292 BC
+1532,"NK, Dyn 19",Not defined,1292-1191 BC
+1533,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1534,NK,Not defined,1539-1077 BC
+1535,"NK, Dyn 19",Not defined,1292-1191 BC
+1536,"NK, Dyn 20",Ramesses IV,1156-1150 BC
+1537,"NK, Dyn 19",Not defined,1292-1191 BC
+1538,"NK, Dyn 19",Not defined,1292-1191 BC
+1539,"NK, Dyn 19",Not defined,1292-1191 BC
+1540,"NK, Dyn 19",Not defined,1292-1191 BC
+1541,"NK, Dyn 18",Not defined,1539-1292 BC
+1542,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1543,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1544,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1545,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1546,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1547,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1548,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1549,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1550,"NK, Dyn 18",Not defined,1539-1292 BC
+1551,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1552,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1553,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1554,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1555,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1556,"NK, Dyn 18",Not defined,1539-1292 BC
+1557,"NK, Dyn 18-19",Not defined,1539-1191 BC
+1558,"NK, Dyn 20",Ramesses III,1187-1157 BC
+1559,"NK, Dyn 19",Not defined,1292-1191 BC
+1560,"NK, Dyn 19",Sety I,1290-1279 BC
+1561,"NK, Dyn 19",Not defined,1292-1191 BC
+1562,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1563,"NK, Dyn 19",Not defined,1292-1191 BC
+1564,"NK, Dyn 19",Not defined,1292-1191 BC
+1565,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1566,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+1567,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1568,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1569,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+1570,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1571,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+1572,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1573,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1574,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1575,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1576,"NK, Dyn 19",Not defined,1292-1191 BC
+1577,"NK, Dyn 20",Sethnakht,1190-1188 BC
+1578,"NK, Dyn 19",Not defined,1292-1191 BC
+1579,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1580,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1581,"NK, Dyn 19",Not defined,1292-1191 BC
+1582,"NK, Dyn 19",Not defined,1292-1191 BC
+1583,"NK, Dyn 19",Not defined,1292-1191 BC
+1584,Not defined,Not defined,Not defined
+1585,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1586,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1587,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1588,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1589,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1590,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1591,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1592,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1593,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1594,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1595,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1596,Not defined,Not defined,Not defined
+1597,"NK, Dyn 18",Horemheb,1319-1292 BC
+1598,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1599,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1600,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1601,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1602,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1603,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1604,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1605,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1606,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+1607,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1608,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1609,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1610,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1611,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1612,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1613,Not defined,Not defined,Not defined
+1614,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1615,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1616,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1617,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1618,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1619,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1620,"NK, Dyn 19",Not defined,1292-1191 BC
+1621,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1622,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1623,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1624,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1625,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1626,"NK, Dyn 19",Not defined,1292-1191 BC
+1627,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1628,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1629,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1630,"NK, Dyn 19",Not defined,1292-1191 BC
+1631,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1632,"NK, Dyn 19",Not defined,1292-1191 BC
+1633,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1634,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1635,Not defined,Not defined,Not defined
+1636,"NK, Dyn 19",Not defined,1292-1191 BC
+1637,"NK, Dyn 19",Not defined,1292-1191 BC
+1638,"NK, Dyn 20",Ramesses IV,1156-1150 BC
+1639,"NK, Dyn 20",Ramesses IV,1156-1150 BC
+1640,"NK, Dyn 20",Ramesses IV,1156-1150 BC
+1641,"NK, Dyn 19",Not defined,1292-1191 BC
+1642,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1643,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1644,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1645,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1646,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1647,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1648,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1649,"NK, Dyn 19",Not defined,1292-1191 BC
+1650,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1651,"NK, Dyn 19",Not defined,1292-1191 BC
+1652,"NK, Dyn 19",Not defined,1292-1191 BC
+1653,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1654,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1655,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1656,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1657,"NK, Dyn 19",Sety I,1290-1279 BC
+1658,"NK, Dyn 19",Not defined,1292-1191 BC
+1659,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1660,"NK, Dyn 18-19",Not defined,1539-1191 BC
+1661,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1662,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+1663,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1664,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1665,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1666,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1667,"NK, Dyn 20",Siptah,1197-1193 BC
+1668,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1669,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1670,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1671,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1672,"NK, Dyn 19",Not defined,1292-1191 BC
+1673,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1674,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1675,"NK, Dyn 18-19",Not defined,1539-1191 BC
+1676,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1677,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1678,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1679,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1680,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1681,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1682,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+1683,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1684,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1685,"NK, Dyn 19",Not defined,1292-1191 BC
+1686,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1687,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1688,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+1689,"NK, Dyn 18-19",Not defined,1539-1191 BC
+1690,"NK, Dyn 18",Postamarna,1336-1292 BC
+1691,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+1692,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1693,"NK, Dyn 19",Not defined,1292-1191 BC
+1694,"NK, Dyn 19",Sety I,1290-1279 BC
+1695,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1696,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1697,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1698,"NK, Dyn 19",Not defined,1292-1191 BC
+1699,"NK, Dyn 18",Horemheb,1319-1292 BC
+1700,"NK, Dyn 19",Not defined,1292-1191 BC
+1701,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1702,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1703,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1704,NK,Not defined,1539-1077 BC
+1705,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1706,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1707,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1708,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1709,"NK, Dyn 19",Not defined,1292-1191 BC
+1710,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1711,"NK, Dyn 18",Horemheb,1319-1292 BC
+1712,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1713,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1714,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1715,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1716,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1717,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1718,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1719,NK,Not defined,1539-1077 BC
+1720,"NK, Dyn 19",Not defined,1292-1191 BC
+1721,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1722,"NK, Dyn 19",Not defined,1292-1191 BC
+1723,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1724,"NK, Dyn 19",Not defined,1292-1191 BC
+1725,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1726,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1727,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1728,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1729,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1730,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+1731,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1732,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1733,"NK, Dyn 19",Not defined,1292-1191 BC
+1734,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1735,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1736,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1737,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1738,"NK, Dyn 18",Horemheb,1319-1292 BC
+1739,"NK, Dyn 19",Sety I,1290-1279 BC
+1740,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+1741,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1742,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1743,"NK, Dyn 18",Thutmose III,1479-1425 BC
+1744,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1745,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1746,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1747,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1748,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1749,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1750,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1751,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+1752,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1753,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+1754,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+1755,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1756,"NK, Dyn 19",Not defined,1292-1191 BC
+1757,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1758,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1759,NK,Not defined,1539-1077 BC
+1760,"NK, Dyn 18",Eje,1323-1320 BC
+1761,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1762,"NK, Dyn 19",Not defined,1292-1191 BC
+1763,"NK, Dyn 19",Not defined,1292-1191 BC
+1764,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1765,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1766,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1767,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1768,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1769,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1770,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1771,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1772,"NK, Dyn 19",Not defined,1292-1191 BC
+1773,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1774,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1775,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1776,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1777,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1778,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1779,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1780,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+1781,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1782,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1783,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1784,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1785,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1786,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1787,"NK, Dyn 19",Not defined,1292-1191 BC
+1788,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+1789,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1790,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1791,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1792,"NK, Dyn 19",Not defined,1292-1191 BC
+1793,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1794,"NK, Dyn 18",Not defined,1539-1292 BC
+1795,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1796,"NK, Dyn 20",Ramesses III,1187-1157 BC
+1797,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1798,"NK, Dyn 19",Not defined,1292-1191 BC
+1799,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1800,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1801,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1802,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1803,"NK, Dyn 18",Not defined,1539-1292 BC
+1804,NK,Not defined,1539-1077 BC
+1805,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1806,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+1807,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1808,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1809,"NK, Dyn 20",Not defined,1190-1077 BC
+1810,"NK, Dyn 20",Ramesses III,1187-1157 BC
+1811,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1812,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1813,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1814,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1815,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1816,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1817,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1818,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+1819,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1820,"NK, Dyn 19",Not defined,1292-1191 BC
+1821,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1822,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1823,"NK, Dyn 20",Siptah,1197-1193 BC
+1824,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1825,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+1826,"NK, Dyn 19",Not defined,1292-1191 BC
+1827,"NK, Dyn 19",Sety I,1290-1279 BC
+1828,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1829,"NK, Dyn 19",Not defined,1292-1191 BC
+1830,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1831,"NK, Dyn 18-19",Not defined,1539-1191 BC
+1832,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1833,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+1834,NK,Not defined,1539-1077 BC
+1835,"NK, Dyn 19",Sety I,1290-1279 BC
+1836,NK,Not defined,1539-1077 BC
+1837,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1838,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1839,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1840,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1841,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1842,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1843,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1844,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1845,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+1846,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1847,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1848,"NK, Dyn 19",Sety II,1202-1198 BC
+1849,"NK, Dyn 18",Horemheb,1319-1292 BC
+1850,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+1851,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1852,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1853,"NK, Dyn 20",Not defined,1190-1077 BC
+1854,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+1855,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1856,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1857,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1858,"NK, Dyn 19",Sety II,1202-1198 BC
+1859,"NK, Dyn 19",Not defined,1292-1191 BC
+1860,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1861,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1862,"NK, Dyn 19",Siptah,1197-1193 BC
+1863,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1864,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1865,"NK, Dyn 19",Not defined,1292-1191 BC
+1866,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1867,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1868,"NK, Dyn 18",Not defined,1539-1292 BC
+1869,NK,Not defined,1539-1077 BC
+1870,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1871,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1872,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1873,"NK, Dyn 19",Not defined,1292-1191 BC
+1874,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1875,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1876,"NK, Dyn 19",Not defined,1292-1191 BC
+1877,"NK, Dyn 19",Not defined,1292-1191 BC
+1878,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1879,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+1880,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1881,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1882,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+1883,"NK, Dyn 19",Not defined,1292-1191 BC
+1884,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1885,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1886,"NK, Dyn 19",Not defined,1292-1191 BC
+1887,"NK, Dyn 19",Not defined,1292-1191 BC
+1888,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1889,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1890,"NK, Dyn 19",Not defined,1292-1191 BC
+1891,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1892,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1893,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1894,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+1895,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1896,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1897,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1898,"NK, Dyn 19",Not defined,1292-1191 BC
+1899,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1900,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1901,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1902,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1903,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1904,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1905,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1906,"NK, Dyn 18-19",Not defined,1539-1191 BC
+1907,"NK, Dyn 18-19",Not defined,1539-1191 BC
+1908,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+1909,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1910,"NK, Dyn 20",Ramesses III,1187-1157 BC
+1911,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1912,Not defined,Not defined,Not defined
+1913,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1914,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1915,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1916,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1917,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1918,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1919,"NK, Dyn 19",Not defined,1292-1191 BC
+1920,"NK, Dyn 19",Not defined,1292-1191 BC
+1921,"NK, Dyn 19",Ramesses II-Tausret,1213-1191 BC
+1922,NK,Not defined,1539-1077 BC
+1923,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1924,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1925,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1926,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1927,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1928,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1929,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1930,NK,Not defined,1539-1077 BC
+1931,"NK, Dyn 19",Not defined,1292-1191 BC
+1932,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1933,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+1934,"NK, Dyn 20",Ramesses III,1187-1157 BC
+1935,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1936,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+1937,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1938,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1939,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1940,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1941,"NK, Dyn 18",Not defined,1539-1292 BC
+1942,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1943,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1944,"NK, Dyn 19",Not defined,1292-1191 BC
+1945,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1946,"NK, Dyn 19",Not defined,1292-1191 BC
+1947,"NK, Dyn 19",Not defined,1292-1191 BC
+1948,"NK, Dyn 18",Thutmose IV,1400-1390 BC
+1949,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1950,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1951,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1952,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1953,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1954,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1955,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1956,"NK, Dyn 20",Ramesses III,1187-1157 BC
+1957,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1958,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+1959,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1960,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1961,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1962,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1963,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1964,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1965,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+1966,"NK, Dyn 18",Not defined,1539-1292 BC
+1967,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+1968,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1969,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1970,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1971,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+1972,"NK, Dyn 18",Thutmose III,1479-1425 BC
+1973,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1974,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+1975,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+1976,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+1977,"NK, Dyn 18",Horemheb,1319-1292 BC
+1978,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1979,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1980,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1981,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1982,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1983,"NK, Dyn 19-20",Not defined,1292-1077 BC
+1984,"NK, Dyn 18",Not defined,1539-1292 BC
+1985,NK,Not defined,1539-1077 BC
+1986,"NK, Dyn 19",Ramesses II,1279-1213 BC
+1987,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1988,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+1989,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+1990,NK,Not defined,1539-1077 BC
+1991,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+1992,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1993,"NK, Dyn 20",Ramesses III,1187-1157 BC
+1994,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+1995,"NK, Dyn 19",Not defined,1292-1191 BC
+1996,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+1997,"NK, Dyn 18",Eje,1323-1320 BC
+1998,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+1999,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+2000,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+2001,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2002,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2003,NK,Not defined,1539-1077 BC
+2004,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2005,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2006,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2007,"NK, Dyn 20",Not defined,1190-1077 BC
+2008,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2009,"NK, Dyn 19",Not defined,1292-1191 BC
+2010,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2011,NK,Not defined,1539-1077 BC
+2012,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2013,NK,Not defined,1539-1077 BC
+2014,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2015,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2016,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2017,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2018,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2019,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2020,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2021,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2022,"NK, Dyn 19",Not defined,1292-1191 BC
+2023,"NK, Dyn 19",Not defined,1292-1191 BC
+2024,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2025,"NK, Dyn 19",Not defined,1292-1191 BC
+2026,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2027,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2028,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2029,"NK, Dyn 19",Not defined,1292-1191 BC
+2030,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2031,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+2032,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+2033,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2034,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2035,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2036,"NK, Dyn 19",Not defined,1292-1191 BC
+2037,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2038,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2039,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2040,NK,Not defined,1539-1077 BC
+2041,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2042,"NK, Dyn 19",Not defined,1292-1191 BC
+2043,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2044,"NK, Dyn 19",Not defined,1292-1191 BC
+2045,"NK, Dyn 19",Not defined,1292-1191 BC
+2046,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2047,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2048,"NK, Dyn 19",Not defined,1292-1191 BC
+2049,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2050,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+2051,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2052,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2053,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2054,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+2055,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2056,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2057,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2058,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2059,"NK, Dyn 19",Not defined,1292-1191 BC
+2060,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+2061,"NK, Dyn 19",Not defined,1292-1191 BC
+2062,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2063,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2064,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+2065,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2066,"NK, Dyn 18",Horemheb,1319-1292 BC
+2067,"NK, Dyn 18",Not defined,1539-1292 BC
+2068,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2069,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2070,"NK, Dyn 19",Not defined,1292-1191 BC
+2071,"NK, Dyn 19",Not defined,1292-1191 BC
+2072,NK,Not defined,1539-1077 BC
+2073,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2074,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2075,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2076,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2077,"NK, Dyn 19",Not defined,1292-1191 BC
+2078,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2079,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2080,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+2081,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2082,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2083,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2084,"NK, Dyn 19",Not defined,1292-1191 BC
+2085,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2086,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+2087,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2088,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2089,"NK, Dyn 19",Not defined,1292-1191 BC
+2090,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2091,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2092,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+2093,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2094,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2095,"NK, Dyn 19",Not defined,1292-1191 BC
+2096,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2097,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2098,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2099,"NK, Dyn 19",Not defined,1292-1191 BC
+2100,"NK, Dyn 19",Not defined,1292-1191 BC
+2101,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2102,"NK, Dyn 18",Eje,1323-1320 BC
+2103,"NK, Dyn 19",Not defined,1292-1191 BC
+2104,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2105,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2106,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2107,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2108,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2109,"NK, Dyn 19",Not defined,1292-1191 BC
+2110,"NK, Dyn 18",Horemheb,1319-1292 BC
+2111,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2112,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2113,"NK, Dyn 19",Not defined,1292-1191 BC
+2114,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2115,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2116,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2117,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2118,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2119,"NK, Dyn 18",Eje,1323-1320 BC
+2120,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2121,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2122,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2123,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2124,"NK, Dyn 19",Not defined,1292-1191 BC
+2125,NK,Not defined,1539-1077 BC
+2126,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2127,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2128,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+2129,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2130,"NK, Dyn 19",Not defined,1292-1191 BC
+2131,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2132,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2133,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2134,"NK, Dyn 20",Ramesses III-Ramesses IV,1187-1150 BC
+2135,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2136,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2137,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2138,NK,Not defined,1539-1077 BC
+2139,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2140,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2141,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2142,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2143,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2144,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2145,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2146,"NK, Dyn 19",Not defined,1292-1191 BC
+2147,"NK, Dyn 19",Sety I,1290-1279 BC
+2148,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2149,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2150,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2151,NK,Not defined,1539-1077 BC
+2152,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2153,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2154,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2155,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2156,"NK, Dyn 18",Horemheb,1319-1292 BC
+2157,"NK, Dyn 19",Not defined,1292-1191 BC
+2158,NK,Not defined,1539-1077 BC
+2159,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+2160,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2161,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2162,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+2163,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2164,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2165,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2166,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2167,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2168,"NK, Dyn 18",Not defined,1539-1292 BC
+2169,"NK, Dyn 18",Preamarna,1479-1353 BC
+2170,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2171,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2172,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2173,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+2174,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2175,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2176,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2177,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2178,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2179,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2180,"NK, Dyn 19",Not defined,1292-1191 BC
+2181,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2182,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2183,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2184,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2185,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+2186,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2187,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+2188,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2189,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2190,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2191,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2192,"NK, Dyn 18",Horemheb,1319-1292 BC
+2193,"NK, Dyn 19",Sety II,1202-1198 BC
+2194,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2195,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2196,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2197,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2198,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2199,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2200,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2201,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2202,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2203,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2204,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2205,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+2206,"NK, Dyn 19",Not defined,1292-1191 BC
+2207,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2208,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2209,"NK, Dyn 20",Ramesses IV,1156-1150 BC
+2210,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2211,NK,Not defined,1539-1077 BC
+2212,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2213,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2214,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2215,"NK, Dyn 18",Not defined,1539-1292 BC
+2216,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2217,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2218,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2219,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2220,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2221,"NK, Dyn 19",Sety I,1290-1279 BC
+2222,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+2223,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2224,"NK, Dyn 19",Not defined,1292-1191 BC
+2225,"NK, Dyn 19",Not defined,1292-1191 BC
+2226,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2227,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2228,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2229,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2230,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2231,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2232,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2233,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2234,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2235,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2236,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2237,"NK, Dyn 18",Eje,1323-1320 BC
+2238,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2239,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2240,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2241,"NK, Dyn 19",Sety I,1290-1279 BC
+2242,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2243,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+2244,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2245,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2246,"NK, Dyn 19",Not defined,1292-1191 BC
+2247,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2248,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2249,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2250,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2251,NK,Not defined,1539-1077 BC
+2252,"NK, Dyn 19",Not defined,1292-1191 BC
+2253,"NK, Dyn 19",Sety II,1202-1198 BC
+2254,"NK, Dyn 19",Sety II,1202-1198 BC
+2255,NK,Not defined,1539-1077 BC
+2256,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2257,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2258,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2259,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2260,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2261,NK,Not defined,1539-1077 BC
+2262,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2263,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2264,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2265,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2266,"NK, Dyn 18",Not defined,1539-1292 BC
+2267,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2268,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2269,"NK, Dyn 18",Thutmose I,1493-1483 BC
+2270,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2271,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2272,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2273,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2274,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2275,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2276,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2277,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+2278,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2279,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2280,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2281,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2282,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2283,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+2284,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2285,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2286,"NK, Dyn 19",Not defined,1292-1191 BC
+2287,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2288,"NK, Dyn 19",Not defined,1292-1191 BC
+2289,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2290,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2291,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2292,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2293,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2294,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2295,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2296,"NK, Dyn 19",Not defined,1292-1191 BC
+2297,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2298,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2299,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2300,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2301,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2302,"NK, Dyn 18",Thutmose III,1479-1425 BC
+2303,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+2304,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2305,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2306,"NK, Dyn 18",Not defined,1539-1292 BC
+2307,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2308,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2309,"NK, Dyn 19",Sety I,1290-1279 BC
+2310,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2311,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2312,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2313,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2314,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2315,"NK, Dyn 19",Not defined,1292-1191 BC
+2316,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+2317,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2318,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2319,"NK, Dyn 19",Not defined,1292-1191 BC
+2320,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC
+2321,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2322,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2323,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2324,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+2325,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2326,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2327,NK,Not defined,1539-1077 BC
+2328,"NK, Dyn 18",Eje,1323-1320 BC
+2329,"NK, Dyn 19",Not defined,1292-1191 BC
+2330,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2331,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2332,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2333,"NK, Dyn 20",Sethnakht,1190-1188 BC
+2334,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2335,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2336,"NK, Dyn 19",Not defined,1292-1191 BC
+2337,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2338,"NK, Dyn 18",Eje,1323-1320 BC
+2339,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2340,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2341,"NK, Dyn 18",Horemheb,1319-1292 BC
+2342,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2343,"NK, Dyn 19",Not defined,1292-1191 BC
+2344,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2345,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2346,"NK, Dyn 18",Eje-Horemheb,1323-1292 BC
+2347,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2348,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2349,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2350,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2351,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2352,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2353,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2354,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2355,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2356,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2357,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2358,"NK, Dyn 19",Not defined,1292-1191 BC
+2359,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2360,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2361,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2362,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2363,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2364,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2365,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+2366,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2367,NK,Not defined,1539-1077 BC
+2368,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2369,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2370,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2371,NK,Not defined,1539-1077 BC
+2372,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+2373,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2374,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2375,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2376,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2377,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2378,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2379,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+2380,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2381,"NK, Dyn 19",Not defined,1292-1191 BC
+2382,"NK, Dyn 18",Ahmes-Thutmose I,1539-1483 BC
+2383,"NK, Dyn 18",Ahmes-Thutmose I,1539-1483 BC
+2384,NK,Not defined,1539-1077 BC
+2385,"NK, Dyn 20",Ramesses V,1149-1146 BC
+2386,"NK, Dyn 20",Ramesses V,1149-1146 BC
+2387,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+2388,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+2389,NK,Not defined,1539-1077 BC
+2390,"NK, Dyn 18",Not defined,1539-1292 BC
+2391,"NK, Dyn 18",Not defined,1539-1292 BC
+2392,"NK, Dyn 18",Preamarna,1479-1353 BC
+2393,"NK, Dyn 18",Thutmose III,1479-1425 BC
+2394,"NK, Dyn 19",Not defined,1292-1191 BC
+2395,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2396,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2397,"NK, Dyn 20",Not defined,1190-1077 BC
+2398,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2399,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2400,"NK, Dyn 19",Sety I,1290-1279 BC
+2401,"NK, Dyn 19",Sety I,1290-1279 BC
+2402,"NK, Dyn 19",Sety I,1290-1279 BC
+2403,"NK, Dyn 19",Sety I,1290-1279 BC
+2404,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2405,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2406,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2407,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+2408,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+2409,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+2410,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+2411,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+2412,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+2413,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+2414,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2415,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2416,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2417,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2418,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2419,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2420,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2421,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2422,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2423,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2424,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2425,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2426,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2427,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2428,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2429,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2430,"NK, Dyn 20",Not defined,1190-1077 BC
+2431,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2432,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2433,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2434,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2435,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2436,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2437,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2438,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2439,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2440,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2441,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2442,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2443,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+2444,"NK, Dyn 19",Not defined,1292-1191 BC
+2445,"NK, Dyn 19",Not defined,1292-1191 BC
+2446,"NK, Dyn 18",Not defined,1539-1292 BC
+2447,NK,Not defined,1539-1077 BC
+2448,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2449,"NK, Dyn 19",Not defined,1292-1191 BC
+2450,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2451,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2452,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2453,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2454,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2455,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2456,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2457,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2458,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2459,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2460,"NK, Dyn 18",Not defined,1539-1292 BC
+2461,"NK, Dyn 18",Not defined,1539-1292 BC
+2462,"NK, Dyn 18",Not defined,1539-1292 BC
+2463,"NK, Dyn 18",Not defined,1539-1292 BC
+2464,"NK, Dyn 18",Not defined,1539-1292 BC
+2465,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+2466,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2467,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2468,"NK, Dyn 20",Not defined,1190-1077 BC
+2469,"NK, Dyn 20",Not defined,1190-1077 BC
+2470,"NK, Dyn 20",Not defined,1190-1077 BC
+2471,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+2472,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2473,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+2474,"NK, Dyn 19",Not defined,1292-1191 BC
+2475,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2476,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2477,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2478,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2479,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2480,"NK, Dyn 19",Not defined,1292-1191 BC
+2481,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2482,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2483,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2484,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2485,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2486,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2487,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2488,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2489,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2490,"NK, Dyn 19",Not defined,1292-1191 BC
+2491,"NK, Dyn 20",Not defined,1190-1077 BC
+2492,"NK, Dyn 20",Not defined,1190-1077 BC
+2493,"NK, Dyn 18",Not defined,1539-1292 BC
+2494,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+2495,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+2496,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+2497,"NK, Dyn 19",Not defined,1292-1191 BC
+2498,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+2499,NK,Not defined,1539-1077 BC
+2500,"NK, Dyn 19",Not defined,1292-1191 BC
+2501,"NK, Dyn 19",Not defined,1292-1191 BC
+2502,"NK, Dyn 18",Not defined,1539-1292 BC
+2503,"NK, Dyn 19",Not defined,1292-1191 BC
+2504,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+2505,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+2506,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2507,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2508,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2509,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2510,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2511,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2512,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2513,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2514,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2515,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2516,NK,Not defined,1539-1077 BC
+2517,NK,Not defined,1539-1077 BC
+2518,"NK, Dyn 19",Not defined,1292-1191 BC
+2519,NK,Not defined,1539-1077 BC
+2520,"NK, Dyn 18-19",Horemheb-Ramesses II,1319-1213 BC
+2521,NK,Not defined,1539-1077 BC
+2522,"NK, Dyn 20",Sethnakht,1190-1188 BC
+2523,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2524,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2525,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2526,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2527,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2528,NK,Not defined,1539-1077 BC
+2529,"NK, Dyn 18",Not defined,1539-1292 BC
+2530,"NK, Dyn 19",Not defined,1292-1191 BC
+2531,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2532,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+2533,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2534,NK,Not defined,1539-1077 BC
+2535,NK,Not defined,1539-1077 BC
+2536,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2537,"NK, Dyn 19",Not defined,1292-1191 BC
+2538,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2539,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2540,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2541,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2542,"NK, Dyn 19",Not defined,1292-1191 BC
+2543,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2544,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2545,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2546,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2547,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2548,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2549,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2550,"NK, Dyn 19",Not defined,1292-1191 BC
+2551,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2552,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2553,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2554,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2555,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2556,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2557,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2558,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2559,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2560,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2561,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2562,NK,Not defined,1539-1077 BC
+2563,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2564,"NK, Dyn 20",Not defined,1190-1077 BC
+2565,"NK, Dyn 20",Not defined,1190-1077 BC
+2566,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2567,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2568,"NK, Dyn 18",Not defined,1539-1292 BC
+2569,"NK, Dyn 19",Not defined,1292-1191 BC
+2570,"NK, Dyn 19",Not defined,1292-1191 BC
+2571,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2572,"NK, Dyn 18",Not defined,1539-1292 BC
+2573,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2574,"NK, Dyn 19",Not defined,1292-1191 BC
+2575,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2576,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2577,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2578,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2579,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2580,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2581,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2582,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2583,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2584,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2585,"NK, Dyn 18",Not defined,1539-1292 BC
+2586,"NK, Dyn 20",Not defined,1190-1077 BC
+2587,"NK, Dyn 19",Not defined,1292-1191 BC
+2588,"NK, Dyn 18",Not defined,1539-1292 BC
+2589,"NK, Dyn 18",Not defined,1539-1292 BC
+2590,"NK, Dyn 18",Not defined,1539-1292 BC
+2591,NK,Not defined,1539-1077 BC
+2592,NK,Not defined,1539-1077 BC
+2593,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2594,"NK, Dyn 18",Not defined,1539-1292 BC
+2595,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2596,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+2597,"NK, Dyn 18",Not defined,1539-1292 BC
+2598,"NK, Dyn 18",Not defined,1539-1292 BC
+2599,"NK, Dyn 19",Not defined,1292-1191 BC
+2600,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2601,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2602,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2603,"NK, Dyn 19",Sety I,1290-1279 BC
+2604,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2605,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2606,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2607,"NK, Dyn 20",Not defined,1190-1077 BC
+2608,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2609,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2610,"NK, Dyn 19",Not defined,1292-1191 BC
+2611,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2612,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2613,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2614,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2615,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2616,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2617,"NK, Dyn 19",Not defined,1292-1191 BC
+2618,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2619,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2620,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2621,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2622,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2623,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2624,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2625,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2626,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2627,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2628,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2629,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2630,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2631,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2632,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2633,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2634,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2635,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2636,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2637,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2638,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2639,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2640,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2641,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+2642,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2643,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2644,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2645,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2646,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2647,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2648,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2649,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2650,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2651,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2652,"NK, Dyn 20",Sethnakht,1190-1188 BC
+2653,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2654,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2655,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2656,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2657,"NK, Dyn 19",Not defined,1292-1191 BC
+2658,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2659,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2660,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2661,"NK, Dyn 19",Not defined,1292-1191 BC
+2662,NK,Not defined,1539-1077 BC
+2663,"NK, Dyn 19",Not defined,1292-1191 BC
+2664,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2665,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2666,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2667,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+2668,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2669,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2670,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2671,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+2672,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2673,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2674,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+2675,"NK, Dyn 18",Horemheb,1319-1292 BC
+2676,"NK, Dyn 19",Not defined,1292-1191 BC
+2677,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2678,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2679,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2680,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2681,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2682,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+2683,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2684,"NK, Dyn 19",Not defined,1292-1191 BC
+2685,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2686,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2687,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2688,"NK, Dyn 18",Eje,1323-1320 BC
+2689,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+2690,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2691,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2692,NK,Not defined,1539-1077 BC
+2693,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2694,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2695,"NK, Dyn 19",Not defined,1292-1191 BC
+2696,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2697,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2698,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2699,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+2700,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2701,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2702,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2703,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2704,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2705,"NK, Dyn 19",Not defined,1292-1191 BC
+2706,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2707,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+2708,"NK, Dyn 19",Not defined,1292-1191 BC
+2709,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2710,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2711,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2712,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2713,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2714,"NK, Dyn 20",Not defined,1190-1077 BC
+2715,"NK, Dyn 20",Not defined,1190-1077 BC
+2716,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2717,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2718,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2719,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2720,"NK, Dyn 20",Ramesses IV,1156-1150 BC
+2721,"NK, Dyn 18",Horemheb,1319-1292 BC
+2722,NK,Not defined,1539-1077 BC
+2723,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2724,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2725,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2726,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2727,NK,Not defined,1539-1077 BC
+2728,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2729,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2730,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2731,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+2732,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+2733,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+2734,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2735,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2736,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2737,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2738,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2739,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2740,"NK, Dyn 18",Eje-Horemheb,1323-1292 BC
+2741,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+2742,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2743,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2744,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+2745,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2746,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2747,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2748,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2749,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2750,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2751,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2752,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2753,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2754,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2755,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2756,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2757,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2758,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2759,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2760,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2761,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2762,"NK, Dyn 19",Not defined,1292-1191 BC
+2763,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2764,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2765,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2766,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2767,"NK, Dyn 20",Ramesses IV,1156-1150 BC
+2768,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2769,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2770,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2771,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2772,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2773,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2774,Not defined,Not defined,Not defined
+2775,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+2776,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2777,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2778,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2779,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2780,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2781,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2782,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2783,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2784,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2785,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2786,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2787,"NK, Dyn 19",Not defined,1292-1191 BC
+2788,"NK, Dyn 20",Ramesses IV,1156-1150 BC
+2789,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2790,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2791,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2792,"NK, Dyn 19",Not defined,1292-1191 BC
+2793,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2794,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2795,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2796,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2797,"NK, Dyn 19",Not defined,1292-1191 BC
+2798,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2799,"NK, Dyn 19",Not defined,1292-1191 BC
+2800,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2801,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2802,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+2803,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2804,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2805,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2806,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2807,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2808,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2809,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2810,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2811,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2812,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2813,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2814,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2815,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2816,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2817,"NK, Dyn 18-19",Not defined,1539-1191 BC
+2818,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2819,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2820,"NK, Dyn 19",Not defined,1292-1191 BC
+2821,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2822,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2823,"NK, Dyn 18",Thutmose III,1479-1425 BC
+2824,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2825,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2826,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2827,"NK, Dyn 20",Ramesses III,1187-1157 BC
+2828,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2829,"NK, Dyn 18",Horemheb,1319-1292 BC
+2830,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+2831,"NK, Dyn 19",Not defined,1292-1191 BC
+2832,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2833,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2834,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2835,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2836,"NK, Dyn 19",Not defined,1292-1191 BC
+2837,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2838,"NK, Dyn 18",Not defined,1539-1292 BC
+2839,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+2840,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2841,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2842,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2843,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2844,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+2845,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+2846,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2847,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2848,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+2849,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2850,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2851,NK,Not defined,1539-1077 BC
+2852,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2853,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+2854,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2855,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2856,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2857,"NK, Dyn 19",Not defined,1292-1191 BC
+2858,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2859,"NK, Dyn 18",Horemheb,1319-1292 BC
+2860,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2861,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2862,"NK, Dyn 19",Not defined,1292-1191 BC
+2863,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2864,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2865,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2866,"NK, Dyn 18",Horemheb,1319-1292 BC
+2867,"NK, Dyn 18",Ahmes-Thutmose I,1539-1483 BC
+2868,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2869,"NK, Dyn 18",Thutmose III,1479-1425 BC
+2870,"NK, Dyn 20",Not defined,1190-1077 BC
+2871,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2872,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2873,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2874,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2875,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2876,"NK, Dyn 19",Sety I,1290-1279 BC
+2877,"NK, Dyn 19",Sety I,1290-1279 BC
+2878,"NK, Dyn 19",Sety I,1290-1279 BC
+2879,"NK, Dyn 19",Sety I,1290-1279 BC
+2880,"NK, Dyn 19",Sety I,1290-1279 BC
+2881,"NK, Dyn 19",Sety I,1290-1279 BC
+2882,"NK, Dyn 19",Sety I,1290-1279 BC
+2883,"NK, Dyn 19",Sety I,1290-1279 BC
+2884,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2885,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2886,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2887,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2888,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2889,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2890,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+2891,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+2892,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC
+2893,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+2894,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2895,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+2896,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2897,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2898,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2899,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2900,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2901,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2902,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2903,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2904,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2905,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2906,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2907,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2908,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2909,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2910,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2911,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2912,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2913,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2914,"NK, Dyn 19",Not defined,1292-1191 BC
+2915,"NK, Dyn 19",Not defined,1292-1191 BC
+2916,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2917,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2918,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC
+2919,"NK, Dyn 20",Not defined,1190-1077 BC
+2920,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+2921,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC
+2922,"NK, Dyn 19",Not defined,1292-1191 BC
+2923,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2924,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+2925,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2926,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+2927,"NK, Dyn 18",Not defined,1539-1292 BC
+2928,"NK, Dyn 19",Not defined,1292-1191 BC
+2929,"NK, Dyn 19",Not defined,1292-1191 BC
+2930,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+2931,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2932,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2933,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+2934,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+2935,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2936,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2937,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2938,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2939,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2940,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+2941,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2942,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2943,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2944,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2945,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2946,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2947,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2948,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2949,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2950,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+2951,NK,Not defined,1539-1077 BC
+2952,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2953,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2954,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2955,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2956,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2957,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2958,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2959,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2960,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+2961,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2962,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2963,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2964,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2965,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2966,"NK, Dyn 19",Not defined,1292-1191 BC
+2967,"NK, Dyn 19",Not defined,1292-1191 BC
+2968,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2969,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2970,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2971,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2972,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2973,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2974,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2975,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2976,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2977,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2978,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2979,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2980,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2981,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2982,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2983,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2984,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2985,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2986,"NK, Dyn 19-20",Not defined,1292-1077 BC
+2987,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+2988,"NK, Dyn 19",Not defined,1292-1191 BC
+2989,"NK, Dyn 19",Not defined,1292-1191 BC
+2990,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2991,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+2992,"NK, Dyn 19",Not defined,1292-1191 BC
+2993,"NK, Dyn 19",Ramesses II,1279-1213 BC
+2994,"NK, Dyn 19",Not defined,1292-1191 BC
+2995,"NK, Dyn 19",Not defined,1292-1191 BC
+2996,"NK, Dyn 19",Not defined,1292-1191 BC
+2997,"NK, Dyn 19",Not defined,1292-1191 BC
+2998,"NK, Dyn 19",Not defined,1292-1191 BC
+2999,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+3000,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+3001,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+3002,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+3003,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+3004,"NK, Dyn 18",Amenhotep II,1425-1400 BC
+3005,NK,Not defined,1539-1077 BC
+3006,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3007,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3008,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3009,"NK, Dyn 19",Not defined,1292-1191 BC
+3010,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+3011,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC
+3012,NK,Not defined,1539-1077 BC
+3013,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3014,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3015,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3016,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3017,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3018,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3019,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3020,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3021,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3022,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3023,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3024,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3025,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3026,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3027,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3028,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3029,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3030,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3031,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3032,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3033,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3034,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3035,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3036,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3037,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3038,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3039,NK,Not defined,1539-1077 BC
+3040,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3041,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+3042,"NK, Dyn 19",Not defined,1292-1191 BC
+3043,"NK, Dyn 19",Not defined,1292-1191 BC
+3044,"NK, Dyn 19",Not defined,1292-1191 BC
+3045,"NK, Dyn 19",Not defined,1292-1191 BC
+3046,"NK, Dyn 19",Not defined,1292-1191 BC
+3047,"NK, Dyn 19",Not defined,1292-1191 BC
+3048,"NK, Dyn 19",Not defined,1292-1191 BC
+3049,"NK, Dyn 19",Not defined,1292-1191 BC
+3050,"NK, Dyn 19",Sety I,1290-1279 BC
+3051,NK,Not defined,1539-1077 BC
+3052,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3053,"NK, Dyn 18",Thutmose IV,1400-1390 BC
+3054,"NK, Dyn 18",Thutmose IV,1400-1390 BC
+3055,"NK, Dyn 18",Thutmose IV,1400-1390 BC
+3056,"NK, Dyn 18",Thutmose IV,1400-1390 BC
+3057,"NK, Dyn 19",Not defined,1292-1191 BC
+3058,"NK, Dyn 19",Not defined,1292-1191 BC
+3059,"NK, Dyn 19",Not defined,1292-1191 BC
+3060,"NK, Dyn 19",Not defined,1292-1191 BC
+3061,"NK, Dyn 19",Not defined,1292-1191 BC
+3062,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3063,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3064,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3065,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3066,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3067,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3068,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3069,"NK, Dyn 18",Thutmose III,1479-1425 BC
+3070,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+3071,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+3072,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3073,"NK, Dyn 19",Not defined,1292-1191 BC
+3074,"NK, Dyn 19",Not defined,1292-1191 BC
+3075,"NK, Dyn 19",Not defined,1292-1191 BC
+3076,"NK, Dyn 19",Not defined,1292-1191 BC
+3077,"NK, Dyn 19",Not defined,1292-1191 BC
+3078,"NK, Dyn 19",Not defined,1292-1191 BC
+3079,"NK, Dyn 19",Not defined,1292-1191 BC
+3080,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3081,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3082,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3083,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3084,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3085,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3086,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3087,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3088,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3089,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3090,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3091,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3092,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3093,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3094,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3095,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3096,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3097,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3098,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3099,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3100,NK,Not defined,1539-1077 BC
+3101,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3102,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3103,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3104,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3105,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3106,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3107,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3108,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3109,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3110,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3111,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3112,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3113,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3114,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3115,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3116,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3117,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3118,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3119,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3120,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3121,"NK, Dyn 19",Not defined,1292-1191 BC
+3122,"NK, Dyn 19",Not defined,1292-1191 BC
+3123,"NK, Dyn 19",Not defined,1292-1191 BC
+3124,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+3125,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+3126,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3127,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3128,"NK, Dyn 20",Ramesses III,1187-1157 BC
+3129,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+3130,"NK, Dyn 19",Not defined,1292-1191 BC
+3131,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3132,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3133,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3134,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3135,"NK, Dyn 19",Not defined,1292-1191 BC
+3136,"NK, Dyn 18",Not defined,1539-1292 BC
+3137,"NK, Dyn 18",Not defined,1539-1292 BC
+3138,"NK, Dyn 18",Not defined,1539-1292 BC
+3139,"NK, Dyn 18",Not defined,1539-1292 BC
+3140,"NK, Dyn 18",Not defined,1539-1292 BC
+3141,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3142,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3143,"NK, Dyn 19",Not defined,1292-1191 BC
+3144,"NK, Dyn 20",Ramesses V,1149-1146 BC
+3145,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+3146,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC
+3147,"NK, Dyn 18",Postamarna,1336-1292 BC
+3148,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3149,"NK, Dyn 19",Sety I,1290-1279 BC
+3150,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3151,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3152,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3153,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3154,"NK, Dyn 19",Not defined,1292-1191 BC
+3155,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3156,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3157,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3158,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3159,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3160,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3161,"NK, Dyn 18",Preamarna,1479-1353 BC
+3162,"NK, Dyn 18",Preamarna,1479-1353 BC
+3163,"NK, Dyn 18",Preamarna,1479-1353 BC
+3164,"NK, Dyn 18",Preamarna,1479-1353 BC
+3165,"NK, Dyn 18",Preamarna,1479-1353 BC
+3166,"NK, Dyn 18",Preamarna,1479-1353 BC
+3167,"NK, Dyn 20",Sethnakht,1190-1188 BC
+3168,"NK, Dyn 18",Not defined,1539-1292 BC
+3169,"NK, Dyn 20",Sethnakht,1190-1188 BC
+3170,"NK, Dyn 20",Sethnakht,1190-1188 BC
+3171,"NK, Dyn 20",Sethnakht,1190-1188 BC
+3172,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3173,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3174,"NK, Dyn 19",Not defined,1292-1191 BC
+3175,"NK, Dyn 19",Not defined,1292-1191 BC
+3176,"NK, Dyn 19",Not defined,1292-1191 BC
+3177,NK,Not defined,1539-1077 BC
+3178,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3179,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3180,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3181,"NK, Dyn 18",Postamarna,1336-1292 BC
+3182,"NK, Dyn 18",Postamarna,1336-1292 BC
+3183,"NK, Dyn 18",Postamarna,1336-1292 BC
+3184,"NK, Dyn 18",Postamarna,1336-1292 BC
+3185,"NK, Dyn 18",Postamarna,1336-1292 BC
+3186,"NK, Dyn 18",Not defined,1539-1292 BC
+3187,"NK, Dyn 19",Not defined,1292-1191 BC
+3188,"NK, Dyn 19",Not defined,1292-1191 BC
+3189,"NK, Dyn 19",Not defined,1292-1191 BC
+3190,"NK, Dyn 19",Not defined,1292-1191 BC
+3191,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3192,"NK, Dyn 19",Sety I,1290-1279 BC
+3193,"NK, Dyn 19",Not defined,1292-1191 BC
+3194,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3195,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3196,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3197,"NK, Dyn 19",Not defined,1292-1191 BC
+3198,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3199,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3200,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3201,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3202,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3203,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3204,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3205,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3206,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3207,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3208,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3209,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3210,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3211,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3212,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3213,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3214,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3215,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3216,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3217,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3218,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3219,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3220,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3221,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3222,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3223,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3224,"NK, Dyn 18",Not defined,1539-1292 BC
+3225,"NK, Dyn 18",Thutmose III,1479-1425 BC
+3226,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3227,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3228,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3229,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3230,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3231,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3232,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3233,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3234,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3235,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3236,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3237,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3238,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3239,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3240,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3241,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3242,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3243,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3244,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3245,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3246,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3247,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3248,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3249,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3250,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3251,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3252,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3253,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3254,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3255,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3256,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3257,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3258,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3259,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3260,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3261,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3262,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3263,"NK, Dyn 19",Not defined,1292-1191 BC
+3264,"NK, Dyn 18",Not defined,1539-1292 BC
+3265,"NK, Dyn 18",Not defined,1539-1292 BC
+3266,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3267,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3268,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3269,"NK, Dyn 19",Not defined,1292-1191 BC
+3270,"NK, Dyn 19",Not defined,1292-1191 BC
+3271,"NK, Dyn 19",Not defined,1292-1191 BC
+3272,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3273,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3274,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3275,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3276,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3277,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3278,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3279,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3280,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3281,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3282,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3283,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3284,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3285,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3286,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3287,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3288,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3289,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3290,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3291,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3292,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3293,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3294,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3295,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3296,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3297,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3298,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3299,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3300,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3301,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3302,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3303,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3304,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3305,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3306,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3307,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3308,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3309,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3310,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3311,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3312,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3313,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3314,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3315,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3316,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3317,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3318,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3319,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3320,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3321,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3322,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3323,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3324,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3325,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3326,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3327,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3328,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3329,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3330,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3331,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3332,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3333,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3334,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3335,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3336,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3337,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3338,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3339,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3340,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3341,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3342,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3343,"NK, Dyn 18",Thutmose I,1493-1483 BC
+3344,"NK, Dyn 18",Thutmose I,1493-1483 BC
+3345,"NK, Dyn 18",Thutmose I,1493-1483 BC
+3346,"NK, Dyn 18",Thutmose I,1493-1483 BC
+3347,"NK, Dyn 18",Thutmose I,1493-1483 BC
+3348,"NK, Dyn 18",Thutmose I,1493-1483 BC
+3349,"NK, Dyn 18",Thutmose I,1493-1483 BC
+3350,"NK, Dyn 18",Thutmose I,1493-1483 BC
+3351,"NK, Dyn 18",Thutmose I,1493-1483 BC
+3352,"NK, Dyn 18",Thutmose I,1493-1483 BC
+3353,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3354,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3355,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3356,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3357,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3358,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3359,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3360,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3361,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3362,"NK, Dyn 18",Not defined,1539-1292 BC
+3363,"NK, Dyn 18",Not defined,1539-1292 BC
+3364,"NK, Dyn 18",Not defined,1539-1292 BC
+3365,"NK, Dyn 18",Not defined,1539-1292 BC
+3366,"NK, Dyn 18",Not defined,1539-1292 BC
+3367,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3368,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3369,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3370,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3371,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3372,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3373,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3374,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3375,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3376,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3377,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3378,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3379,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3380,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3381,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3382,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3383,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3384,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3385,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3386,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3387,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3388,"NK, Dyn 19",Not defined,1292-1191 BC
+3389,"NK, Dyn 19",Not defined,1292-1191 BC
+3390,"NK, Dyn 19",Not defined,1292-1191 BC
+3391,"NK, Dyn 19",Not defined,1292-1191 BC
+3392,"NK, Dyn 19",Not defined,1292-1191 BC
+3393,"NK, Dyn 19",Not defined,1292-1191 BC
+3394,"NK, Dyn 19",Not defined,1292-1191 BC
+3395,"NK, Dyn 19",Not defined,1292-1191 BC
+3396,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+3397,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+3398,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+3399,"NK, Dyn 18",Not defined,1539-1292 BC
+3400,"NK, Dyn 18",Not defined,1539-1292 BC
+3401,"NK, Dyn 18",Not defined,1539-1292 BC
+3402,"NK, Dyn 19",Not defined,1292-1191 BC
+3403,"NK, Dyn 19",Not defined,1292-1191 BC
+3404,"NK, Dyn 19",Merenptah,1213-1203 BC
+3405,"NK, Dyn 19",Merenptah,1213-1203 BC
+3406,"NK, Dyn 19",Merenptah,1213-1203 BC
+3407,"NK, Dyn 19",Merenptah,1213-1203 BC
+3408,"NK, Dyn 19",Merenptah,1213-1203 BC
+3409,"NK, Dyn 19",Merenptah,1213-1203 BC
+3410,"NK, Dyn 19",Merenptah,1213-1203 BC
+3411,"NK, Dyn 19",Merenptah,1213-1203 BC
+3412,"NK, Dyn 19",Merenptah,1213-1203 BC
+3413,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3414,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3415,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3416,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3417,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3418,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3419,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3420,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3421,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3422,NK,Not defined,1539-1077 BC
+3423,"NK, Dyn 18",Horemheb,1319-1292 BC
+3424,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3425,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3426,Not defined,Not defined,Not defined
+3427,NK,Not defined,1539-1077 BC
+3428,NK,Not defined,1539-1077 BC
+3429,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3430,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3431,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3432,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3433,NK,Not defined,1539-1077 BC
+3434,NK,Not defined,1539-1077 BC
+3435,NK,Not defined,1539-1077 BC
+3436,NK,Not defined,1539-1077 BC
+3437,NK,Not defined,1539-1077 BC
+3438,NK,Not defined,1539-1077 BC
+3439,NK,Not defined,1539-1077 BC
+3440,NK,Not defined,1539-1077 BC
+3441,NK,Not defined,1539-1077 BC
+3442,NK,Not defined,1539-1077 BC
+3443,NK,Not defined,1539-1077 BC
+3444,NK,Not defined,1539-1077 BC
+3445,NK,Not defined,1539-1077 BC
+3446,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3447,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3448,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3449,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3450,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3451,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3452,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3453,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3454,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3455,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3456,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3457,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3458,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3459,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3460,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3461,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3462,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3463,Not defined,Not defined,Not defined
+3464,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3465,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3466,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3467,"NK, Dyn 18",Not defined,1539-1292 BC
+3468,"NK, Dyn 18",Not defined,1539-1292 BC
+3469,"NK, Dyn 18",Not defined,1539-1292 BC
+3470,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+3471,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+3472,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+3473,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3474,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3475,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3476,"NK, Dyn 19",Not defined,1292-1191 BC
+3477,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3478,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3479,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3480,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3481,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3482,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3483,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3484,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3485,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3486,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3487,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3488,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3489,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3490,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3491,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3492,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3493,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3494,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3495,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3496,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3497,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3498,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3499,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3500,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3501,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3502,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3503,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3504,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3505,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3506,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3507,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3508,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3509,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3510,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3511,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3512,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3513,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3514,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3515,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3516,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3517,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3518,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3519,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3520,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3521,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3522,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3523,Not defined,Not defined,Not defined
+3524,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3525,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3526,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3527,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3528,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+3529,"NK, Dyn 20",Not defined,1190-1077 BC
+3530,"NK, Dyn 19",Not defined,1292-1191 BC
+3531,"NK, Dyn 18",Not defined,1539-1292 BC
+3532,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3533,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3534,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3535,"NK, Dyn 18",Not defined,1539-1292 BC
+3536,"NK, Dyn 18",Not defined,1539-1292 BC
+3537,"NK, Dyn 18",Not defined,1539-1292 BC
+3538,"NK, Dyn 18",Not defined,1539-1292 BC
+3539,"NK, Dyn 19",Not defined,1292-1191 BC
+3540,"NK, Dyn 19",Not defined,1292-1191 BC
+3541,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3542,"NK, Dyn 18",Not defined,1539-1292 BC
+3543,"NK, Dyn 18",Not defined,1539-1292 BC
+3544,"NK, Dyn 18",Not defined,1539-1292 BC
+3545,"NK, Dyn 18",Not defined,1539-1292 BC
+3546,"NK, Dyn 18",Not defined,1539-1292 BC
+3547,"NK, Dyn 18",Not defined,1539-1292 BC
+3548,"NK, Dyn 18",Not defined,1539-1292 BC
+3549,"NK, Dyn 18",Not defined,1539-1292 BC
+3550,"NK, Dyn 19",Not defined,1292-1191 BC
+3551,NK,Not defined,1539-1077 BC
+3552,NK,Not defined,1539-1077 BC
+3553,NK,Not defined,1539-1077 BC
+3554,NK,Not defined,1539-1077 BC
+3555,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3556,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3557,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3558,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3559,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+3560,"NK, Dyn 19",Not defined,1292-1191 BC
+3561,"NK, Dyn 18",Not defined,1539-1292 BC
+3562,"NK, Dyn 19",Not defined,1292-1191 BC
+3563,"NK, Dyn 20",Not defined,1190-1077 BC
+3564,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3565,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3566,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3567,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3568,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3569,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3570,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3571,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3572,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3573,"NK, Dyn 19",Not defined,1292-1191 BC
+3574,"NK, Dyn 19",Not defined,1292-1191 BC
+3575,"NK, Dyn 19",Not defined,1292-1191 BC
+3576,"NK, Dyn 19",Not defined,1292-1191 BC
+3577,"NK, Dyn 19",Not defined,1292-1191 BC
+3578,"NK, Dyn 19",Not defined,1292-1191 BC
+3579,"NK, Dyn 19",Not defined,1292-1191 BC
+3580,"NK, Dyn 19",Not defined,1292-1191 BC
+3581,"NK, Dyn 19",Not defined,1292-1191 BC
+3582,"NK, Dyn 19",Not defined,1292-1191 BC
+3583,"NK, Dyn 19",Not defined,1292-1191 BC
+3584,"NK, Dyn 19",Not defined,1292-1191 BC
+3585,"NK, Dyn 19",Not defined,1292-1191 BC
+3586,"NK, Dyn 19",Not defined,1292-1191 BC
+3587,"NK, Dyn 19",Not defined,1292-1191 BC
+3588,"NK, Dyn 19",Not defined,1292-1191 BC
+3589,"NK, Dyn 19",Not defined,1292-1191 BC
+3590,"NK, Dyn 19",Not defined,1292-1191 BC
+3591,"NK, Dyn 19",Not defined,1292-1191 BC
+3592,"NK, Dyn 19",Not defined,1292-1191 BC
+3593,"NK, Dyn 18",Not defined,1539-1292 BC
+3594,"NK, Dyn 18",Not defined,1539-1292 BC
+3595,"NK, Dyn 18",Not defined,1539-1292 BC
+3596,"NK, Dyn 18",Not defined,1539-1292 BC
+3597,"NK, Dyn 18",Not defined,1539-1292 BC
+3598,"NK, Dyn 18",Not defined,1539-1292 BC
+3599,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3600,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3601,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+3602,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3603,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3604,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3605,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3606,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3607,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3608,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3609,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3610,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3611,"NK, Dyn 19",Not defined,1292-1191 BC
+3612,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3613,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3614,NK,Not defined,1539-1077 BC
+3615,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3616,"NK, Dyn 18",Eje-Horemheb,1323-1292 BC
+3617,"NK, Dyn 18",Not defined,1539-1292 BC
+3618,"NK, Dyn 18",Not defined,1539-1292 BC
+3619,"NK, Dyn 18",Not defined,1539-1292 BC
+3620,"NK, Dyn 18",Not defined,1539-1292 BC
+3621,"NK, Dyn 18",Not defined,1539-1292 BC
+3622,"NK, Dyn 18",Not defined,1539-1292 BC
+3623,"NK, Dyn 18",Not defined,1539-1292 BC
+3624,"NK, Dyn 18",Not defined,1539-1292 BC
+3625,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3626,NK,Not defined,1539-1077 BC
+3627,NK,Not defined,1539-1077 BC
+3628,"NK, Dyn 18",Thutmose III,1479-1425 BC
+3629,NK,Not defined,1539-1077 BC
+3630,NK,Not defined,1539-1077 BC
+3631,NK,Not defined,1539-1077 BC
+3632,NK,Not defined,1539-1077 BC
+3633,NK,Not defined,1539-1077 BC
+3634,"NK, Dyn 20",Siptah,1197-1193 BC
+3635,"NK, Dyn 20",Siptah,1197-1193 BC
+3636,"NK, Dyn 20",Siptah,1197-1193 BC
+3637,"NK, Dyn 20",Siptah,1197-1193 BC
+3638,"NK, Dyn 20",Siptah,1197-1193 BC
+3639,NK,Not defined,1539-1077 BC
+3640,NK,Not defined,1539-1077 BC
+3641,"NK, Dyn 19",Not defined,1292-1191 BC
+3642,NK,Not defined,1539-1077 BC
+3643,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3644,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3645,"NK, Dyn 19",Not defined,1292-1191 BC
+3646,"NK, Dyn 18",Horemheb,1319-1292 BC
+3647,"NK, Dyn 18",Not defined,1539-1292 BC
+3648,"NK, Dyn 19",Not defined,1292-1191 BC
+3649,"NK, Dyn 19",Not defined,1292-1191 BC
+3650,"NK, Dyn 19",Not defined,1292-1191 BC
+3651,"NK, Dyn 19",Merenptah,1213-1203 BC
+3652,"NK, Dyn 19",Merenptah,1213-1203 BC
+3653,"NK, Dyn 19",Merenptah,1213-1203 BC
+3654,NK,Not defined,1539-1077 BC
+3655,NK,Not defined,1539-1077 BC
+3656,NK,Not defined,1539-1077 BC
+3657,NK,Not defined,1539-1077 BC
+3658,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3659,"NK, Dyn 18",Not defined,1539-1292 BC
+3660,NK,Not defined,1539-1077 BC
+3661,NK,Not defined,1539-1077 BC
+3662,NK,Not defined,1539-1077 BC
+3663,"NK, Dyn 20",Not defined,1190-1077 BC
+3664,NK,Not defined,1539-1077 BC
+3665,NK,Not defined,1539-1077 BC
+3666,NK,Not defined,1539-1077 BC
+3667,NK,Not defined,1539-1077 BC
+3668,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3669,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3670,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3671,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3672,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3673,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3674,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3675,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3676,Not defined,Not defined,Not defined
+3677,NK,Not defined,1539-1077 BC
+3678,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3679,"NK, Dyn 18",Thutmose IV,1400-1390 BC
+3680,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+3681,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+3682,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+3683,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+3684,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+3685,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3686,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3687,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3688,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3689,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3690,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3691,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3692,"NK, Dyn 20",Ramesses III,1187-1157 BC
+3693,"NK, Dyn 18",Not defined,1539-1292 BC
+3694,"NK, Dyn 18",Not defined,1539-1292 BC
+3695,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3696,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3697,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3698,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3699,"NK, Dyn 18",Not defined,1539-1292 BC
+3700,"NK, Dyn 18",Not defined,1539-1292 BC
+3701,"NK, Dyn 18",Not defined,1539-1292 BC
+3702,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3703,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3704,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3705,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3706,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3707,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3708,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3709,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3710,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3711,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3712,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3713,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3714,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3715,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3716,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3717,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3718,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3719,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3720,"NK, Dyn 19",Not defined,1292-1191 BC
+3721,"NK, Dyn 19",Not defined,1292-1191 BC
+3722,"NK, Dyn 19",Not defined,1292-1191 BC
+3723,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3724,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3725,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3726,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3727,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3728,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3729,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3730,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3731,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3732,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3733,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC
+3734,"NK, Dyn 18",Not defined,1539-1292 BC
+3735,"NK, Dyn 18",Not defined,1539-1292 BC
+3736,"NK, Dyn 18",Not defined,1539-1292 BC
+3737,"NK, Dyn 18",Not defined,1539-1292 BC
+3738,"NK, Dyn 18",Not defined,1539-1292 BC
+3739,"NK, Dyn 18",Not defined,1539-1292 BC
+3740,"NK, Dyn 18",Not defined,1539-1292 BC
+3741,"NK, Dyn 18",Not defined,1539-1292 BC
+3742,"NK, Dyn 18",Not defined,1539-1292 BC
+3743,"NK, Dyn 18",Not defined,1539-1292 BC
+3744,"NK, Dyn 18",Not defined,1539-1292 BC
+3745,"NK, Dyn 18",Not defined,1539-1292 BC
+3746,"NK, Dyn 18",Not defined,1539-1292 BC
+3747,"NK, Dyn 18",Not defined,1539-1292 BC
+3748,"NK, Dyn 18",Not defined,1539-1292 BC
+3749,"NK, Dyn 18",Not defined,1539-1292 BC
+3750,"NK, Dyn 18",Not defined,1539-1292 BC
+3751,"NK, Dyn 18",Not defined,1539-1292 BC
+3752,"NK, Dyn 18",Not defined,1539-1292 BC
+3753,"NK, Dyn 18",Not defined,1539-1292 BC
+3754,"NK, Dyn 18",Not defined,1539-1292 BC
+3755,"NK, Dyn 18",Not defined,1539-1292 BC
+3756,"NK, Dyn 18",Not defined,1539-1292 BC
+3757,"NK, Dyn 18",Not defined,1539-1292 BC
+3758,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3759,NK,Not defined,1539-1077 BC
+3760,"NK, Dyn 18",Preamarna,1479-1353 BC
+3761,"NK, Dyn 19",Not defined,1292-1191 BC
+3762,"NK, Dyn 18",Postamarna,1336-1292 BC
+3763,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3764,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3765,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3766,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3767,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3768,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3769,"NK, Dyn 19",Not defined,1292-1191 BC
+3770,"NK, Dyn 19",Not defined,1292-1191 BC
+3771,"NK, Dyn 19",Not defined,1292-1191 BC
+3772,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3773,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3774,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3775,"NK, Dyn 20",Not defined,1190-1077 BC
+3776,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3777,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3778,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3779,"NK, Dyn 19",Not defined,1292-1191 BC
+3780,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3781,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3782,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3783,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC
+3784,"NK, Dyn 19",Not defined,1292-1191 BC
+3785,"NK, Dyn 19",Not defined,1292-1191 BC
+3786,"NK, Dyn 19",Not defined,1292-1191 BC
+3787,"NK, Dyn 19",Not defined,1292-1191 BC
+3788,"NK, Dyn 19",Not defined,1292-1191 BC
+3789,"NK, Dyn 19",Not defined,1292-1191 BC
+3790,"NK, Dyn 19",Not defined,1292-1191 BC
+3791,"NK, Dyn 19",Not defined,1292-1191 BC
+3792,"NK, Dyn 19",Not defined,1292-1191 BC
+3793,"NK, Dyn 19",Not defined,1292-1191 BC
+3794,"NK, Dyn 19",Not defined,1292-1191 BC
+3795,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3796,"NK, Dyn 19",Sety I,1290-1279 BC
+3797,"NK, Dyn 19",Sety I,1290-1279 BC
+3798,"NK, Dyn 19",Sety I,1290-1279 BC
+3799,"NK, Dyn 19",Sety I,1290-1279 BC
+3800,"NK, Dyn 19",Sety I,1290-1279 BC
+3801,"NK, Dyn 19",Sety I,1290-1279 BC
+3802,"NK, Dyn 19",Sety I,1290-1279 BC
+3803,"NK, Dyn 19",Sety I,1290-1279 BC
+3804,"NK, Dyn 19",Sety I,1290-1279 BC
+3805,"NK, Dyn 19",Sety I,1290-1279 BC
+3806,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3807,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3808,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3809,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3810,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3811,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3812,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3813,"NK, Dyn 19",Sety I,1290-1279 BC
+3814,"NK, Dyn 19",Sety I,1290-1279 BC
+3815,"NK, Dyn 19",Sety I,1290-1279 BC
+3816,"NK, Dyn 19",Sety I,1290-1279 BC
+3817,"NK, Dyn 19",Sety I,1290-1279 BC
+3818,"NK, Dyn 19",Sety I,1290-1279 BC
+3819,"NK, Dyn 19",Sety I,1290-1279 BC
+3820,"NK, Dyn 19",Sety I,1290-1279 BC
+3821,"NK, Dyn 19",Sety I,1290-1279 BC
+3822,"NK, Dyn 19",Sety I,1290-1279 BC
+3823,"NK, Dyn 19",Sety I,1290-1279 BC
+3824,"NK, Dyn 19",Sety I,1290-1279 BC
+3825,"NK, Dyn 19",Sety I,1290-1279 BC
+3826,"NK, Dyn 19",Sety I,1290-1279 BC
+3827,"NK, Dyn 19",Sety I,1290-1279 BC
+3828,"NK, Dyn 19",Sety I,1290-1279 BC
+3829,"NK, Dyn 19",Sety I,1290-1279 BC
+3830,"NK, Dyn 19",Sety I,1290-1279 BC
+3831,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+3832,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3833,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3834,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3835,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3836,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3837,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3838,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3839,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3840,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3841,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3842,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3843,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3844,"NK, Dyn 18",Not defined,1539-1292 BC
+3845,"NK, Dyn 18",Not defined,1539-1292 BC
+3846,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3847,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3848,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3849,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3850,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3851,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3852,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3853,"NK, Dyn 20",Not defined,1190-1077 BC
+3854,NK,Not defined,1539-1077 BC
+3855,NK,Not defined,1539-1077 BC
+3856,NK,Not defined,1539-1077 BC
+3857,NK,Not defined,1539-1077 BC
+3858,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3859,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3860,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3861,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3862,"NK, Dyn 18",Not defined,1539-1292 BC
+3863,"NK, Dyn 18",Thutmose I,1493-1483 BC
+3864,"NK, Dyn 18",Not defined,1539-1292 BC
+3865,"NK, Dyn 18",Not defined,1539-1292 BC
+3866,"NK, Dyn 18",Not defined,1539-1292 BC
+3867,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3868,"NK, Dyn 18",Not defined,1539-1292 BC
+3869,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3870,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3871,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3872,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3873,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+3874,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+3875,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3876,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3877,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC
+3878,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3879,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3880,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3881,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3882,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3883,"NK, Dyn 19",Sety I,1290-1279 BC
+3884,"NK, Dyn 19",Sety I,1290-1279 BC
+3885,"NK, Dyn 18",Not defined,1539-1292 BC
+3886,"NK, Dyn 18",Not defined,1539-1292 BC
+3887,"NK, Dyn 18",Not defined,1539-1292 BC
+3888,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+3889,"NK, Dyn 19",Not defined,1292-1191 BC
+3890,"NK, Dyn 18",Not defined,1539-1292 BC
+3891,"NK, Dyn 18",Not defined,1539-1292 BC
+3892,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3893,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3894,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC
+3895,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3896,"NK, Dyn 18",Tutankhamun,1334-1324 BC
+3897,"NK, Dyn 18",Preamarna,1479-1353 BC
+3898,"NK, Dyn 18",Preamarna,1479-1353 BC
+3899,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3900,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3901,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC
+3902,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3903,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+3904,"NK, Dyn 18",Horemheb,1319-1292 BC
+3905,"NK, Dyn 18",Horemheb,1319-1292 BC
+3906,"NK, Dyn 20",Ramesses IV-Ramesses VI,1156-1139 BC
+3907,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3908,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC
+3909,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+3910,"NK, Dyn 20",Not defined,1190-1077 BC
+3911,"NK, Dyn 20",Not defined,1190-1077 BC
+3912,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3913,"NK, Dyn 18-19",Not defined,1539-1191 BC
+3914,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3915,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC
+3916,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC
+3917,"NK, Dyn 18",Thutmose III,1479-1425 BC
+3918,"NK, Dyn 18",Thutmose III,1479-1425 BC
+3919,"NK, Dyn 18",Thutmose III,1479-1425 BC
+3920,"NK, Dyn 18",Thutmose III,1479-1425 BC
+3921,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3922,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3923,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3924,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3925,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3926,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3927,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3928,"NK, Dyn 19",Not defined,1292-1191 BC
+3929,"NK, Dyn 19-20",Not defined,1292-1077 BC
+3930,"NK, Dyn 19",Not defined,1292-1191 BC
+3931,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3932,"NK, Dyn 18",Amenhotep III,1390-1353 BC
+3933,"NK, Dyn 18",Not defined,1539-1292 BC
+3934,"NK, Dyn 18",Not defined,1539-1292 BC
+3935,"NK, Dyn 18",Not defined,1539-1292 BC
+3936,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3937,"NK, Dyn 18",Not defined,1539-1292 BC
+3938,"NK, Dyn 18",Not defined,1539-1292 BC
+3939,"NK, Dyn 18",Not defined,1539-1292 BC
+3940,"NK, Dyn 18",Not defined,1539-1292 BC
+3941,"NK, Dyn 18",Not defined,1539-1292 BC
+3942,"NK, Dyn 18",Not defined,1539-1292 BC
+3943,"NK, Dyn 18",Not defined,1539-1292 BC
+3944,"NK, Dyn 18",Not defined,1539-1292 BC
+3945,"NK, Dyn 18",Not defined,1539-1292 BC
+3946,"NK, Dyn 18",Not defined,1539-1292 BC
+3947,"NK, Dyn 18",Not defined,1539-1292 BC
+3948,NK,Not defined,1539-1077 BC
+3949,"NK, Dyn 19",Not defined,1292-1191 BC
+3950,NK,Not defined,1539-1077 BC
+3951,Not defined,Not defined,Not defined
+3952,Not defined,Not defined,Not defined
+3953,Not defined,Not defined,Not defined
+3954,Not defined,Not defined,Not defined
+3955,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+3956,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC
+3957,Not defined,Not defined,Not defined
+3958,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3959,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3960,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3961,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3962,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3963,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3964,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3965,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3966,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3967,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3968,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3969,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3970,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3971,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3972,NK,Not defined,1539-1077 BC
+3973,NK,Not defined,1539-1077 BC
+3974,NK,Not defined,1539-1077 BC
+3975,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+3976,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC
+3977,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC
+3978,"NK, Dyn 19",Not defined,1292-1191 BC
+3979,Not defined,Not defined,Not defined
+3980,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC
+3981,"NK, Dyn 18",Horemheb,1319-1292 BC
+3982,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3983,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3984,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3985,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3986,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3987,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3988,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3989,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3990,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3991,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3992,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+3993,"NK, Dyn 19",Ramesses II,1279-1213 BC
+3994,"NK, Dyn 19",Not defined,1292-1191 BC
+3995,Not defined,Not defined,Not defined
+3996,"NK, Dyn 19",Not defined,1292-1191 BC
+3997,"NK, Dyn 19",Not defined,1292-1191 BC
+3998,"NK, Dyn 20",Ramesses IV,1156-1150 BC
+3999,Not defined,Not defined,Not defined
+4000,"NK, Dyn 19",Not defined,1292-1191 BC
+4001,"NK, Dyn 19",Not defined,1292-1191 BC
+4002,"NK, Dyn 19",Ramesses II,1279-1213 BC
+4003,"NK, Dyn 20",Ramesses III,1187-1157 BC
+4004,"NK, Dyn 20",Ramesses III,1187-1157 BC
+4005,"NK, Dyn 19",Not defined,1292-1191 BC
+4006,"NK, Dyn 19",Ramesses II,1279-1213 BC
+4007,"NK, Dyn 19",Ramesses II,1279-1213 BC
+4008,"NK, Dyn 19",Ramesses II,1279-1213 BC
+4009,Not defined,Not defined,Not defined
+4010,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC
+4011,"NK, Dyn 19",Ramesses II,1279-1213 BC
+4012,"NK, Dyn 19",Ramesses II,1279-1213 BC
+4013,"NK, Dyn 18-19",Not defined,1539-1191 BC
+4014,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+4015,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC
+4016,"NK, Dyn 19",Not defined,1292-1191 BC
+</div>
+    </body>
+</html>

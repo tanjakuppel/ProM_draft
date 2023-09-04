@@ -1,0 +1,1768 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PivotTable.js</title>
+
+        <!-- external libs from cdnjs -->
+        <link rel="stylesheet" type="text/css" href="libs/c3.min.css">
+        <script type="text/javascript" src="libs/d3.min.js"></script>
+        <script type="text/javascript" src="libs/c3.min.js"></script>
+        <script type="text/javascript" src="libs/jquery.min.js"></script>
+        <script type="text/javascript" src="libs/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="libs/jquery.csv-0.71.min.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="libs/pivot.min.css">
+        <script type="text/javascript" src="libs/pivot.min.js"></script>
+        <script type="text/javascript" src="libs/d3_renderers.min.js"></script>
+        <script type="text/javascript" src="libs/c3_renderers.min.js"></script>
+        <script type="text/javascript" src="libs/export_renderers.min.js"></script>
+
+        <style>
+            body {font-family: Verdana;}
+            .node {
+              border: solid 1px white;
+              font: 10px sans-serif;
+              line-height: 12px;
+              overflow: hidden;
+              position: absolute;
+              text-indent: 2px;
+            }
+            .c3-line, .c3-focused {stroke-width: 3px !important;}
+            .c3-bar {stroke: white !important; stroke-width: 1;}
+            .c3 text { font-size: 12px; color: grey;}
+            .tick line {stroke: white;}
+            .c3-axis path {stroke: grey;}
+            .c3-circle { opacity: 1 !important; }
+            .c3-xgrid-focus {visibility: hidden !important;}
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            $(function(){
+                if(window.location != window.parent.location)
+                    $("<a>", {target:"_blank", href:""})
+                        .text("[pop out]").prependTo($("body"));
+
+                $("#output").pivotUI(
+                    $.csv.toArrays($("#output").text()),
+                    $.extend({
+                        renderers: $.extend(
+                            $.pivotUtilities.renderers,
+                            $.pivotUtilities.c3_renderers,
+                            $.pivotUtilities.d3_renderers,
+                            $.pivotUtilities.export_renderers
+                            ),
+                        hiddenAttributes: [""]
+                    }, {})
+                ).show();
+             });
+        </script>
+        <div id="output" style="display: none;">,Object type,After dynasty,After King,After regnal years,Provenance
+0,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+1,stela,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+2,stela,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+3,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+4,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+5,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+6,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+7,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+8,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+9,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+10,stela,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+11,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+12,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+13,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+14,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+15,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+16,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+17,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+18,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+19,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+20,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+21,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+22,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+23,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+24,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+25,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+26,stela,"NK, Dyn 18",Eje-Horemheb,1323-1292 BC,"EG, Saqqara-North, Serapeum"
+27,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+28,small finds,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+29,stela,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+30,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+31,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+32,stela,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC,"EG, Saqqara-North, Serapeum"
+33,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Teti-cemetery"
+34,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+35,other text documents,"NK, Dyn 20",Ramesses III,1187-1157 BC,"EG, Saqqara-North, Teti-cemetery"
+36,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+37,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+38,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+39,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+40,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+41,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+42,stela,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+43,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+44,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+45,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+46,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+47,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+48,stela,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+49,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+50,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+51,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+52,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+53,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+54,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+55,architectural unit,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+56,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+57,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+58,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+59,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+60,other text documents,"NK, Dyn 19",Siptah,1197-1193 BC,unknown
+61,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+62,stela,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+63,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+64,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+65,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+66,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+67,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+68,architectural element,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,"EG, Abydos"
+69,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+70,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+71,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+72,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+73,architectural element,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC,unknown
+74,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+75,architectural element,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC,"EG, Saqqara-South, Unas-cemetery"
+76,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-Cemetery"
+77,stela,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+78,statue,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+79,statue,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+80,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+81,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara"
+82,other text documents,"NK, Dyn 19",Siptah,1197-1193 BC,unknown
+83,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+84,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Pyramid-complex of Djoser"
+85,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+86,small finds,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+87,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Thebes"
+88,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+89,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+90,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+91,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+92,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+93,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+94,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+95,architectural element,"NK, Dyn 18",Thutmose III,1479-1425 BC,"EG, Thebes"
+96,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+97,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+98,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Teti-cemetery"
+99,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+100,stela,"NK, Dyn 18",Thutmose III,1479-1425 BC,"EG, Mit Rahina, Temple of Ptah"
+101,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+102,architectural element,"NK, Dyn 18",Postamarna,1336-1292 BC,unknown
+103,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+104,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Karnak, Temple of Amun"
+105,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+106,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+107,statue,"NK, Dyn 20",Ramesses IV-Ramesses VI,1156-1139 BC,"EG, Saqqara"
+108,stela,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,"EG, Mit Rahina, Temple of Ptah"
+109,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+110,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+111,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+112,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+113,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+114,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+115,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+116,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+117,small finds,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara"
+118,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+119,architectural unit,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+120,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+121,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+122,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+123,stela,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Saqqara"
+124,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+125,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+126,architectural unit,"NK, Dyn 20",unknown,1190-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+127,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+128,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+129,architectural element,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,unknown
+130,architectural unit,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+131,other text documents,"NK, Dyn 20",Ramesses III,1187-1157 BC,"EG, Deir el-Bahari, Temple of Thutmose III"
+132,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+133,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+134,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+135,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+136,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+137,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+138,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+139,stela,"NK, Dyn 18-19",unknown,1539-1191 BC,unknown
+140,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Animal Necropolis"
+141,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Abusir-South, Village of Abusir"
+142,statue,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+143,architectural element,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+144,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+145,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+146,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+147,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+148,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+149,stela,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+150,other text documents,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,"EG, Deir el-Bahari, Temple of Hatshepsut"
+151,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+152,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+153,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+154,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+155,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Sais"
+156,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+157,stela,"NK, Dyn 20",Sethnakht,1190-1188 BC,unknown
+158,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+159,stela,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+160,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+161,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+162,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Mit Rahina, Temple of Ptah"
+163,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+164,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+165,architectural element,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+166,stela,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+167,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Giza"
+168,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+169,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+170,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+171,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Serapeum"
+172,small finds,NK,unknown,1539-1077 BC,unknown
+173,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+174,architectural element,NK,unknown,1539-1077 BC,unknown
+175,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+176,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+177,architectural element,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+178,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+179,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+180,architectural unit,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Thebes"
+181,architectural element,NK,unknown,1539-1077 BC,unknown
+182,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+183,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+184,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+185,small finds,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Dahschur"
+186,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-South, Unas-Cemetery"
+187,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+188,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+189,stela,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,unknown
+190,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+191,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+192,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+193,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara"
+194,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+195,stela,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,"EG, Saqqara-North, Teti-cemetery"
+196,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Thebes"
+197,statue,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,unknown
+198,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+199,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+200,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+201,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+202,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+203,(tomb's) equipment,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+204,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+205,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+206,stela,NK,unknown,1539-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+207,stela,"NK, Dyn 18",Eje,1323-1320 BC,"EG, Giza"
+208,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+209,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+210,statue,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+211,stela,"NK, Dyn 19",Siptah,1197-1193 BC,unknown
+212,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+213,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+214,architectural element,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+215,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Teti-cemetery"
+216,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-Cemetery"
+217,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+218,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+219,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+220,statue,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+221,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Qantir"
+222,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+223,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+224,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+225,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+226,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+227,stela,"NK, Dyn 19",Merenptah,1213-1203 BC,"EG, Mit Rahina, Temple of Ptah"
+228,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+229,(tomb's) equipment,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+230,stela,NK,unknown,1539-1077 BC,unknown
+231,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+232,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+233,architectural unit,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+234,architectural element,"NK, Dyn 18",Postamarna,1336-1292 BC,unknown
+235,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+236,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+237,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+238,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Mit Rahina, Temple of Ptah"
+239,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+240,statue,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+241,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+242,stela,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,unknown
+243,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+244,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+245,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara"
+246,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+247,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+248,(tomb's) equipment,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+249,statue,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+250,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,unknown
+251,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+252,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+253,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+254,undefineable,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+255,statue,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-North"
+256,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+257,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+258,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+259,statue,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+260,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+261,architectural element,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,unknown
+262,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+263,stela,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,"EG, Saqqara"
+264,statue,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC,unknown
+265,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+266,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+267,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+268,statue,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-North, Animal Necropolis"
+269,other text documents,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,unknown
+270,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+271,statue,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+272,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Karnak?"
+273,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+274,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+275,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Pyramid-complex of Djoser"
+276,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+277,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+278,small finds,NK,unknown,1539-1077 BC,unknown
+279,architectural element,"NK, Dyn 18-19",unknown,1539-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+280,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+281,small finds,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+282,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+283,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+284,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+285,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara"
+286,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Dahschur-North"
+287,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+288,stela,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC,unknown
+289,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+290,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Serapeum"
+291,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+292,stela,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,unknown
+293,architectural unit,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+294,architectural unit,"NK, Dyn 20",Sethnakht,1190-1188 BC,"EG, Saqqara-South, Unas-cemetery"
+295,stela,"NK, Dyn 18-19",unknown,1539-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+296,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+297,architectural element,"NK, Dyn 20",Siptah,1197-1193 BC,"EG, Mit Rahina, Temple of Ptah"
+298,stela,NK,unknown,1539-1077 BC,unknown
+299,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Giza, Nazlat el-Batran"
+300,stela,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+301,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+302,architectural unit,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Thebes"
+303,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+304,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+305,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+306,architectural element,"NK, Dyn 20",Ramesses III,1187-1157 BC,"EG, Saqqara-South, Unas-cemetery"
+307,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+308,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+309,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+310,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+311,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+312,other text documents,"NK, Dyn 20",Ramesses III,1187-1157 BC,unknown
+313,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+314,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+315,(tomb's) equipment,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Mit Rahina, Temple of Ptah"
+316,statue,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,unknown
+317,stela,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+318,architectural element,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Mit Rahina, Temple of Ptah"
+319,architectural element,"NK, Dyn 18-19",unknown,1539-1191 BC,unknown
+320,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara"
+321,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+322,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+323,stela,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Saqqara-North, Teti-cemetery"
+324,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+325,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+326,architectural element,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC,"EG, Saqqara-South, Unas-cemetery"
+327,small finds,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+328,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+329,other text documents,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,unknown
+330,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+331,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+332,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+333,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+334,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+335,(tomb's) equipment,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+336,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+337,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+338,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+339,(tomb's) equipment,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,"EG, Saqqara"
+340,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+341,stela,"NK, Dyn 18",Eje,1323-1320 BC,unknown
+342,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+343,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+344,statue,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+345,stela,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+346,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+347,statue,"NK, Dyn 18",Thutmose IV,1400-1390 BC,unknown
+348,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+349,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+350,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Dahschur, Pyramid-complex of Userkare-Khendjer"
+351,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Abydos"
+352,(tomb's) equipment,"NK, Dyn 20",unknown,1190-1077 BC,unknown
+353,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+354,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+355,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+356,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+357,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+358,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Pyramid-complex of Djoser"
+359,other text documents,"NK, Dyn 18",Amenhotep II,1425-1400 BC,unknown
+360,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+361,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+362,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+363,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+364,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+365,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+366,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+367,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara"
+368,stela,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC,unknown
+369,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+370,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+371,statue,"NK, Dyn 20",unknown,1190-1077 BC,"EG, Saqqara"
+372,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+373,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+374,architectural element,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+375,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+376,stela,"NK, Dyn 18",Preamarna,1479-1353 BC,unknown
+377,architectural element,"NK, Dyn 18",Postamarna,1336-1292 BC,unknown
+378,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+379,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+380,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+381,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+382,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+383,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+384,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+385,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+386,other text documents,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+387,architectural element,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,"EG, Saqqara-North, Teti-cemetery"
+388,small finds,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+389,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+390,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+391,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara"
+392,(tomb's) equipment,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+393,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+394,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Mit Rahina, Temple of Ptah"
+395,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+396,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+397,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+398,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+399,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+400,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+401,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+402,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Serapeum"
+403,other text documents,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+404,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+405,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+406,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Meidum"
+407,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+408,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-Cemetery"
+409,stela,"NK, Dyn 20",Ramesses IV-Ramesses VI,1156-1139 BC,"EG, Mit Rahina, Temple of Ptah"
+410,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+411,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-Cemetery"
+412,architectural element,"NK, Dyn 18",Thutmose III,1479-1425 BC,"EG, Thebes"
+413,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+414,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara"
+415,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+416,stela,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,unknown
+417,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+418,statue,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+419,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+420,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+421,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+422,architectural element,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,unknown
+423,stela,"NK, Dyn 18-19",Horemheb-Ramesses II,1319-1213 BC,unknown
+424,architectural element,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC,"EG, Saqqara-South, Unas-cemetery"
+425,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+426,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+427,architectural unit,"NK, Dyn 20",Ramesses III,1187-1157 BC,"EG, Saqqara-North, Teti-cemetery"
+428,stela,"NK, Dyn 20",Ramesses III-Ramesses IV,1187-1150 BC,"EG, Mit Rahina, Temple of Ptah"
+429,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+430,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara"
+431,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Heliopolis, Matariya"
+432,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+433,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+434,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,"EG, Saqqara-South, Unas-cemetery"
+435,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+436,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+437,small finds,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+438,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Djoser"
+439,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+440,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+441,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+442,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+443,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+444,architectural element,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,unknown
+445,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+446,other text documents,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+447,small finds,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+448,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+449,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+450,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+451,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+452,stela,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,unknown
+453,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+454,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+455,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+456,architectural element,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+457,architectural element,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,unknown
+458,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+459,stela,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+460,architectural element,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,unknown
+461,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+462,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+463,(tomb's) equipment,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+464,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+465,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+466,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+467,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+468,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+469,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+470,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+471,architectural element,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,unknown
+472,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+473,stela,NK,unknown,1539-1077 BC,unknown
+474,architectural unit,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+475,architectural unit,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+476,architectural unit,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+477,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+478,other text documents,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+479,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+480,small finds,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+481,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+482,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+483,architectural element,NK,unknown,1539-1077 BC,unknown
+484,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Tell el-Galaah"
+485,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+486,stela,NK,unknown,1539-1077 BC,"EG, Abusir, Pyramid-complex of Sahure"
+487,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+488,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Giza, Nazlat el-Batran"
+489,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+490,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara"
+491,architectural element,"NK, Dyn 19",Sety I,1290-1279 BC,"EG, Saqqara-North, Serapeum"
+492,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+493,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+494,architectural element,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC,unknown
+495,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Pyramid-complex of Djoser"
+496,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+497,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara-North, Serapeum"
+498,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South"
+499,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+500,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-North, Serapeum"
+501,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-North, Serapeum"
+502,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+503,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+504,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+505,stela,"NK, Dyn 20",Ramesses III,1187-1157 BC,"EG, Saqqara-North, Serapeum"
+506,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+507,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+508,(tomb's) equipment,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+509,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+510,(tomb's) equipment,"NK, Dyn 18",Thutmose III,1479-1425 BC,unknown
+511,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+512,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+513,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Mit Rahina, Temple of Ptah"
+514,(tomb's) equipment,"NK, Dyn 18",Thutmose III,1479-1425 BC,unknown
+515,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+516,stela,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC,"EG, Abusir, Pyramid-complex of Sahure"
+517,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+518,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+519,stela,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+520,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Mit Rahina, Temple of Ptah"
+521,architectural element,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+522,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+523,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+524,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+525,statue,"NK, Dyn 20",Sethnakht,1190-1188 BC,"EG, Saqqara-South, Unas-cemetery"
+526,statue,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+527,stela,"NK, Dyn 20",Ramesses IV,1156-1150 BC,"EG, Deir el-Medineh"
+528,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+529,stela,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,"EG, Abydos"
+530,architectural element,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+531,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+532,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+533,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+534,stela,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+535,architectural unit,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+536,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+537,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+538,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+539,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+540,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+541,small finds,NK,unknown,1539-1077 BC,"EG, Saqqara"
+542,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+543,(tomb's) equipment,"NK, Dyn 18",Postamarna,1336-1292 BC,unknown
+544,architectural element,"NK, Dyn 18",Tutankhamun,1334-1324 BC,"EG, Giza, Nazlat el-Batran"
+545,statue,"NK, Dyn 18-19",Horemheb-Ramesses II,1319-1213 BC,unknown
+546,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+547,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+548,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+549,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+550,stela,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+551,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+552,statue,"NK, Dyn 18",Thutmose III,1479-1425 BC,"EG, Mit Rahina, Temple of Ptah"
+553,stela,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+554,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+555,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+556,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+557,(tomb's) equipment,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+558,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+559,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+560,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+561,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara"
+562,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+563,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+564,stela,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+565,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara"
+566,stela,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,"EG, Abu Gurob, Temple of Thutmose III"
+567,statue,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+568,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+569,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+570,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+571,architectural element,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+572,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-North, Serapeum"
+573,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+574,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+575,architectural element,NK,unknown,1539-1077 BC,unknown
+576,architectural element,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,unknown
+577,architectural unit,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+578,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+579,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+580,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+581,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+582,other text documents,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC,"EG, Saqqara"
+583,other text documents,"NK, Dyn 19",Siptah,1197-1193 BC,"EG, Thebes"
+584,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+585,small finds,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+586,other text documents,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Assuan, Road to Philae"
+587,(tomb's) equipment,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+588,(tomb's) equipment,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+589,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+590,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-North, Serapeum"
+591,stela,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+592,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+593,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+594,stela,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+595,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+596,statue,"NK, Dyn 18",Thutmose III,1479-1425 BC,"EG, Thebes"
+597,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+598,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+599,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+600,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Mit Rahina, Temple of Ptah"
+601,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+602,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+603,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+604,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+605,small finds,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+606,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+607,(tomb's) equipment,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+608,stela,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+609,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Serapeum"
+610,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+611,small finds,"NK, Dyn 20",unknown,1190-1077 BC,unknown
+612,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+613,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+614,stela,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,"EG, Abydos"
+615,stela,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Abydos"
+616,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+617,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+618,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+619,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Giza"
+620,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+621,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+622,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Saqqara-North, Teti-cemetery"
+623,stela,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+624,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Valley temple of Unas"
+625,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+626,stela,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+627,stela,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Saqqara-South, Unas-cemetery"
+628,small finds,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+629,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+630,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+631,(tomb's) equipment,"NK, Dyn 18",Ahmes-Thutmose I,1539-1483 BC,unknown
+632,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+633,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Giza, Nazlat el-Batran"
+634,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Saqqara-North, Teti-cemetery"
+635,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+636,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,"EG, Saqqara-South, Unas-cemetery"
+637,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara"
+638,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+639,statue,"NK, Dyn 20",Siptah,1197-1193 BC,"EG, Mit Rahina, Temple of Ptah"
+640,stela,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+641,stela,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+642,statue,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,"EG, Saqqara"
+643,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-North, Animal Necropolis"
+644,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+645,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+646,architectural unit,"NK, Dyn 19",Sety I,1290-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+647,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+648,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+649,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Giza"
+650,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+651,architectural unit,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+652,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Abusir, Pyramid-complex of Sahure"
+653,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+654,stela,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+655,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+656,stela,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+657,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+658,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+659,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+660,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+661,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+662,architectural element,"NK, Dyn 20",Ramesses IV-Ramesses VI,1156-1139 BC,"EG, Mit Rahina, Temple of Ptah"
+663,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Animal Necropolis"
+664,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara"
+665,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Abusir"
+666,other text documents,"NK, Dyn 19",Siptah,1197-1193 BC,"EG, Biban el-Muluk"
+667,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+668,(tomb's) equipment,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC,"EG, Mit Rahina, Temple of Ptah"
+669,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+670,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara"
+671,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+672,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+673,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara"
+674,(tomb's) equipment,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,"EG, Asyut"
+675,architectural element,"NK, Dyn 18",Eje-Horemheb,1323-1292 BC,"EG, Saqqara-North, Serapeum"
+676,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+677,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+678,architectural element,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+679,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+680,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Giza"
+681,stela,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+682,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+683,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+684,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+685,stela,"NK, Dyn 18",Thutmose I,1493-1483 BC,unknown
+686,statue,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+687,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+688,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+689,architectural element,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+690,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+691,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+692,(tomb's) equipment,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+693,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Mit Rahina, Temple of Ptah"
+694,(tomb's) equipment,"NK, Dyn 18",Thutmose III,1479-1425 BC,unknown
+695,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+696,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+697,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+698,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+699,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Pepi"
+700,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+701,stela,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+702,(tomb's) equipment,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC,"EG, Saqqara-South, Unas-cemetery"
+703,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+704,stela,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+705,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+706,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+707,stela,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+708,architectural unit,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+709,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+710,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+711,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+712,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+713,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+714,stela,"NK, Dyn 20",Ramesses III,1187-1157 BC,"EG, Deir el-Medineh"
+715,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+716,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+717,small finds,NK,unknown,1539-1077 BC,unknown
+718,other text documents,"NK, Dyn 19",Siptah,1197-1193 BC,"EG, Biban el-Muluk"
+719,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+720,(tomb's) equipment,"NK, Dyn 18-19",unknown,1539-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+721,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+722,statue,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+723,statue,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara"
+724,statue,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+725,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+726,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+727,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+728,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+729,stela,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Saqqara"
+730,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+731,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+732,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+733,architectural element,"NK, Dyn 19",Sety I,1290-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+734,architectural unit,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+735,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+736,architectural unit,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,"EG, Tell el-Amarna"
+737,statue,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+738,stela,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+739,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+740,(tomb's) equipment,"NK, Dyn 18",Thutmose III,1479-1425 BC,unknown
+741,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+742,stela,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+743,(tomb's) equipment,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+744,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+745,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+746,(tomb's) equipment,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+747,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+748,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+749,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+750,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+751,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+752,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+753,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+754,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+755,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+756,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+757,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,"EG, Saqqara-North, Animal Necropolis"
+758,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+759,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+760,statue,"NK, Dyn 19",Siptah,1197-1193 BC,"EG, Mit Rahina, Temple of Ptah"
+761,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+762,small finds,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+763,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+764,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+765,architectural unit,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+766,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+767,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+768,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+769,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+770,small finds,NK,unknown,1539-1077 BC,unknown
+771,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+772,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+773,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+774,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+775,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+776,statue,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+777,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+778,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+779,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+780,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+781,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+782,(tomb's) equipment,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,unknown
+783,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+784,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Abydos"
+785,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+786,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+787,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+788,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+789,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+790,architectural element,"NK, Dyn 20",Ramesses V,1149-1146 BC,unknown
+791,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+792,other text documents,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Thebes"
+793,stela,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+794,architectural element,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,unknown
+795,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+796,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+797,stela,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Kafr el Gebel"
+798,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+799,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+800,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+801,(tomb's) equipment,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+802,other text documents,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+803,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+804,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+805,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+806,stela,"NK, Dyn 20",unknown,1190-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+807,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+808,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+809,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+810,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+811,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+812,architectural unit,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Thebes"
+813,stela,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Serapeum"
+814,architectural unit,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+815,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+816,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+817,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+818,architectural element,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,"EG, Saqqara-North, Teti-cemetery"
+819,small finds,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+820,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+821,stela,"NK, Dyn 18",Thutmose III,1479-1425 BC,unknown
+822,architectural element,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,"EG, Tell el-Amarna"
+823,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+824,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara"
+825,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+826,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara-North, Serapeum"
+827,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+828,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+829,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+830,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+831,architectural element,"NK, Dyn 20",Ramesses V,1149-1146 BC,unknown
+832,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+833,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+834,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+835,architectural element,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,unknown
+836,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+837,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+838,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+839,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+840,architectural element,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,unknown
+841,stela,"NK, Dyn 18",Preamarna,1479-1353 BC,unknown
+842,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+843,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+844,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+845,statue,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,unknown
+846,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+847,statue,"NK, Dyn 18",Thutmose III,1479-1425 BC,"EG, Mit Rahina, Temple of Ptah"
+848,statue,"NK, Dyn 20",Sethnakht,1190-1188 BC,unknown
+849,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+850,other text documents,"NK, Dyn 19",Siptah,1197-1193 BC,"EG, Biban el-Muluk"
+851,architectural element,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+852,small finds,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+853,statue,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+854,stela,"NK, Dyn 18",Postamarna,1336-1292 BC,unknown
+855,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara"
+856,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+857,statue,NK,unknown,1539-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+858,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+859,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+860,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+861,architectural unit,"NK, Dyn 18",Horemheb,1319-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+862,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+863,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+864,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+865,statue,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+866,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara"
+867,small finds,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+868,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+869,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+870,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+871,(tomb's) equipment,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+872,small finds,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+873,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+874,stela,"NK, Dyn 18",Ahmes-Thutmose I,1539-1483 BC,"EG, Abydos"
+875,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+876,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+877,(tomb's) equipment,"NK, Dyn 18",Preamarna,1479-1353 BC,unknown
+878,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+879,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+880,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+881,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+882,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+883,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+884,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+885,other text documents,NK,unknown,1539-1077 BC,"EG, Saqqara-North, Serapeum"
+886,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+887,other text documents,"NK, Dyn 20",Ramesses III,1187-1157 BC,"EG, Deir el-Medineh"
+888,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+889,(tomb's) equipment,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+890,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+891,stela,NK,unknown,1539-1077 BC,unknown
+892,stela,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,unknown
+893,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+894,stela,NK,unknown,1539-1077 BC,unknown
+895,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+896,statue,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+897,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+898,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-North"
+899,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+900,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+901,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+902,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+903,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara"
+904,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+905,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+906,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara"
+907,small finds,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+908,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Abydos?"
+909,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-South, Unas-cemetery"
+910,(tomb's) equipment,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC,"EG, Saqqara"
+911,(tomb's) equipment,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,"EG, Saqqara"
+912,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+913,stela,"NK, Dyn 20",unknown,1190-1077 BC,unknown
+914,stela,NK,unknown,1539-1077 BC,unknown
+915,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+916,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+917,architectural element,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,unknown
+918,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+919,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-Cemetery"
+920,architectural unit,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+921,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,"EG, Saqqara-South, Unas-cemetery"
+922,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+923,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+924,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+925,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+926,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+927,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+928,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+929,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Karnak, Temple of Amun, Pylon IX"
+930,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+931,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+932,architectural unit,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+933,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+934,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+935,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Serapeum"
+936,stela,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+937,architectural unit,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,"EG, Saqqara-South, Unas-cemetery"
+938,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+939,stela,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+940,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+941,architectural unit,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+942,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Abusir-South, Village of Abusir"
+943,architectural element,NK,unknown,1539-1077 BC,unknown
+944,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+945,architectural element,"NK, Dyn 18-19",unknown,1539-1191 BC,unknown
+946,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+947,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+948,(tomb's) equipment,"NK, Dyn 20",Sethnakht,1190-1188 BC,"EG, Saqqara-South, Unas-cemetery"
+949,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+950,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+951,(tomb's) equipment,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Mit Rahina, Temple of Ptah"
+952,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+953,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Serapeum"
+954,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+955,(tomb's) equipment,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Dahschur-North"
+956,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+957,stela,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,unknown
+958,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+959,stela,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+960,architectural element,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC,"EG, Saqqara-South, Unas-cemetery"
+961,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+962,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+963,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+964,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+965,statue,"NK, Dyn 19",Siptah,1197-1193 BC,"EG, Mit Rahina, Temple of Ptah"
+966,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+967,small finds,"NK, Dyn 18-19",unknown,1539-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+968,stela,"NK, Dyn 20",Ramesses III,1187-1157 BC,"EG, Saqqara-North, Teti-cemetery"
+969,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+970,stela,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,"EG, Mit Rahina, Temple of Ptah"
+971,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+972,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+973,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+974,statue,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,"EG, Deir el-Bahari"
+975,architectural element,NK,unknown,1539-1077 BC,unknown
+976,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+977,statue,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+978,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+979,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+980,stela,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+981,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+982,architectural element,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+983,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+984,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+985,other text documents,"NK, Dyn 20",Ramesses IV,1156-1150 BC,"EG, Deir el-Medineh"
+986,(tomb's) equipment,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,unknown
+987,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+988,statue,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+989,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+990,architectural element,"NK, Dyn 18",Postamarna,1336-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+991,stela,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+992,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+993,statue,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+994,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+995,statue,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+996,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+997,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+998,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+999,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+1000,architectural element,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,"EG, Saqqara-North, Teti-cemetery"
+1001,small finds,"NK, Dyn 18",Horemheb,1319-1292 BC,"EG, Saqqara-South, Pyramid-complex of Pepi"
+1002,small finds,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1003,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-North, Serapeum"
+1004,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1005,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1006,stela,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,"EG, Saqqara-South, Unas-cemetery"
+1007,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1008,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+1009,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1010,stela,"NK, Dyn 18",Thutmose IV,1400-1390 BC,"EG, Mit Rahina, Temple of Ptah"
+1011,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1012,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+1013,other text documents,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,"EG, Saqqara"
+1014,(tomb's) equipment,NK,unknown,1539-1077 BC,"EG, Saqqara"
+1015,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1016,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1017,other text documents,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1018,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1019,small finds,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+1020,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1021,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+1022,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1023,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+1024,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1025,statue,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+1026,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+1027,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+1028,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara"
+1029,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1030,architectural unit,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Abusir-South"
+1031,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+1032,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1033,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North/West, Chaemwaset Hill"
+1034,statue,"NK, Dyn 19",Merenptah,1213-1203 BC,"EG, Mit Rahina, Temple of Ptah"
+1035,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+1036,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1037,small finds,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1038,stela,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+1039,stela,"NK, Dyn 20",Ramesses III,1187-1157 BC,unknown
+1040,stela,"NK, Dyn 18",Postamarna,1336-1292 BC,unknown
+1041,stela,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1042,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+1043,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1044,statue,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara"
+1045,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1046,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Teti-cemetery"
+1047,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1048,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1049,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1050,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara"
+1051,other text documents,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,"EG, Thebes"
+1052,other text documents,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,"EG, Saqqara"
+1053,small finds,"NK, Dyn 18",Thutmose III,1479-1425 BC,unknown
+1054,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+1055,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1056,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+1057,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1058,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+1059,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara"
+1060,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1061,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1062,architectural unit,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1063,small finds,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Mit Rahina, Temple of Ptah"
+1064,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1065,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1066,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1067,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1068,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1069,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1070,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+1071,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1072,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1073,statue,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1074,architectural unit,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+1075,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1076,statue,"NK, Dyn 20",Ramesses III,1187-1157 BC,unknown
+1077,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1078,stela,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,unknown
+1079,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1080,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+1081,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1082,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1083,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1084,other text documents,"NK, Dyn 19",Merenptah,1213-1203 BC,unknown
+1085,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara"
+1086,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1087,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1088,stela,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara"
+1089,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+1090,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1091,statue,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+1092,statue,"NK, Dyn 18-19",Horemheb-Ramesses II,1319-1213 BC,unknown
+1093,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara"
+1094,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+1095,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1096,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1097,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South"
+1098,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1099,other text documents,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1100,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1101,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1102,small finds,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1103,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1104,architectural unit,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1105,stela,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,"EG, Saqqara-North, Teti-cemetery"
+1106,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1107,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1108,architectural element,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC,unknown
+1109,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+1110,architectural element,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,unknown
+1111,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1112,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+1113,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1114,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+1115,other text documents,"NK, Dyn 18",Thutmose IV,1400-1390 BC,unknown
+1116,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Buto"
+1117,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+1118,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1119,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1120,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Giza, Nazlat el-Batran"
+1121,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1122,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1123,architectural element,"NK, Dyn 19-20",Ramesses II-Ramesses III,1279-1157 BC,"EG, Saqqara-South, Unas-cemetery"
+1124,architectural element,"NK, Dyn 19",Ramesses II-Tausret,1213-1191 BC,unknown
+1125,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1126,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1127,architectural element,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1128,small finds,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1129,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Fort Zawyet ... el-Rakhan"
+1130,(tomb's) equipment,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1131,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1132,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1133,architectural unit,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+1134,statue,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1135,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+1136,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1137,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1138,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1139,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+1140,other text documents,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC,unknown
+1141,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1142,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+1143,stela,"NK, Dyn 20",unknown,1190-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1144,statue,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1145,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Ibi"
+1146,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1147,stela,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+1148,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+1149,stela,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC,unknown
+1150,stela,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,unknown
+1151,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara"
+1152,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1153,architectural unit,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+1154,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1155,statue,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1156,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+1157,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1158,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1159,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+1160,stela,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara"
+1161,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Serapeum"
+1162,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1163,statue,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+1164,architectural unit,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1165,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1166,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara"
+1167,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+1168,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+1169,stela,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,unknown
+1170,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1171,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1172,stela,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+1173,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Serapeum"
+1174,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1175,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1176,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+1177,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1178,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1179,architectural element,"NK, Dyn 19",Siptah,1197-1193 BC,unknown
+1180,stela,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+1181,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+1182,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,"EG, Mit Rahina, Temple of Ptah"
+1183,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1184,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1185,small finds,NK,unknown,1539-1077 BC,unknown
+1186,stela,"NK, Dyn 20",unknown,1190-1077 BC,"EG, Saqqara-North, Animal Necropolis"
+1187,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1188,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1189,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1190,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+1191,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+1192,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara"
+1193,statue,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC,unknown
+1194,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+1195,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1196,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+1197,other text documents,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+1198,small finds,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1199,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1200,statue,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1201,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1202,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+1203,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,"EG, Abusir-South"
+1204,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Mit Rahina, Temple of Ptah"
+1205,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1206,stela,"NK, Dyn 18",Thutmose I,1493-1483 BC,"EG, Mit Rahina, Temple of Ptah"
+1207,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1208,stela,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+1209,architectural element,"NK, Dyn 18",Thutmose III,1479-1425 BC,unknown
+1210,architectural element,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1211,small finds,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+1212,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1213,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1214,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Saqqara-North, Teti-cemetery"
+1215,statue,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,unknown
+1216,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1217,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1218,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1219,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+1220,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+1221,architectural element,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,unknown
+1222,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1223,statue,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1224,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1225,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+1226,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Zawiyet el-Aryan"
+1227,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1228,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+1229,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1230,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+1231,architectural element,"NK, Dyn 20",unknown,1190-1077 BC,unknown
+1232,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+1233,stela,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC,"EG, Saqqara-North, Serapeum"
+1234,architectural element,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,unknown
+1235,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1236,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara"
+1237,stela,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1238,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1239,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1240,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1241,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1242,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-North, Serapeum"
+1243,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1244,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+1245,statue,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC,"EG, Mit Rahina, Temple of Ptah"
+1246,stela,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,unknown
+1247,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1248,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1249,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1250,stela,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+1251,architectural unit,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+1252,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1253,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1254,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1255,architectural unit,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1256,statue,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1257,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1258,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1259,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1260,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+1261,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1262,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1263,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1264,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1265,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-North, Serapeum"
+1266,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Teti-cemetery"
+1267,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+1268,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1269,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+1270,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1271,stela,"NK, Dyn 18-19",unknown,1539-1191 BC,unknown
+1272,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1273,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1274,statue,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,unknown
+1275,architectural element,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,"EG, Abusir"
+1276,stela,"NK, Dyn 18",Amenhotep II,1425-1400 BC,"EG, Abusir"
+1277,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1278,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1279,stela,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+1280,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1281,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Valley temple of Unas"
+1282,architectural element,NK,unknown,1539-1077 BC,unknown
+1283,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+1284,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1285,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Mit Rahina, Temple of Ptah"
+1286,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Mit Rahina, Temple of Ptah"
+1287,architectural element,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+1288,architectural element,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC,unknown
+1289,(tomb's) equipment,"NK, Dyn 20",unknown,1190-1077 BC,"EG, Saqqara-North, Serapeum"
+1290,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1291,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1292,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1293,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1294,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+1295,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+1296,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Mit Rahina, Temple of Ptah"
+1297,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1298,stela,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+1299,architectural element,"NK, Dyn 19",Ramesses II-Merenptah,1279-1203 BC,unknown
+1300,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1301,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1302,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1303,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1304,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1305,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1306,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara"
+1307,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1308,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1309,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1310,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1311,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Asyut"
+1312,statue,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,"EG, Mit Rahina, Temple of Ptah"
+1313,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1314,architectural element,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,unknown
+1315,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Pyramid-complex of Pepi II"
+1316,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1317,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1318,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+1319,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1320,architectural unit,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1321,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1322,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1323,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Abusir-South"
+1324,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Mit Rahina, Temple of Ptah"
+1325,stela,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,"EG, Heliopolis"
+1326,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1327,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1328,architectural unit,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1329,architectural element,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1330,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+1331,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1332,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+1333,(tomb's) equipment,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1334,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1335,statue,"NK, Dyn 19",Siptah,1197-1193 BC,unknown
+1336,statue,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+1337,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1338,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1339,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1340,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1341,statue,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+1342,stela,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1343,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1344,stela,"NK, Dyn 18",Amenhotep II,1425-1400 BC,"EG, Sedment"
+1345,architectural element,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+1346,stela,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1347,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1348,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+1349,other text documents,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1350,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1351,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1352,stela,"NK, Dyn 18",Horemheb,1319-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1353,stela,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,unknown
+1354,architectural element,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+1355,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara"
+1356,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1357,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1358,stela,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1359,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Mit Rahina, Temple of Ptah"
+1360,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Khaemwaset-Hill"
+1361,(tomb's) equipment,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1362,architectural element,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,unknown
+1363,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1364,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-Cemetery"
+1365,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1366,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1367,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Serapeum"
+1368,statue,"NK, Dyn 18-19",unknown,1539-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1369,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+1370,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,
+1371,(tomb's) equipment,NK,unknown,1539-1077 BC,"EG, Saqqara"
+1372,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1373,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+1374,small finds,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-North, Serapeum"
+1375,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+1376,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+1377,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara"
+1378,stela,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1379,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1380,small finds,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1381,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1382,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1383,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1384,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,
+1385,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1386,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1387,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1388,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1389,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1390,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,
+1391,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1392,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Abydos, Temple of Osiris"
+1393,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1394,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1395,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,
+1396,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1397,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Sedment"
+1398,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1399,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,
+1400,stela,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,"EG, Saqqara-North, Teti-cemetery"
+1401,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1402,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1403,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,
+1404,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1405,stela,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+1406,small finds,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Serapeum"
+1407,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+1408,small finds,"NK, Dyn 18",Tutankhamun,1334-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+1409,small finds,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+1410,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+1411,statue,"NK, Dyn 18-19",unknown,1539-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1412,(tomb's) equipment,"NK, Dyn 18",Amenhotep II,1425-1400 BC,unknown
+1413,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1414,(tomb's) equipment,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+1415,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1416,(tomb's) equipment,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1417,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+1418,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1419,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1420,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1421,(tomb's) equipment,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1422,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1423,(tomb's) equipment,"NK, Dyn 18",Amenhotep II,1425-1400 BC,unknown
+1424,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1425,(tomb's) equipment,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+1426,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1427,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1428,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1429,(tomb's) equipment,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+1430,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1431,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1432,small finds,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1433,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1434,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1435,other text documents,"NK, Dyn 20",Ramesses III,1187-1157 BC,"EG, Deir el-Bahari, Temple of Thutmose III"
+1436,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Mit Rahina, Temple of Ptah"
+1437,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1438,small finds,"NK, Dyn 18",Hatschepsut-Amenhotep II,1479-1400 BC,unknown
+1439,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1440,architectural element,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,"EG, Abydos, Temple of Osiris"
+1441,architectural element,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1442,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1443,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1444,small finds,"NK, Dyn 19",Sety I,1290-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+1445,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1446,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1447,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1448,other text documents,"NK, Dyn 19",Siptah,1197-1193 BC,unknown
+1449,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1450,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-Cemetery"
+1451,other text documents,"NK, Dyn 19",Siptah,1197-1193 BC,"EG, Thebes"
+1452,other text documents,"NK, Dyn 18",Amenhotep II-Amenhotep III,1425-1353 BC,"EG, Saqqara"
+1453,small finds,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,unknown
+1454,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1455,other text documents,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1456,other text documents,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1457,architectural unit,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Thebes"
+1458,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1459,other text documents,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,unknown
+1460,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1461,other text documents,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,"EG, Saqqara-North, Teti-cemetery"
+1462,other text documents,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1463,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1464,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1465,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1466,other text documents,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep II,1479-1400 BC,unknown
+1467,other text documents,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1468,other text documents,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+1469,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+1470,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1471,other text documents,"NK, Dyn 18",Amenhotep II,1425-1400 BC,unknown
+1472,other text documents,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1473,other text documents,"NK, Dyn 20",Ramesses IV,1156-1150 BC,"EG, Deir el-Medineh"
+1474,small finds,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1475,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1476,other text documents,"NK, Dyn 18",Thutmose III,1479-1425 BC,"EG, Mit Rahina, Temple of Ptah"
+1477,other text documents,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1478,other text documents,NK,unknown,1539-1077 BC,unknown
+1479,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1480,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1481,other text documents,"NK, Dyn 20",unknown,1190-1077 BC,unknown
+1482,other text documents,"NK, Dyn 18",Amenhotep II-Thutmose IV,1425-1390 BC,unknown
+1483,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1484,small finds,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Giza"
+1485,small finds,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1486,small finds,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1487,small finds,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Luxor"
+1488,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara"
+1489,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1490,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,unknown
+1491,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1492,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,unknown
+1493,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1494,(tomb's) equipment,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1495,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1496,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Teti-cemetery"
+1497,(tomb's) equipment,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+1498,small finds,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+1499,undefineable,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1500,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1501,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1502,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1503,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1504,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1505,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+1506,(tomb's) equipment,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,unknown
+1507,small finds,"NK, Dyn 18",unknown,1539-1292 BC,unknown
+1508,small finds,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1509,(tomb's) equipment,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Mit Rahina, Temple of Ptah"
+1510,statue,"NK, Dyn 19",Sety I,1290-1279 BC,unknown
+1511,(tomb's) equipment,"NK, Dyn 18-19",unknown,1539-1191 BC,"EG, Abusir"
+1512,small finds,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+1513,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1514,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1515,(tomb's) equipment,"NK, Dyn 18-19",unknown,1539-1191 BC,unknown
+1516,(tomb's) equipment,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1517,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1518,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1519,architectural element,"NK, Dyn 18",Thutmose III,1479-1425 BC,unknown
+1520,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1521,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1522,(tomb's) equipment,NK,unknown,1539-1077 BC,unknown
+1523,statue,NK,unknown,1539-1077 BC,"EG, Thebes"
+1524,other text documents,"NK, Dyn 20",unknown,1190-1077 BC,unknown
+1525,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1526,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1527,statue,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1528,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1529,other text documents,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1530,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara"
+1531,statue,"NK, Dyn 18-19",unknown,1539-1191 BC,unknown
+1532,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1533,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Abydos, Temple of Osiris"
+1534,statue,NK,unknown,1539-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1535,architectural element,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1536,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,"EG, Saqqara-North, Serapeum"
+1537,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1538,architectural unit,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+1539,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1540,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1541,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1542,other text documents,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1543,statue,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1544,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1545,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,
+1546,stela,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,unknown
+1547,statue,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,unknown
+1548,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1549,stela,"NK, Dyn 19",Sety II,1202-1198 BC,unknown
+1550,architectural element,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+1551,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1552,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1553,statue,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1554,statue,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1555,stela,"NK, Dyn 18-19",Horemheb-Sety I,1319-1279 BC,unknown
+1556,statue,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1557,small finds,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+1558,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1559,architectural element,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,unknown
+1560,other text documents,"NK, Dyn 20",Ramesses V,1149-1146 BC,unknown
+1561,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara"
+1562,small finds,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1563,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1564,(tomb's) equipment,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+1565,statue,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1566,small finds,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+1567,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1568,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1569,stela,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1570,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1571,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1572,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1573,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1574,(tomb's) equipment,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1575,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,unknown
+1576,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1577,stela,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Animal Necropolis"
+1578,(tomb's) equipment,"NK, Dyn 18-19",unknown,1539-1191 BC,unknown
+1579,stela,"NK, Dyn 20",Ramesses III,1187-1157 BC,unknown
+1580,stela,NK,unknown,1539-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+1581,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1582,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1583,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Mit Rahina, Temple of Ptah"
+1584,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1585,other text documents,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara-South, Pyramid-complex of Djoser"
+1586,small finds,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1587,stela,NK,unknown,1539-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1588,stela,"NK, Dyn 20",Ramesses IV,1156-1150 BC,"EG, Mit Rahina, Temple of Ptah"
+1589,(tomb's) equipment,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1590,other text documents,"NK, Dyn 19",Siptah,1197-1193 BC,unknown
+1591,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1592,architectural element,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1593,architectural element,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1594,statue,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+1595,small finds,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1596,stela,"NK, Dyn 18",Eje,1323-1320 BC,unknown
+1597,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Abydos"
+1598,architectural element,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1599,architectural element,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+1600,small finds,"NK, Dyn 18",Hatschepsut /Thutmose III,1479-1425 BC,unknown
+1601,small finds,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Thebes"
+1602,architectural element,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1603,stela,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1604,stela,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1605,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1606,architectural element,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1607,statue,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1608,architectural element,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,unknown
+1609,(tomb's) equipment,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,unknown
+1610,(tomb's) equipment,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+1611,stela,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1612,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,unknown
+1613,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1614,statue,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1615,(tomb's) equipment,"NK, Dyn 19",unknown,1292-1191 BC,unknown
+1616,(tomb's) equipment,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,unknown
+1617,(tomb's) equipment,"NK, Dyn 18",Horemheb,1319-1292 BC,unknown
+1618,(tomb's) equipment,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1619,small finds,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+1620,stela,"NK, Dyn 18",Amenhotep III,1390-1353 BC,unknown
+1621,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1622,(tomb's) equipment,"NK, Dyn 19-20",unknown,1292-1077 BC,unknown
+1623,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1624,architectural element,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,unknown
+1625,architectural unit,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Thebes"
+1626,architectural unit,NK,unknown,1539-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+1627,architectural unit,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+1628,architectural unit,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1629,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1630,architectural unit,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1631,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1632,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+1633,architectural unit,"NK, Dyn 20",Ramesses IV,1156-1150 BC,"EG, Saqqara-North, Teti-cemetery"
+1634,architectural unit,"NK, Dyn 19",Sety I,1290-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+1635,architectural unit,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+1636,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1637,architectural unit,"NK, Dyn 18",Amenhotep III-Amenhotep IV /Echnaton,1390-1336 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1638,architectural unit,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1639,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1640,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1641,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1642,architectural unit,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1643,architectural unit,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1644,architectural unit,"NK, Dyn 18-19",Tutankhamun-Ramesses II,1334-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1645,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1646,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+1647,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North/West, Chaemwaset Hill"
+1648,architectural unit,"NK, Dyn 18",Postamarna,1336-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+1649,architectural unit,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1650,architectural unit,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1651,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1652,architectural unit,"NK, Dyn 20",Ramesses III,1187-1157 BC,"EG, Saqqara-North, Teti-cemetery"
+1653,architectural unit,"NK, Dyn 20",unknown,1190-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1654,architectural unit,"NK, Dyn 18",Amenhotep IV /Echnaton,1353-1336 BC,"EG, Saqqara-North, Teti-cemetery"
+1655,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1656,architectural unit,"NK, Dyn 18",Hatschepsut /Thutmose III-Amenhotep III,1479-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1657,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Abusir-South"
+1658,architectural unit,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1659,architectural unit,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+1660,architectural unit,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1661,architectural unit,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1662,architectural unit,"NK, Dyn 18",Horemheb,1319-1292 BC,"EG, Saqqara-South, Unas-cemetery"
+1663,architectural unit,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+1664,architectural unit,"NK, Dyn 18",Tutankhamun-Eje,1334-1320 BC,"EG, Saqqara-South, Unas-cemetery"
+1665,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1666,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Abusir-South"
+1667,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1668,architectural unit,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Thebes"
+1669,architectural unit,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Abusir-South"
+1670,architectural unit,"NK, Dyn 18",unknown,1539-1292 BC,"EG, Thebes"
+1671,architectural unit,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+1672,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1673,architectural unit,"NK, Dyn 20",Sethnakht,1190-1188 BC,"EG, Saqqara-South, Unas-cemetery"
+1674,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Dahschur-North"
+1675,architectural unit,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Thebes"
+1676,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Valley temple of Unas"
+1677,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1678,architectural unit,"NK, Dyn 19",Ramesses I-Sethos I,1292-1279 BC,"EG, Saqqara-South, Unas-cemetery"
+1679,architectural unit,"NK, Dyn 18",Tutankhamun-Horemheb,1334-1292 BC,"EG, Saqqara-North, Teti-cemetery"
+1680,architectural unit,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+1681,architectural unit,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+1682,architectural unit,"NK, Dyn 19",Sety I-Ramesses II,1290-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1683,architectural unit,"NK, Dyn 18",Thutmose IV-Amenhotep III,1400-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1684,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1685,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-South, Unas-cemetery"
+1686,architectural unit,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-North, Teti-cemetery"
+1687,architectural unit,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1688,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+1689,architectural unit,"NK, Dyn 18",Amenhotep III-Tutankhamun,1390-1324 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1690,architectural unit,"NK, Dyn 19-20",unknown,1292-1077 BC,"EG, Saqqara-South, Unas-cemetery"
+1691,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Abusir-South"
+1692,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara"
+1693,architectural unit,"NK, Dyn 18",Amenhotep III,1390-1353 BC,"EG, Saqqara-North, Falaise du Bubasteion"
+1694,architectural unit,"NK, Dyn 18-19",Tutankhamun-Sety I,1334-1279 BC,"EG, Saqqara-North, Teti-cemetery"
+1695,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1696,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1697,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-South, Unas-cemetery"
+1698,architectural unit,"NK, Dyn 19",unknown,1292-1191 BC,"EG, Saqqara-North, Teti-cemetery"
+1699,architectural unit,"NK, Dyn 19",Ramesses II,1279-1213 BC,"EG, Saqqara-North, Teti-cemetery"
+1700,architectural unit,"NK, Dyn 18",Amenhotep IV /Echnaton-Tutankhamun,1353-1324 BC,"EG, Saqqara-South, Unas-cemetery"
+1701,architectural unit,"NK, Dyn 18",Tutankhamun,1334-1324 BC,unknown
+</div>
+    </body>
+</html>

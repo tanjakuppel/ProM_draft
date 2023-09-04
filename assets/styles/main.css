@@ -1,0 +1,1311 @@
+/*
+├── 1-generic: modern-reset
+├── 2-settings
+├── 3-skeleton
+├── 4-design-tokens
+├── 5-elements
+├── 6-components
+├── 7-tools
+├── 8-utilities
+├── _shame
+
+Following the BEM naming convention
+*/
+
+/* ---------------------------------------------------------
+   1. Generic
+--------------------------------------------------------- */
+/* --- Modern Reset --- */
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+	margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+	list-style: none;
+}
+
+/* Set core root defaults */
+html,
+html:focus-within {
+	scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+	min-height: 100vh;
+	text-rendering: optimizeSpeed;
+	line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+	text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+	max-width: 100%;
+	display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+	font: inherit;
+	border: none;
+}
+
+*:focus,
+*:focus-visible {
+	outline: none
+}
+
+ul {
+	margin-block-start: 0;
+	margin-block-end: 0;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+	html:focus-within {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* ---------------------------------------------------------
+   2. Settings
+--------------------------------------------------------- */
+:root {
+	--primary: #049268;
+	--accent: #6100ED;
+	--secondary: #B6934D;
+	--light-grey: #f5f2f2;
+	--medium-grey: #e0dddd;
+	--dark-grey: #6c6b6b;
+	--text-primary: #2ea682;
+	--shadow_button: 0 0 8px 0
+	rgb(38 21 63 / 31%);
+	--shadow_card: 2px 9px 15px
+	rgb(0 0 0 / 18%);
+	--border-bold: 0.2rem;
+	--border-slim: 0.15rem;
+	--text-black: #282a17;
+}
+
+html {
+	/* 10 px --> 1rem */
+	font-size: 62.5%;
+}
+
+body {
+	font-family: "Red Hat Text",Helvetica,Arial,sans-serif;
+	font-weight: 300;
+	font-size: 1.8rem;
+	line-height: 1.7;
+	color: #282A17;
+}
+
+/* ---------------------------------------------------------
+   3. Skeleton
+--------------------------------------------------------- */
+/* --- Layout --- */
+.layout__container {
+	width: calc(100% - 10rem);
+	max-width: 1440px;
+	margin: 5rem auto;
+}
+
+.layout__content,
+.layout__inner {
+	max-width: 110rem;
+	width: calc(100% - 10rem);
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.layout__content_text {
+	max-width: 80rem;
+	margin: 0 auto;
+}
+
+.layout__content_text-title:not(h1) {
+	text-align: center;
+	margin-top: 5rem;
+}
+
+.column_2 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 5rem;
+}
+
+/* ---------------------------------------------------------
+   4. Elements
+--------------------------------------------------------- */
+main {
+	min-height: calc(100vh - 45rem);
+}
+
+section {
+	margin-bottom: 5rem;
+}
+
+button {
+  width: max-content;
+  white-space: nowrap;
+  font-weight: 400;
+	padding: 0;
+	background: none;
+}
+
+button:hover {
+	transform: scale(1.05);
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: 1.4rem;
+  line-height: inherit;
+}
+
+button,
+input {
+  overflow: visible;
+}
+
+select {
+  word-wrap: normal; }
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+button:not(:disabled),
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled) {
+  cursor: pointer; }
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+
+input[type="radio"],
+input[type="checkbox"],
+input[type="search"] {
+	border-color: var(--primary);
+	border-style: solid;
+	box-sizing: border-box;
+	padding: 0.7rem 1rem;
+	border-width: var(--border-bold);
+}
+
+input[type="radio"]:checked+label {
+	box-shadow: none;
+	background: var(--primary);
+	color: #fff;
+	width: 100%;
+	display: block;
+}
+
+.dropdown-item input[type="radio"]:checked {
+	background: var(--primary);
+	color: #fff;
+}
+
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+  -webkit-appearance: listbox; }
+
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+input:focus,
+input:focus-visible,
+input:hover {
+	border: var(--border-bold) solid var(--accent);
+}
+
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+	font-size: 86%;
+	width: 100%;
+}
+
+td, th {
+	text-align: left;
+	padding: 1rem 2rem;
+	-webkit-hyphens: auto;
+	-ms-hyphens: auto;
+	hyphens: auto;
+}
+
+figure {
+	margin: 5rem 0;
+}
+
+figure.align-center {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+figcaption {
+	font-size: 90%;
+	margin: 1rem 0;
+}
+
+ul {
+	padding-inline-start: 1.4rem;
+}
+
+li {
+	margin: 1rem 0;
+}
+
+/* ---------------------------------------------------------
+   5. Design Tokens
+--------------------------------------------------------- */
+/* --- Typography ---*/
+h1, h2, h3, h4, h5,
+.txt-h1, .txt-h2, .txt-h3, .txt-h4, .txt-h5 {
+	font-family: 'Cabin', sans-serif;
+	font-weight: 400;
+	letter-spacing: 0.1rem;
+	line-height: 1.3;
+	margin-bottom: 2.5rem;
+}
+
+h1 {
+	font-size: 7rem;
+}
+
+h2 {
+	font-size: 4.2rem;
+}
+
+h3 {
+	font-size: 4.2rem;
+}
+
+h4,
+.txt-h4 {
+	font-size: 3.2rem;
+}
+
+h5 {
+	font-size: 2.4rem;
+}
+
+h6 {
+	font-size: 1.8rem;
+}
+
+p,
+.txt-normal {
+	font-family: "Red Hat Text", sans-serif;
+	font-weight: 300;
+}
+
+.layout__content_text p {
+	margin-bottom: 1.5rem;
+}
+
+.layout__content_text h3,
+.layout__content_text h4,
+.layout__content_text h5 {
+	margin-top: 5rem;
+}
+
+h2.section-heading {
+	font-size: 3.2rem;
+}
+
+.headline_sub {
+	text-transform: uppercase;
+	margin-bottom: 0;
+	font-weight: 400;
+	color: var(--accent);
+	letter-spacing: 0.04rem;
+}
+
+a {
+	text-decoration: none;
+	color: var(--accent);
+}
+
+.font-aegypt {
+	font-family: "aegypt", serif;
+}
+
+.citation {
+	font-style: italic;
+	padding: 2rem 3rem;
+}
+
+/* Buttons */
+.btn_transparent {
+	color: var(--accent);
+	font-size: 1.5rem;
+	border-bottom: 1px solid;
+	width: max-content;
+}
+
+.btn_background {
+	text-transform: uppercase;
+	letter-spacing: 0.08rem;
+	padding: 0.9rem 1.3rem;
+	border: none;
+	background: var(--primary);
+	color: #fff;
+	border-radius: 1px;
+}
+
+.btn_background:hover {
+	background-color: #27a984;
+}
+
+
+/* ---------------------------------------------------------
+   6. Components
+--------------------------------------------------------- */
+/* --- Header -- */
+.header {
+	display: grid;
+	grid-template-columns: 1fr 50px;
+	justify-content: space-between;
+	margin-top: 2rem;
+	margin-bottom: 5rem;
+	position: relative;
+	height: 12rem;
+	align-content: center;
+}
+
+.header__logo-container {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	color:  inherit;
+	gap: 1rem;
+}
+
+.header__logo {
+	width: 11rem;
+	height: 11rem;
+}
+
+.header__title {
+	width: 13rem;
+	font-weight: 500;
+	line-height: 1.3;
+	font-family: 'Cabin', sans-serif;
+}
+
+/* --- Footer --- */
+.footer {
+	margin: 14rem 0 7rem;
+}
+.footer__inner {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	border-top: var(--border-bold) solid var(--text-black);
+	padding-top: 3rem;
+}
+
+.footer__nav-items {
+	display: flex;
+	gap: 4rem;
+}
+
+.footer__nav-items a {
+	font-weight: 400;
+	color: var(--text-black);
+}
+
+.footer__copyright {
+	color: var(--dark-grey);
+}
+
+/* --- Menu --- */
+.main-menu {
+	display: flex;
+	justify-content: end;
+	/* width: 112px; */
+}
+
+.main-menu #hamburger-icon {
+	width: 100%;
+	display: block;
+	height: 3.2rem;
+	align-self: center;
+}
+
+.main-menu .main-menu_toggle.active #hamburger-icon {
+	position: fixed;
+	width: 4.6rem;
+}
+
+#hamburger-icon path {
+	-webkit-transition: all ease-in-out 0.8s;
+	transition: all 0.8s;
+	transform-origin: 17% 50%;
+}
+
+.main-menu_toggle.active #hamburgerPath-2 {
+	fill: transparent;
+	-webkit-transition: all 0.8s;
+	transition: all 0.8s;
+}
+
+.main-menu_toggle.active #hamburgerPath-1 {
+	-webkit-transform: rotate(45deg);
+	transform: rotate(42deg);
+	-webkit-transition: all .8s;
+	transition: all .8s;
+	fill: #fff;
+}
+
+.main-menu_toggle.active #hamburgerPath-3 {
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-42deg);
+	-webkit-transition: all .5s;
+	transition: all .5s;
+	fill: #fff;
+}
+
+.main-menu_drawer {
+	width: 100%;
+	height: 100%;
+	background-color: #32302a;
+	position: fixed;
+	right: 0;
+	top: -2550px;
+	-webkit-transition: top 0.5s ease-in-out;
+	transition: top 0.7s ease-in-out;
+	padding: 18rem 0 8rem;
+	z-index: 1200;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 2fr;
+	overflow: scroll;
+}
+
+.main-menu__items {
+	list-style: none;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	justify-content: space-between;
+	padding: 0 0 5rem;
+	gap: 5rem;
+	border-bottom: var(--border-slim) solid #fff;
+	width: calc(100% - 14rem);
+}
+
+.main-menu__item a,
+.main-menu__item span {
+	font-family: 'Cabin', sans-serif;
+	font-size: 133%;
+	color: #fff;
+	text-decoration: none;
+	display: block;
+}
+
+.main-menu__sub-dropdown {
+	list-style: none;
+	padding: 0;
+}
+
+.main-menu__sub-item a {
+	font-family: "Red Hat Display", sans-serif;
+	font-size: 1.6rem;
+}
+
+.main-menu__items_filter {
+	margin-top: 5rem;
+	padding: 0;
+	justify-self: center;
+}
+
+.main-menu__items_filter .hero-nav__titles {
+	color: #fff;
+	font-family: 'Cabin';
+}
+
+.main-menu__items_filter .hero__icon {
+	width: 9rem;
+	height: 9rem;
+	padding: 2rem;
+}
+
+.main-menu_toggle {
+	position: relative;
+	z-index: 1300;
+	cursor: pointer;
+	display: flex;
+	justify-content: end;
+}
+
+.open {
+	top: 0;
+	-webkit-transition: top 0.5s ease-in-out;
+	transition: top 0.5s ease-in-out;
+}
+
+/* -- Search -- */
+.search__container {
+	display: flex;
+	/* grid-template-columns: minmax(15rem, auto) 2fr;
+	grid-gap: 1.5rem;*/
+}
+
+.search__dropdown button {
+	width: 100%;
+	display:  flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.search__dropdown {
+	display: none;
+	visibility: hidden;
+}
+
+.search__dropdown-menu {
+	display: flex;
+	width: 100%;
+	border: 1px solid var(--primary);
+}
+
+.search__dropdown-menu .search__dropdown-item {
+	padding: 0;
+}
+
+.search__dropdown-menu .search__dropdown-item input {
+	display: none;
+}
+
+.search__dropdown-menu .search__dropdown-item label {
+	display: block;
+	padding: 0.8rem;
+	font-size: 1.2rem;
+}
+
+.search__dropdown .dropdown-toggle::after {
+	border: none;
+	content: url(../images/dropdown.svg);
+	margin: 0;
+	vertical-align: 0;
+	position: relative;
+	top: 5px;
+}
+
+.search__bar {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr max-content;
+	grid-gap: 1.5rem;
+}
+
+.search__bar-icon {
+	width: 2rem;
+}
+
+/* --- Drop Down Menu --*/
+.dropdown {
+	position: relative;
+}
+
+.dropdown-menu.show {
+	display: block;
+	transform: translate3d(0, 46px, 0px) !important;
+}
+
+.dropdown-menu {
+	position: relative;
+	top: 10%;
+	left: 220px;
+	z-index: 1100;
+	display: none;
+	float: left;
+	min-width: 10rem;
+	padding: 0.5rem 0;
+	margin: 0.125rem 0 0;
+	font-size: 1rem;
+	color: #212529;
+	text-align: left;
+	list-style: none;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 0.25rem;
+}
+
+.dropdown-item {
+	display: block;
+	width: 100%;
+	padding: 0.25rem 1.5rem;
+	clear: both;
+	font-size: 1.4rem;
+	font-weight: 300;
+	text-align: inherit;
+	white-space: nowrap;
+	border: 0;
+	color: #000;
+}
+
+.dropdown-item[title="Select all"],
+.dropdown-item[title="Deselect all"] {
+	color: var(--accent);
+	font-family: 'Red Hat Text', sans-serif !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+	text-decoration: none;
+	background-color: var(--primary);
+	color: #fff;
+}
+
+.dropdown-item.active::before {
+	content: "-";
+	margin-left: -10px;
+	padding-right: 2px;
+}
+
+.dropdown-item.hover, .dropdown-item:hover {
+	text-decoration: none;
+	background-color: var(--primary);
+	color: #fff;
+}
+
+.input-group {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+	width: 100%;
+}
+
+.input-group > .form-control, .input-group > .form-control-plaintext, .input-group > .custom-select, .input-group > .custom-file {
+	position: relative;
+	flex: 1 1 auto;
+	width: 1%;
+	margin-bottom: 0;
+}
+
+.form-control {
+	position: absolute;
+	/* z-index: 1000; */
+	right: 0;
+	display: block;
+	width: 25%;
+	height: calc(1.5em + 0.75rem + 2px);
+	padding: 0.375rem 0.75rem;
+	font-size: 1.8rem;
+	font-weight: 400;
+	line-height: 1.5;
+	background-clip: padding-box;
+}
+
+.form-control::placeholder {
+	color: #000;
+}
+
+/* --- Hero --- */
+.hero {
+	display: grid;
+	grid-template-columns: max-content 2fr;
+	grid-column-gap: 5rem;
+}
+
+.hero__icon {
+	width: 11rem;
+	height: 11rem;
+	background: var(--secondary);
+	border-radius: 50%;
+	padding: 2.5rem 2.5rem 2.8rem;
+	display: flex;
+	justify-content: center;
+	grid-area: icon;
+}
+
+.hero__icon:hover {
+	transform: scale(1.1);
+	box-shadow: 0 0 14px 5px #00000024;
+}
+
+.hero__title {
+	grid-area: title;
+	margin-bottom: 0;
+	align-self: center;
+}
+
+.hero__text {
+	font-size: 2.2rem;
+	margin: 2rem 0;
+	font-weight: 400;
+	grid-area: text;
+}
+/* --- Home Hero --- */
+.hero_home {
+	text-align: center;
+	max-width:  80rem;
+	display: flex;
+	flex-direction: column;
+	margin-left:  auto;
+	margin-right: auto;
+}
+
+.hero_home h1 {
+	margin-bottom: 1rem;
+}
+
+.hero-nav {
+	margin-top: 4rem;
+}
+
+.hero-nav__intro {
+	font-size: 2.3rem;
+	font-weight: 400;
+}
+
+.hero-nav__titles {
+	color: var(--text-black);
+	text-transform: uppercase;
+	font-weight: 400;
+	letter-spacing: 0.3rem;
+	margin-top: 1.5rem;
+	font-size: 1.6rem;
+	display: grid;
+	text-align: center;
+	font-family: 'Cabin';
+}
+
+.hero-nav__items {
+	display: flex;
+	justify-content: center;
+	gap: 7rem;
+	margin-top: 4rem;
+}
+
+.hero_home .hero__icon_persons {
+	padding: 2rem;
+}
+
+/* --- Home --- */
+.home .layout__content_text {
+	margin-top: 12vh;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.home .figures__container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+	justify-content: space-between;
+}
+
+.home .about__figure:not(:first-child) {
+	width: 45%;
+}
+
+/* --- Filter --- */
+.filter {
+	border-bottom: var(--border-bold) solid var(--primary);
+	border-top: var(--border-bold) solid var(--primary);
+	padding-top: 2rem;
+}
+
+.filter__header {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding-top: 1rem;
+	align-content: center;
+}
+
+.filter__header-details {
+	width: 100%;
+}
+
+.filter__categories {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
+	grid-auto-rows: 37rem;
+	gap: 3rem;
+	margin-top: 4rem;
+}
+
+.filter_closed {
+	display: none;
+}
+
+.filter__close-btn {
+	background: none;
+	box-shadow: none;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	color: var(--accent);
+	height: 6rem;
+	width: 4rem;
+}
+
+.filter__close-btn img {
+	width: 4rem;
+}
+
+.filter__close-btn #toggleFilter2 {
+	fill: transparent;
+}
+
+.filter__close-btn.filter_active #toggleFilter2 {
+	fill: #000;
+}
+
+.filter__close-labelClose {
+	display: block;
+	margin-bottom: -1rem;
+}
+
+.filter_active > .filter__close-labelClose {
+	display: none;
+}
+
+.filter_active > .filter__close-labelOpen {
+	display: block;
+}
+
+.filter__close-labelOpen {
+	display: none;
+	margin-bottom: -1rem;
+}
+
+.filter__categories > .mt-2 {
+	display: none !important;
+}
+
+.filter__categories .dropdown > .input-group {
+	border-bottom: var(--border-bold) solid var(--primary);
+}
+
+.filter__categories .dropdown > .input-group > .form-control:hover {
+	margin-left: -0.2rem;
+	margin-bottom: -0.2rem;
+}
+
+.filter__categories .dropdown > .input-group > .form-control:hover::placeholder {
+	color: var(--medium-grey);
+}
+
+.filter__categories .dropdown-toggle::after {
+	border: none;
+	margin: 0;
+	vertical-align: 0;
+}
+
+.filter__categories .dropdown-toggle#text {
+	display: none;
+}
+
+.filter__categories .dropdown-menu.dropdown-menu-right {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	transform: translate3d(-1px, 42px, 0)!important;
+	border: none;
+	background: #fff;
+	box-shadow: 4px 9px 15px #0000001f;
+	min-height: 30rem;
+}
+
+.filter .btn_show-results {
+	margin: 4rem auto;
+	display: flex;
+	font-size: 1.4rem;
+	font-weight: 400;
+	cursor: pointer;
+	width: max-content;
+	width: -moz-max-content;
+}
+
+/* Scrollbar width */
+.filter__categories ::-webkit-scrollbar,
+.results ::-webkit-scrollbar,
+.result-details ::-webkit-scrollbar {
+	width: 18px;
+}
+
+/* Scrollbar Track */
+.filter__categories ::-webkit-scrollbar-track,
+.results ::-webkit-scrollbar-track,
+.single-view html ::-webkit-scrollbar-track {
+	background: var(--accent);
+	border-left: 4px solid white;
+	border-right: 12px solid white;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+/* Scrollbar Handle */
+.filter__categories ::-webkit-scrollbar-thumb,
+.results ::-webkit-scrollbar-thumb,
+.single-view html ::-webkit-scrollbar-thumb {
+	background: var(--accent);
+	border-left: 2px solid white;
+	border-right: 10px solid white;
+}
+
+/* --- Current Selection --- */
+.current-selection {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 2rem;
+	flex-wrap: wrap;
+}
+
+.current-selection__containerHeadline {
+	font-weight: 400;
+}
+
+.current-selection__selected-value {
+	font-size: 1.5rem;
+	font-weight: 400;
+	margin-right: 2rem;
+	color: var(--secondary);
+}
+
+.current-selection__selected-title {
+	opacity: 0;
+	font-size: 1.5rem;
+	font-weight: 400;
+}
+
+/* ----- Results ----- */
+.results__header {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.result-list {
+	position: relative;
+	height: 80rem;
+	margin-top: 5rem;
+}
+
+.result-list #layout {
+	opacity: 1;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin-right:0;
+	padding:0;
+	border: 1px solid var(--medium-grey);
+	border-radius: 0;
+}
+
+.results__reset {
+	display: none;
+}
+
+.results__reset-filter {
+	gap: 0.6rem;
+	align-items: center;
+	margin-top: 2rem;
+}
+
+.results__reset-filter:hover {
+	background-color: transparent;
+}
+
+.results__resetFilterIcon {
+	height: 2rem;
+}
+
+.results__count {
+	font-weight: 400;
+}
+
+/* --- Single View --- */
+.result-details {
+	display: none;
+	width: 100%;
+	height: 100%;
+	background: rgb(216 216 216 / 73%);
+	position: fixed;
+	top: 0;
+	z-index: 1100;
+}
+
+.result-details__navbar {
+	position: relative;
+	top: 7rem;
+	max-width: 1350px;
+	height: 4rem;
+	z-index: 1100;
+	display: flex;
+	gap: 3rem;
+	justify-content: flex-end;
+}
+
+.result-details__clear {
+	align-self: center;
+	background: rgba(255, 255, 255, 0.8);
+}
+
+.result-details__clear img {
+	height: 4rem;
+	padding: 0.7rem;
+}
+
+.result-details__navbar .scroll-control {
+	background: rgba(255, 255, 255, 0.8);
+}
+
+.result-details__navbar .scroll-control_disabled {
+	display: none;
+}
+
+.result-details__navbar .scroll-control__button {
+	padding: 0 1rem;
+	height: 4rem;
+}
+
+.single-view {
+	position: relative;
+	width: calc(100% - 6rem);
+	height: calc(100% - 11rem);
+	background: #fff;
+	box-shadow: var(--shadow_card);
+	left: 50%;
+	top: -5rem;
+	transform: translateX(-50%);
+	margin-top: 0;
+}
+
+.single-view__content {
+	margin-top: 10rem;
+	margin-bottom: 10rem;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas:
+		'meta image'
+		'literature literature'
+		'related related'
+		'citation citation';
+}
+
+.single-view__metadata-container {
+	grid-area: meta;
+}
+
+.single-view__literature {
+	grid-area: literature;
+}
+
+.single-view__related-container {
+	grid-area: related;
+}
+
+.single-view__image-container {
+	grid-area: image;
+	max-width: 51rem;
+	justify-self: end;
+}
+
+.single-view__image {
+	max-height: 70rem;
+}
+
+.single-view__citation-container {
+	grid-area: citation;
+}
+
+.single-view__image-credits {
+	margin-top: 2rem;
+	font-size: 90%;
+	color: var(--dark-grey);
+}
+
+.single-view__metadata {
+	margin: 5rem 0;
+}
+
+.single-view__title {
+	color: var(--text-primary);
+	margin-bottom: 1rem;
+	font-weight: 500;
+	font-size: 1.8rem;
+	text-transform: uppercase;
+}
+
+.single-view__metadata-item {
+	margin-top: 1rem;
+	font-family: 'Red Hat Text', sans-serif;
+}
+
+.single-view__metadata-title {
+	font-weight: 500;
+}
+
+.single-view__table-container {
+	margin-top: 2rem;
+	overflow-x: auto;
+	background-color: #f3f1f1;
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-columns: 1fr;
+	grid-template-areas: "table" "button";
+}
+
+.single-view__table {
+	grid-area: table;
+}
+
+.single-view__table-head > tr > th {
+	font-weight: 500;
+	background-color: var(--medium-grey);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#sv__relatedObjects,
+#sv__relatedPersons,
+#sv__relatedTitles,
+#sv__sameTypes {
+	display: none;
+}
+
+.single-view__table-toggle {
+	margin: 2rem auto;
+	width: max-content;
+	border-bottom: 1px solid var(--accent);
+	color: var(--accent);
+	font-size: 90%;
+	cursor: pointer;
+	grid-area: button;
+	display: none;
+}
+
+.single-view__citation-container a {
+	display: inline-block;
+}
+
+/* ---------------------------------------------------------
+   7. Utilities
+--------------------------------------------------------- */
+.section-h4__details {
+	margin-bottom: 2rem;
+}
+
+/* ---------------------------------------------------------
+   8. Shame
+--------------------------------------------------------- */
+.text-white {
+	display: none;
+}
+/* ---------------------------------------------------------
+   9. Custom w2ui styles
+--------------------------------------------------------- */
+.w2ui-layout > div .w2ui-panel .w2ui-panel-content {
+	border: none !important;
+	background-color: #fff !important;
+}
+
+.w2ui-layout > div {
+	position: relative !important;
+}
+
+.w2ui-layout > div #layout_layout_panel_preview {
+	top: 0 !important;
+	height: 800px !important;
+}
+
+.results .w2ui-grid .w2ui-grid-body .w2ui-grid-columns, .w2ui-grid .w2ui-grid-body .w2ui-grid-fcolumns {
+	box-shadow: none;
+}
+
+.results .w2ui-grid {
+	border-radius: 0;
+}
+
+.results .w2ui-grid .w2ui-grid-toolbar {
+	border-bottom: 1px solid var(--medium-grey);
+	background-color: var(--medium-grey);
+	box-shadow: none;
+}
+
+.results .w2ui-grid .w2ui-grid-body table .w2ui-head {
+	background-image: none;
+	background-color: var(--light-grey);
+	border: none;
+}
+
+.results .w2ui-grid .w2ui-grid-body table .w2ui-head {
+	border: none;
+}
+
+.results .w2ui-grid .w2ui-grid-body table td {
+	cursor: pointer;
+}
+
+

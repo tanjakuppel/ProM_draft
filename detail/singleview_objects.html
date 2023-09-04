@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prosopographia Memphitica</title>
+
+		<link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon_io/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon_io/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="../assets/images/favicon_io/apple-touch-icon.png">
+		<link href="../assets/fonts/red-hat-text-v13-latin-300.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="stylesheet" href="../assets/styles/styles.css">
+
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<header class="header layout__container">
+			<a href="https://anneherz.github.io/ProM/" class="header__logo-container" aria-label="To the homepage">
+				<div class="header__logo">
+					<img src="../assets/images/20230105_prom-icon_color.svg" alt="ProM Logo" />
+				</div>
+				<div class="header__title">
+					<span>Prosopographia</span>
+					<span>Memphitica</span>
+				</div>
+			</a>
+		</header>
+		<div class="layout__content single-view__content" id="sv__content">
+			<div class="single-view__image-container single-view__metadata" id="sv_imageContainer">
+				<a target="_blank" rel="noopener noreferrer" id="sv_imageLink" class="single-view__image-link"></a>
+				<div class="single-view__image-credits" id="sv_imageCredits"></div>
+			</div>
+			<div class="single-view__metadata-container">
+				<div class="single-view__metadata">
+					<h5 class="single-view__title">General Information</h5>
+					<div class="single-view__metadata-items" id="singleViewMeta_General"></div>
+				</div>
+				<div class="single-view__metadata">
+					<h5 class="single-view__title">Technical Data</h5>
+					<div class="single-view__metadata-items" id="singleViewMeta_technical"></div>
+				</div>
+				<div class="single-view__metadata">
+					<h5 class="single-view__title">Dating</h5>
+					<div class="single-view__metadata-items" id="singleViewMeta_dating"></div>
+				</div>
+				<div class="single-view__metadata">
+					<h5 class="single-view__title">Additional Information</h5>
+					<div class="single-view__metadata-items" id="singleViewMeta_add"></div>
+				</div>
+				<div class="single-view__metadata">
+					<h5 class="single-view__title">Provenance</h5>
+					<div class="single-view__metadata-items" id="singleViewMeta_provenance"></div>
+				</div>
+				<div class="single-view__metadata">
+					<h5 class="single-view__title">Location</h5>
+					<div class="single-view__metadata-items" id="singleViewMeta_location"></div>
+				</div>
+			</div>
+			<div class="single-view__literature">
+				<h5 class="single-view__title">Literature</h5>
+				<div class="single-view__metadata-items" id="singleViewMeta_lit"></div>
+			</div>
+			<div class="single-view__related-container">
+				<div class="single-view__metadata" id="sv__relatedObjects">
+					<h5 class="single-view__title">Related Objects</h5>
+					<div id="sv__relatedObjectsMeta" class="single-view__table-container">
+						<table id="sv__table_RO" class="single-view__table">
+							<thead class="single-view__table-head">
+								<tr>
+									<th>ID</th>
+									<th>Type</th>
+									<th>Subtype</th>
+									<th>Provenance</th>
+									<th>Location</th>
+									<th>Inventory Number</th>
+								</tr>
+							</thead>
+						</table>
+						<div id="sv__toggle_RO" class="single-view__table-toggle">Show more</div>
+					</div>
+				</div>
+
+				<div class="single-view__metadata" id="sv__relatedPersons">
+					<h5 class="single-view__title">Related Persons</h5>
+					<div id="sv__relatedPersonsMeta" class="single-view__table-container">
+						<table id="sv__table_RP" class="single-view__table">
+							<thead class="single-view__table-head">
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>English</th>
+									<th>Gender</th>
+								</tr>
+							</thead>
+						</table>
+						<div id="sv__toggle_RP" class="single-view__table-toggle">Show more</div>
+					</div>
+				</div>
+				<div class="single-view__metadata" id="sv__relatedTitles">
+					<h5 class="single-view__title">Related Titles</h5>
+					<div id="sv__relatedTitlesMeta" class="single-view__table-container">
+						<table id="sv__table_RT" class="single-view__table">
+							<thead class="single-view__table-head">
+								<tr>
+									<th>ID</th>
+									<th>Tarnslat</th>
+									<th>Gottkult</th>
+								</tr>
+							</thead>
+						</table>
+						<div id="sv__toggle_RT" class="single-view__table-toggle">Show more</div>
+					</div>
+				</div>
+
+				<div class="single-view__metadata" id="sv__sameTypes">
+					<h5 class="single-view__title">Objects of same type</h5>
+					<div id="sv__sameTypeMeta" class="single-view__table-container">
+						<table id="sv__table_ST" class="single-view__table">
+							<thead class="single-view__table-head">
+								<tr>
+									<th>ID</th>
+									<th>Type</th>
+									<th>Subtype</th>
+									<th>Provenance</th>
+									<th>Location</th>
+									<th>Inventory Number</th>
+								</tr>
+							</thead>
+						</table>
+						<div id="sv__toggle_ST" class="single-view__table-toggle">Show more</div>
+					</div>
+				</div>
+			</div>
+			<div class="single-view__metadata single-view__citation-container">
+				<h5 class="single-view__title">Citation</h5>
+				<div class="single-view__metadata-items" id="singleViewMeta_citation"></div>
+			</div>
+		</div>
+
+		<script src="/assets/scripts/singleview_objects.js"></script>
+	</body>
+</html>

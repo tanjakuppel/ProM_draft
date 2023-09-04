@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Prosopographia Memphitica - Persons</title>
+
+		<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon_io/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon_io/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon_io/apple-touch-icon.png">
+		<link rel="preload" href="/assets/fonts/red-hat-text-v13-latin-300.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="stylesheet" href="assets/styles/styles.css">
+		<link rel="stylesheet" href="libraries/w2ui.css"/>
+
+		<script src="assets/scripts/grids.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		        crossorigin="anonymous"></script>
+		<script src="assets/scripts/App.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		        crossorigin="anonymous"></script>
+		<script src="libraries/fuse.js"></script>
+		<script src="libraries/bootstrap-select-dropdown.js"></script>
+		<script src="libraries/w2ui.js"></script>
+	</head>
+	<body>
+		<header id="includedHeader" class="header layout__container"></header>
+
+		<section class="hero layout__content">
+			<div class="hero__icon">
+				<img src="assets/images/icons/prom_persons-icon.svg" alt="Hieroglyph for 'Objects'" />
+			</div>
+			<h1 class="hero__title">Persons</h1>
+			<div class="hero__text">
+				<p>
+					A total of 2,350 persons have been recorded within the data collection. These are 1,536 men and 814 women. A
+					total of 1,009 personal names could be recorded.
+				</p>
+			</div>
+		</section>
+
+		<main class="persons">
+			<section id="search" class="search layout__inner">
+				<h4>Search</h4>
+				<p class="section-h4__details">Select a specific query e.g. id or name of person.</p>
+				<div class="search__container">
+					<div class="search__dropdown">
+						<input name="query" id="query-contains" value="contains" type="radio" checked="checked">
+					</div>
+
+					<div class="search__bar">
+						<input type="search" id="searchFields_persons" value="" placeholder="Enter keyword, id or name">
+						<button id="textfieldsearch_persons" class="btn_background">
+							<img src="/assets/images/icons/magnifier_tk.svg" role="img" alt=" Click to search" class="search__bar-icon"/>
+						</button>
+					</div>
+				</div>
+			</section>
+
+			<section class="filter layout__inner" id="filter-container">
+				<div class="filter__header">
+					<h4 id="filterField_persons">Filter</h4>
+					<button id="toggleFilter" class="filter__close-btn">
+						<span class="filter__close-labelClose">Close</span>
+						<span class="filter__close-labelOpen">Open</span>
+						<svg stroke-miterlimit="10" viewBox="0 0 24 30" width="100%" height="100%">
+							<path id="toggleFilter1" d="M10.754 12.6048L6.50403 12.6048C6.08981 12.6048 5.75403 12.9405 5.75403 13.3548C5.75403 13.769 6.08981 14.1048 6.50403 14.1048L10.754 14.1048L12.254 14.1048L16.504 14.1048C16.9182 14.1048 17.254 13.769 17.254 13.3548C17.254 12.9405 16.9182 12.6048 16.504 12.6048L12.254 12.6048L10.754 12.6048Z" fill="#000000" fill-rule="evenodd" opacity="1" stroke="none"/>
+							<path id="toggleFilter2" d="M12.2328 8.33815C12.2328 7.92393 11.897 7.58815 11.4828 7.58815C11.0686 7.58815 10.7328 7.92393 10.7328 8.33815L10.7328 12.5881L10.7328 14.0881L10.7328 18.3381C10.7328 18.7524 11.0686 19.0881 11.4828 19.0881C11.897 19.0881 12.2328 18.7524 12.2328 18.3381L12.2328 14.0881L12.2328 12.5881C12.2328 12.5881 12.2328 8.33815 12.2328 8.33815Z" fill="#000000" fill-rule="evenodd" opacity="1" stroke="none"/>
+						</svg>
+					</button>
+					<p class="section-h4__details filter__header-details">Select one or more items of the same category. You can also combine several items of different categories to refine your search query.</p>
+				</div>
+				<div class="filter__categories-container">
+					<div id="persname" class="filter__categories"></div>
+					<div id="currentSelection" class="current-selection">
+						<div class="current-selection__container">
+							<p class="current-selection__containerHeadline">Active filter</p>
+							<div id="selectedvalues"></div>
+							<span id="selectionresulttext"></span>
+						</div>
+						<button id="resetFilter" class="results__reset-filter results__reset btn_transparent">
+							<img src="assets/images/icons/refresh_icon.svg" alt="Remove all filters" class="results__resetFilterIcon" />
+							<span>Remove all filters</span>
+						</button>
+					</div>
+					<a href="#results" id="selectionResult_persons" class="btn_show-results btn_background">Apply Filter</a>
+				</div>
+			</section>
+
+			<section id="results" class="results layout__inner">
+				<div id="resultsHeaderSearch" class="results__header">
+					<div id="countSearch" class="results__count"></div>
+					<button id="searchResultsClear" class="results__clear-button results__reset btn_transparent">Clear search or filter by category</button>
+				</div>
+				<div id="resultsHeaderFilter" class="results__header">
+					<div id="countFilter" class="results__count"></div>
+				</div>
+				<div class="result-list">
+					<div id="layout"></div>
+				</div>
+			</section>
+
+			<section class="result-details">
+				<div class="result-details__navbar layout__container">
+					<div class="scroll-control">
+						<button id="scroll-prev_persons" class="scroll-control__button">
+							<img src="assets/images/icons/arrow-left_tk.svg" alt="Scroll previous" aria-label="Scroll previous"/>
+						</button>
+						<button id="scroll-next_persons" class="scroll-control__button">
+							<img src="assets/images/icons/arrow-right_tk.svg" alt="Scroll next" aria-label="Scroll next"/>
+						</button>
+					</div>
+					<button id="persons__clearResultDetails" class="result-details__clear">
+						<img src="assets/images/icons/close_icon_violet.svg" alt="close"/>
+					</button>
+				</div>
+				<iframe id="singleView" class="single-view layout__container" frameborder="0"></iframe>
+			</section>
+		</main>
+
+		<footer id="includedFooter" class="footer"></footer>
+		<script src="assets/scripts/persons.js"></script>
+	</body>
+</html>

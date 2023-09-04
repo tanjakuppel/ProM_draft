@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="41.743" height="17.683" viewBox="0 0 41.743 17.683">
+    <style type="text/css">
+        .st0{fill:none;stroke:#6100ED;stroke-width:3;stroke-linecap:round;}
+    </style>
+    <g transform="translate(2.103 2.116)">
+        <g transform="translate(977.64 -942.5) rotate(90)">
+            <path class="st0" d="M0,35.465V0" transform="translate(949.534 939.5)" fill="none" stroke="#020202" stroke-linecap="round" stroke-width="3"/>
+            <line class="st0" x2="7.106" y2="8.228" transform="translate(942.5 969.396)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="3"/>
+            <path class="st0" d="M6.421,0,.1,8.244" transform="translate(949.543 969.396)" fill="none" stroke="#020202" stroke-linecap="round" stroke-width="3"/>
+        </g>
+    </g>
+</svg>
