@@ -255,7 +255,7 @@ if (sametype.length > 0) {
 }
 
 //######## Citation ##########
-let permURLObjects = window.location.protocol + "/" + window.location.host + "/" + window.location.pathname + "?ids=" + sel_record
+let permURLObjects = window.location.protocol + "//" + window.location.host + window.location.pathname + "?ids=" + sel_record
 
 $("<div class=\"single-view__metadata-item\"><span>Permalink:</span> <a href='" + document.URL + "'>" + permURLObjects + "</a></div>").appendTo('#singleViewMeta_citation');
 $("<div class=\"single-view__metadata-item\"><span>Citation: Anne Herzberg-Beiersdorf, Prosopographia Memphitica," +

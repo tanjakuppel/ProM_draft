@@ -107,7 +107,7 @@ try {
 //--------  Create JSON Visualize ----------------
 //################################################
 //######## Citation ##########
-let permURLTitles = window.location.protocol + "/" + window.location.host + "/" + window.location.pathname + "?ids=" + sel_record
+let permURLTitles = window.location.protocol + "//" + window.location.host + window.location.pathname + "?ids=" + sel_record
 
 $("<div class=\"single-view__metadata-item\"><span>Permalink:</span> <a href='" + document.URL + "'>" + permURLTitles + "</a></div>").appendTo('#singleViewMeta_citation');
 $("<div class=\"single-view__metadata-item\"><span>Citation: Anne Herzberg-Beiersdorf, Prosopographia Memphitica," +
