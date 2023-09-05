@@ -1,3 +1,4 @@
+console.log("Hello singleview_objects.js")
 function getParameters() {
   var parameterFragments = location.search.substr(1).split("&");
   var parameters = {}

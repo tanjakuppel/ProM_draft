@@ -1,4 +1,4 @@
-
+console.log("Hello singleview_titles.js")
 
 function getParameters() {
 	var parameterFragments = location.search.substr(1).split("&");

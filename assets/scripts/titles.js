@@ -8,6 +8,7 @@ function getParameters() {
 	return parameters;
 }
 
+console.log("Hello titles.js")
 var parameters = getParameters();
 
 //data import
@@ -19,9 +20,9 @@ function getValue(file) {
 	return value;
 }
 
-persons = $.parseJSON(getValue('../../data/persons.json'))
-objects = $.parseJSON(getValue('../../data/objects.json'))
-titles = $.parseJSON(getValue('../../data/titles.json'))
+persons=$.parseJSON(getValue('data/persons.json'))
+objects = $.parseJSON(getValue('data/objects.json'))
+titles = $.parseJSON(getValue('data/titles.json'))
 
 $.getScript("assets/scripts/dropdown_titles.js", function () {
 	getDropdownTitles();

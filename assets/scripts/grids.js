@@ -3,7 +3,7 @@ var plo = [];
 var plt = [];
 
 function allTables(var1 = "") {
-	//console.log(titles[1])
+	console.log("Hallo grid.js");
 	persons[1][1]["style"] = "font-family: aegypt;"
 	titles[1][2]["style"] = "font-family: aegypt;"
 	persons[1][1]["caption"] = "Egyptian name";

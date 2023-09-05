@@ -8,6 +8,8 @@ function getParameters() {
 	return parameters;
 }
 
+console.log("Hello objects.js")
+
 var parameters = getParameters();
 
 //data import
