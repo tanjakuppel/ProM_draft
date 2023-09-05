@@ -1,6 +1,8 @@
 $("#persname").hide()
 $("#title").hide()
 
+console.log("Hello dropdown_objects.js")
+
 keys=[["object_type","Type","#bsd1-container"],["object_subtype","Subtype","#bsd2-container"],["object_subtype_other","Subtype II","#bsd3-container"],["object_location","Location","#bsd4-container"],["object_provenance","Provenance","#bsd5-container"],["object_material","Material","#bsd6-container"]]
 
 function BasicMenu(var1, par1="", par2="", par3="") {

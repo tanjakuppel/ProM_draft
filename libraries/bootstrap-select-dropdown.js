@@ -1859,3 +1859,5 @@ var bootstrap_select_dropdown_SelectDropdown = function ($) {
 
 /***/ })
 /******/ ]);
+
+console.log("Hello bootstrap_dropdown");

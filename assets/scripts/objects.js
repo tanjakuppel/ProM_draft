@@ -25,7 +25,7 @@ persons=$.parseJSON(getValue('data/persons.json'))
 objects = $.parseJSON(getValue('data/objects.json'))
 titles=$.parseJSON(getValue('data/titles.json'))
 
-$.getScript("assets/scripts/dropdown_objects.js", function () {
+$.getScript("../assets/scripts/dropdown_objects.js", function () {
 	getDropdownObjects();
 });
 
